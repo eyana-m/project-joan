@@ -30,7 +30,7 @@ class RequirementAdmin(admin.ModelAdmin):
 
         if len(temp) >2:
             temp2 = temp[:2]
-            temp2.append(" more")
+            temp2.append('<a href="/admin/joan/feature"> more</a>')
             return temp2
         else:
             return temp
@@ -51,10 +51,18 @@ class FeatureAdmin(admin.ModelAdmin):
         return temp
 
     requirements.allow_tags = True
-    requirements.short_description = "Related Business Requirements"
+    requirements.short_description = "Related Requirements"
 
+    def tickets(self):
+        temp = []
+        for obj in Ticket.objects.filter(feature__id__exact=self.id):
+            temp.append('<a href="%s">%s</a>' %(get_admin_url("ticket",obj), obj.ticket_id))
+        return temp
 
-    list_display = ["feature_text", "feature_heading", requirements]
+    tickets.allow_tags = True
+    tickets.short_description = "Related Tickets"
+
+    list_display = ["feature_text", "feature_heading", requirements, tickets]
 
 class TicketAdmin(admin.ModelAdmin):
     def requirements(self):
@@ -64,7 +72,7 @@ class TicketAdmin(admin.ModelAdmin):
         return temp
 
     requirements.allow_tags = True
-    requirements.short_description = "Related Business Requirements"
+    requirements.short_description = "Related Requirements"
 
     def pm_link(self):
         return '<a href="%s" target="_blank">%s</a>' %(self.ticket_url, self.ticket_id)
