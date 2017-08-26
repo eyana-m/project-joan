@@ -6,6 +6,8 @@ from django.db.models import Count
 from .models import Requirement
 from .models import Feature
 from .models import Ticket
+from .models import Agreement
+from .models import Project
 
 
 def get_admin_url(model,param):
@@ -86,6 +88,8 @@ class TicketAdmin(admin.ModelAdmin):
 admin.site.register(Requirement,RequirementAdmin)
 admin.site.register(Feature,FeatureAdmin)
 admin.site.register(Ticket,TicketAdmin)
+admin.site.register(Agreement)
+admin.site.register(Project)
 
 
 

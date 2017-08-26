@@ -1,12 +1,27 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import datetime
 from django.utils import timezone
 from django.db import models
 
+DEFAULT_PROJECT = 1
+
+class Project (models.Model):
+    project_name = models.CharField(max_length=50)
+    project_company = models.CharField(max_length=50)
+    project_description = models.CharField(max_length=50)
+    project_start_date = models.DateField(blank=True,null=True)
+    project_end_date = models.DateField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+
+    def __str__(self):
+        return self.project_name
+
 # Items in the Business Requirements Document
 class Requirement(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     reqd_id = models.CharField(max_length=10,blank=True)
     requirement_heading = models.CharField(max_length=50,blank=True)
     requirement_text = models.TextField()
@@ -25,6 +40,7 @@ class Requirement(models.Model):
 
 # Also known as Use Cases. Feature sounds more abstract.
 class Feature(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     requirement = models.ManyToManyField(Requirement)
     feature_heading = models.CharField(max_length=50,blank=True)
     feature_text = models.TextField(max_length=200)
@@ -39,6 +55,7 @@ class Feature(models.Model):
 # Filed feature or task tickets per sprint/iteration in the project management tool.
 # One Feature can incur many tickets in many iteration
 class Ticket(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
     ticket_id = models.CharField(max_length=10,blank=True)
     ticket_text = models.CharField(max_length=200)
@@ -50,7 +67,6 @@ class Ticket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
-
     def __str__(self):
         return self.ticket_text
 
@@ -59,3 +75,28 @@ class Ticket(models.Model):
 
     class Meta:
         ordering = ['release', 'id', 'ticket_text']
+
+# Relate to Requirements, Meeting
+# Can add file attachment, screenshots for proof
+class Agreement(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
+    requirement = models.ManyToManyField(Requirement)
+    agmt_date_raised = models.DateTimeField(blank=True)
+    agmt_date_resolved = models.DateTimeField(blank=True)
+    agmt_issue = models.CharField(max_length=100)
+    agmt_issue_details = models.TextField(blank=True)
+    agmt_answer = models.CharField(max_length=100)
+    agmt_answer_details = models.TextField(blank=True)
+    agmt_resource_person = models.CharField(max_length=50)
+    agmt_medium = models.CharField(max_length=50)
+    is_external = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+
+
+    def __str__(self):
+        return self.agmt_issue
+
+    class Meta:
+        ordering = ['agmt_date_raised', 'id', 'agmt_issue']
