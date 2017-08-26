@@ -42,6 +42,7 @@ class Ticket(models.Model):
     feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
     ticket_id = models.CharField(max_length=10,blank=True)
     ticket_text = models.CharField(max_length=200)
+    ticket_url = models.CharField(max_length=50,blank=True)
     release = models.CharField(max_length=5)
     iteration = models.CharField(max_length=5)
     is_feature = models.BooleanField(default=True)
@@ -52,3 +53,9 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.ticket_text
+
+    def release_sprint(self):
+        return "Rel %s - Iter %s" %(self.release, self.iteration)
+
+    class Meta:
+        ordering = ['release', 'id', 'ticket_text']

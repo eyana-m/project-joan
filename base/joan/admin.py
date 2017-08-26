@@ -27,7 +27,13 @@ class RequirementAdmin(admin.ModelAdmin):
         temp = []
         for obj in Feature.objects.filter(requirement__id__exact=self.id):
             temp.append('<a href="%s">%s</a>' %(get_admin_url("feature",obj), obj.feature_text))
-        return temp
+
+        if len(temp) >2:
+            temp2 = temp[:2]
+            temp2.append(" more")
+            return temp2
+        else:
+            return temp
 
     features.allow_tags = True
     features.short_description = "Related System Features"
@@ -38,16 +44,6 @@ class RequirementAdmin(admin.ModelAdmin):
 
 
 class FeatureAdmin(admin.ModelAdmin):
-
-    # Get Requirements Count
-
-    # def get_queryset(self, request):
-    #     qs = super(FeatureAdmin, self).get_queryset(request)
-    #     return qs.annotate(requirement_count=Count('requirement'))
-    #
-    # def show_requirement_count(self, inst):
-    #     return inst.requirement_count
-
     def requirements(self):
         temp = []
         for obj in Requirement.objects.filter(feature__id__exact=self.id):
@@ -60,8 +56,36 @@ class FeatureAdmin(admin.ModelAdmin):
 
     list_display = ["feature_text", "feature_heading", requirements]
 
+class TicketAdmin(admin.ModelAdmin):
+    def requirements(self):
+        temp = []
+        for obj in Requirement.objects.filter(feature__id__exact=self.feature.id):
+            temp.append('<a href="%s">%s</a>' %(get_admin_url("requirement",obj), obj.reqd_id))
+        return temp
 
+    requirements.allow_tags = True
+    requirements.short_description = "Related Business Requirements"
+
+    def pm_link(self):
+        return '<a href="%s" target="_blank">%s</a>' %(self.ticket_url, self.ticket_id)
+
+    pm_link.allow_tags = True
+    pm_link.short_description = "PM Tool Link"
+
+
+    list_display = ["release", "iteration", "ticket_text", pm_link, requirements]
 
 admin.site.register(Requirement,RequirementAdmin)
 admin.site.register(Feature,FeatureAdmin)
-admin.site.register(Ticket)
+admin.site.register(Ticket,TicketAdmin)
+
+
+
+    # Get Requirements Count
+
+    # def get_queryset(self, request):
+    #     qs = super(FeatureAdmin, self).get_queryset(request)
+    #     return qs.annotate(requirement_count=Count('requirement'))
+    #
+    # def show_requirement_count(self, inst):
+    #     return inst.requirement_count
