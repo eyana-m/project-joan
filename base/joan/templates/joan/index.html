@@ -1,0 +1,27 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
+<div class="container">
+
+<h2>Requirements</h2>
+
+
+{% if latest_requirement_list %}
+    <ul>
+    {% for requirement in latest_requirement_list %}
+        <li><a href="{% url 'joan:detail' requirement.id %}">{{ requirement.requirement_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</div>
