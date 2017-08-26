@@ -85,19 +85,20 @@ class TicketAdmin(admin.ModelAdmin):
 
     list_display = ["release", "iteration", "ticket_text", pm_link, requirements]
 
+
+class ProjectAdmin(admin.ModelAdmin):
+
+    def total_requirements(self):
+        return Requirement.objects.filter(project__id__exact=self.id).count()
+
+
+    total_requirements.short_description = "Requirements"
+
+    list_display = ["project_name", "project_company", total_requirements]
+
+
 admin.site.register(Requirement,RequirementAdmin)
 admin.site.register(Feature,FeatureAdmin)
 admin.site.register(Ticket,TicketAdmin)
 admin.site.register(Agreement)
-admin.site.register(Project)
-
-
-
-    # Get Requirements Count
-
-    # def get_queryset(self, request):
-    #     qs = super(FeatureAdmin, self).get_queryset(request)
-    #     return qs.annotate(requirement_count=Count('requirement'))
-    #
-    # def show_requirement_count(self, inst):
-    #     return inst.requirement_count
+admin.site.register(Project, ProjectAdmin)
