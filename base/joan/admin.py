@@ -20,6 +20,8 @@ from .models import Ticket
 #
 # admin.site.register(Feature)
 
+class FeatureInLine(admin.TabularInline):
+    model = Feature
 
 class RequirementAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
@@ -29,9 +31,16 @@ class RequirementAdmin(admin.ModelAdmin):
     def show_feature_count(self, inst):
         return inst.feature_count
 
-    show_feature_count.short_description = "Related Features"
+    show_feature_count.short_description = "Related System Features"
     show_feature_count.admin_order_field = "feature_count"
     list_display = ["reqd_id", "requirement_heading", "show_feature_count"]
+
+    inline=[FeatureInLine,]
+
+
+def get_admin_url(param):
+    return "/admin/joan/requirement/%d/" %param.id
+
 
 class FeatureAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
@@ -41,9 +50,22 @@ class FeatureAdmin(admin.ModelAdmin):
     def show_requirement_count(self, inst):
         return inst.requirement_count
 
-    show_requirement_count.short_description = "Related Requirements"
+    def requirements(self):
+        #html = ""
+        temp = []
+        for obj in Requirement.objects.filter(feature__id__exact=self.id):
+            #temp.append(obj.reqd_id)
+            temp.append('<a href="%s">%s</a>' %(get_admin_url(obj), obj.reqd_id))
+        return temp
+    requirements.allow_tags = True
+
+
+    #list_filter = ['requirement']
+
+    show_requirement_count.short_description = "Related Business Requirements"
     show_requirement_count.admin_order_field = "requirement_count"
-    list_display = ["feature_text", "feature_heading","show_requirement_count"]
+    list_display = ["feature_text", "feature_heading","show_requirement_count", requirements]
+
 
 
 admin.site.register(Requirement,RequirementAdmin)
