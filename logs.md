@@ -18,6 +18,8 @@ Trace business requirements with system features and agreements in one view.
 Next:
 * Add `release` model - tentative
 * Add `meeting` model
+* Polish or model relationships in admin and models
+* If done: start with the views and user experience in the app. 
 
 Features in mind:
 * Export traceability to csv
