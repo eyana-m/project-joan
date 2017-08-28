@@ -26,6 +26,7 @@ Features in mind:
 * Generate MoM in Word or PDF
 * Attach images and files in `agreement` model
 * Project Dashboard - low priority
+* Generate Use Case Number - concatenation
 
 ### August 28, 2017 - Monday
 

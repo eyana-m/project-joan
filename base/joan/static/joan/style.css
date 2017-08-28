@@ -1,3 +1,14 @@
 li a {
     color: green;
 }
+
+
+/* horizontal scroll */
+.horizontal-scroll > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.horizontal-scroll > .row > .col-xs-4 {
+  display: inline-block;
+  float: none;
+}

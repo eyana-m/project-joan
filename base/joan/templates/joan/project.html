@@ -17,18 +17,40 @@
 Releases: {{ project.release_set.count }}  <br>
 Project Start: {{ project.project_start_date }}  <br>
 Project End: {{ project.project_end_date}}
+</div>
+<br>
+<br>
 
-<br>
-<br>
-    <ul>
+<div class="container horizontal-scroll">
+   <div class="row">
+    <ul class="list-unstyled">
     {% for release in project.release_set.all %}
+     <div class="col-xs-4">
       {{ release }}
         {% for requirement in release.requirement_set.all %}
-        <li>{{ requirement }}</li>
+        <li><small>{{ requirement }}</small></li>
         {% endfor %}
         <br>
+      </div>
     {% endfor %}
     </ul>
+    </div>
+</div>
 
-
+<div class="container horizontal-scroll">
+   <div class="row">
+    <ul class="list-unstyled">
+    {% for release in project.release_set.all %}
+     <div class="col-xs-4">
+      {{ release }}
+        {% for requirement in release.requirement_set.all %}
+          {% for feature in requirement.feature_set.all %}
+          <li><small>{{ feature }}</small></li>
+          {% endfor %}
+        {% endfor %}
+        <br>
+      </div>
+    {% endfor %}
+    </ul>
+    </div>
 </div>
