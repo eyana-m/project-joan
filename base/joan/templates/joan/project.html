@@ -28,7 +28,7 @@ Project End: {{ project.project_end_date}}
      <div class="col-xs-4">
       {{ release }}
         {% for requirement in release.requirement_set.all %}
-        <li><small>{{ requirement }}</small></li>
+        <li><small><li><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></li>
         {% endfor %}
         <br>
       </div>
@@ -45,7 +45,7 @@ Project End: {{ project.project_end_date}}
       {{ release }}
         {% for requirement in release.requirement_set.all %}
           {% for feature in requirement.feature_set.all %}
-          <li><small>{{ feature }}</small></li>
+          <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
           {% endfor %}
         {% endfor %}
         <br>

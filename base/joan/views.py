@@ -18,11 +18,22 @@ class IndexView(generic.ListView):
 class ProjectView(generic.DetailView):
     model = Project
     template_name = 'joan/project.html'
+    pk_url_kwarg = 'pk'
     #context_object_name = 'latest_requirement_list'
+
+
+class RequirementView(generic.DetailView):
+    model = Requirement
+    template_name = 'joan/requirement.html'
+
+class FeatureView(generic.DetailView):
+    model = Feature
+    template_name = 'joan/feature.html'
+
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(ProjectView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['requirement_list'] = Requirement.objects.filter(release__project__id__exact=self.kwargs['pk'])
+        context = super(FeatureView, self).get_context_data(**kwargs)
+        context['requirement_list'] = Requirement.objects.filter(feature__id__exact=self.kwargs['pk'])
+        context['releases'] = list(set(Requirement.objects.filter(feature__id__exact=self.kwargs['pk']).values_list('release', flat=True)))
         return context

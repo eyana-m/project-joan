@@ -1,0 +1,35 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
+<div class="container">
+ <div class="row">
+<h2>{{ feature.feature_text }}</h2>
+
+Releases:
+{% for x in releases %}
+{{ x }}
+{% endfor %} <br>
+Project: {{ feature.project }}
+</div>
+<br>
+<br>
+
+<div class="container horizontal-scroll">
+   <div class="row">
+      <ul class="list-unstyled">
+      {% for requirement in requirement_list %}
+      <li> {{ requirement }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+   <a class="btn btn-info" href="{% url 'joan:project' feature.project.id %}">Home</a>
+</div>
