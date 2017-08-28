@@ -12,16 +12,16 @@
 <link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
 <div class="container">
 
-<h2>Requirements</h2>
+<h2>Projects</h2>
 
 
-{% if latest_requirement_list %}
+{% if latest_project_list %}
     <ul>
-    {% for requirement in latest_requirement_list %}
-        <li><a href="{% url 'joan:detail' requirement.id %}">{{ requirement.requirement_heading }}</a></li>
+    {% for project in latest_project_list %}
+        <li><a href="{% url 'joan:detail' project.id %}">{{ project.project_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>No projects are available.</p>
 {% endif %}
 </div>

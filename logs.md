@@ -25,6 +25,7 @@ Features in mind:
 * Export traceability to csv
 * Generate MoM in Word or PDF
 * Attach images and files in `agreement` model
+* Project Dashboard - low priority
 
 ### August 28, 2017 - Monday
 
@@ -37,5 +38,9 @@ Next:
 
 
 Now onto user experience
+1. Select project
+2. View project dashboard
+3. View Requirements by release
+
 1. Input requirements based on BR
 2. Tag by release - based on release planning.
