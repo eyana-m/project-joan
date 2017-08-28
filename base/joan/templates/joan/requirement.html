@@ -11,21 +11,26 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
 <div class="container">
-
+   <div class="row">
+<h3>Business Requirement:</h3>
 <h2>{{ requirement.requirement_heading }}</h2>
 
 Release: {{ requirement.release }}  <br>
-Project: {{ requirement.release.project }} <br>
-
+Project: <a href="{% url 'joan:project' requirement.release.project.id %}">{{ requirement.release.project }}</a> <br>
+<br>
+BR Number: {{ requirement.reqd_id }}<br>
+Details: <p><em><small>{{ requirement.requirement_text }}</small></em></p>
+</div>
 </div>
 <br>
 <br>
 
 <div class="container horizontal-scroll">
    <div class="row">
+      <b>Related Features</b>
       <ul class="list-unstyled">
       {% for feature in requirement.feature_set.all %}
-      <li> {{ feature }}</li>
+      <li> <a href="{% url 'joan:feature' feature.id %}"> {{ feature }}</a></li>
       {% endfor %}
       </ul>
     </div>

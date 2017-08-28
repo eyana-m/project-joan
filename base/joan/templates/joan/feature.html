@@ -12,22 +12,25 @@
 <link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
 <div class="container">
  <div class="row">
+<h3>Feature:</h3>
 <h2>{{ feature.feature_text }}</h2>
 
 Releases:
 {% for x in releases %}
 {{ x }}
 {% endfor %} <br>
-Project: {{ feature.project }}
+Project: {{ feature.project }} <br>
+Module: {{ feature.feature_heading }}
 </div>
 <br>
 <br>
 
 <div class="container horizontal-scroll">
    <div class="row">
+     <b>Related Requirements</b>
       <ul class="list-unstyled">
       {% for requirement in requirement_list %}
-      <li> {{ requirement }}</li>
+      <li> <a href="{% url 'joan:requirement' requirement.id %}"> {{ requirement }}</a></li>
       {% endfor %}
       </ul>
     </div>

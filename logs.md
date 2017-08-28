@@ -31,7 +31,7 @@ Features in mind:
 ### August 28, 2017 - Monday
 
 * Added release model
-* Played with DetailView
+* Played with DetailView - Project, Requirement, Feature
 
 Next:
 * Add `release` model - tentative
