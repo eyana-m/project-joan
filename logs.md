@@ -27,6 +27,8 @@ Features in mind:
 * Attach images and files in `agreement` model
 * Project Dashboard - low priority
 * Generate Use Case Number - concatenation
+* Finalize URL redirection
+* Login!!! (Very basic thing lol)
 
 ### August 28, 2017 - Monday
 

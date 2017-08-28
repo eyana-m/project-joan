@@ -37,3 +37,7 @@ class FeatureView(generic.DetailView):
         context['requirement_list'] = Requirement.objects.filter(feature__id__exact=self.kwargs['pk'])
         context['releases'] = list(set(Requirement.objects.filter(feature__id__exact=self.kwargs['pk']).values_list('release', flat=True)))
         return context
+
+class ReleaseView(generic.DetailView):
+    model = Release
+    template_name = 'joan/release.html'
