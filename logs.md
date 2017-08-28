@@ -19,9 +19,23 @@ Next:
 * Add `release` model - tentative
 * Add `meeting` model
 * Polish or model relationships in admin and models
-* If done: start with the views and user experience in the app. 
+* If done: start with the views and user experience in the app.
 
 Features in mind:
 * Export traceability to csv
 * Generate MoM in Word or PDF
 * Attach images and files in `agreement` model
+
+### August 28, 2017 - Monday
+
+
+Next:
+* Add `release` model - tentative
+* Add `meeting` model -- soon
+* Polish or model relationships in admin and models
+* If done: start with the views and user experience in the app.
+
+
+Now onto user experience
+1. Input requirements based on BR
+2. Tag by release - based on release planning.

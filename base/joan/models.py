@@ -19,11 +19,22 @@ class Project (models.Model):
     def __str__(self):
         return self.project_name
 
+
+class Release (models.Model):
+    release_name = models.CharField(max_length=50)
+    release_target_date = models.DateField(blank=True, null=True)
+    release_actual_date = models.DateField(blank=True, null=True)
+    release_detais = models.CharField(max_length=70,blank=True)
+
+    def __str__(self):
+        return self.release_name
+
+
 # Items in the Business Requirements Document
 class Requirement(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     reqd_id = models.CharField(max_length=10,blank=True)
-    requirement_heading = models.CharField(max_length=50,blank=True)
+    requirement_heading = models.CharField(max_length=70,blank=True)
     requirement_text = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
@@ -60,8 +71,9 @@ class Ticket(models.Model):
     ticket_id = models.CharField(max_length=10,blank=True)
     ticket_text = models.CharField(max_length=200)
     ticket_url = models.CharField(max_length=50,blank=True)
-    release = models.CharField(max_length=5)
-    iteration = models.CharField(max_length=5)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
+    #release = models.CharField(max_length=5)
+    iteration = models.CharField(max_length=5,null=True, blank=True)
     is_feature = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
@@ -76,10 +88,10 @@ class Ticket(models.Model):
     class Meta:
         ordering = ['release', 'id', 'ticket_text']
 
+
 # Relate to Requirements, Meeting
 # Can add file attachment, screenshots for proof
 class Agreement(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     requirement = models.ManyToManyField(Requirement)
     agmt_date_raised = models.DateTimeField(blank=True)
     agmt_date_resolved = models.DateTimeField(blank=True)

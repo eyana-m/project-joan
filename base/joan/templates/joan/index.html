@@ -18,7 +18,7 @@
 {% if latest_requirement_list %}
     <ul>
     {% for requirement in latest_requirement_list %}
-        <li><a href="{% url 'joan:detail' requirement.id %}">{{ requirement.requirement_text }}</a></li>
+        <li><a href="{% url 'joan:detail' requirement.id %}">{{ requirement.requirement_heading }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

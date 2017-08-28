@@ -13,3 +13,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Requirement.objects.order_by('id')[:5]
+
+class DetailView(generic.DetailView):
+    model = Requirement
+    template_name = 'joan/detail.html'
