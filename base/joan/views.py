@@ -41,3 +41,7 @@ class FeatureView(generic.DetailView):
 class ReleaseView(generic.DetailView):
     model = Release
     template_name = 'joan/release.html'
+
+class ProjectRequirementsView(generic.DetailView):
+    model = Project
+    template_name = 'joan/requirements_list.html'

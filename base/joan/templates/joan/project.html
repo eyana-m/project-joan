@@ -23,6 +23,7 @@ Project End: {{ project.project_end_date}}
 
 <div class="container horizontal-scroll">
    <div class="row">
+     <em>by Business Requirements</em<br><br>
     <ul class="list-unstyled">
     {% for release in project.release_set.all %}
      <div class="col-xs-4">
@@ -41,6 +42,7 @@ Project End: {{ project.project_end_date}}
 
 <div class="container horizontal-scroll">
    <div class="row">
+     <em>by Use Cases</em><br><br>
     <ul class="list-unstyled">
     {% for release in project.release_set.all %}
      <div class="col-xs-4">
