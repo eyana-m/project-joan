@@ -89,13 +89,17 @@ class TicketAdmin(admin.ModelAdmin):
 
 class ProjectAdmin(admin.ModelAdmin):
 
-    def total_requirements(self):
-        return Requirement.objects.filter(project__id__exact=self.id).count()
+    def total_releases(self):
+        return Release.objects.filter(project__id__exact=self.id).count()
 
 
-    total_requirements.short_description = "Requirements"
+    #total_requirements.short_description = "Requirements"
 
-    list_display = ["project_name", "project_company", total_requirements]
+    list_display = ["project_name", "project_company", total_releases]
+
+
+class ReleaseAdmin(admin.ModelAdmin):
+    list_display =  ["project_release"]
 
 
 admin.site.register(Requirement,RequirementAdmin)
@@ -103,4 +107,4 @@ admin.site.register(Feature,FeatureAdmin)
 admin.site.register(Ticket,TicketAdmin)
 admin.site.register(Agreement)
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Release)
+admin.site.register(Release, ReleaseAdmin)

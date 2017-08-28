@@ -21,18 +21,23 @@ class Project (models.Model):
 
 
 class Release (models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     release_name = models.CharField(max_length=50)
     release_target_date = models.DateField(blank=True, null=True)
     release_actual_date = models.DateField(blank=True, null=True)
     release_details = models.CharField(max_length=70,blank=True)
 
     def __str__(self):
-        return self.release_name
+        #return self.release_name
+        return self.project.project_name + " - Release" + self.release_name
+
+    def project_release(self):
+        return self.project.project_name + " - Release" + self.release_name
 
 
 # Items in the Business Requirements Document
 class Requirement(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
     reqd_id = models.CharField(max_length=10,blank=True)
     requirement_heading = models.CharField(max_length=70,blank=True)
     requirement_text = models.TextField()
