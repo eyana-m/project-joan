@@ -8,6 +8,7 @@ from .models import Feature
 from .models import Ticket
 from .models import Agreement
 from .models import Project
+from .models import Release
 
 
 def get_admin_url(model,param):
@@ -83,7 +84,7 @@ class TicketAdmin(admin.ModelAdmin):
     pm_link.short_description = "PM Tool Link"
 
 
-    list_display = ["release", "iteration", "ticket_text", pm_link, requirements]
+    list_display = ["ticket_text", "release_sprint",pm_link, requirements]
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -102,3 +103,4 @@ admin.site.register(Feature,FeatureAdmin)
 admin.site.register(Ticket,TicketAdmin)
 admin.site.register(Agreement)
 admin.site.register(Project, ProjectAdmin)
+admin.site.register(Release)
