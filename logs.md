@@ -29,6 +29,8 @@ Features in mind:
 
 ### August 28, 2017 - Monday
 
+* Added release model
+* Played with DetailView
 
 Next:
 * Add `release` model - tentative

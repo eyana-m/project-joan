@@ -1,0 +1,34 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
+<div class="container">
+
+<h2>{{ project.project_name }}</h2>
+
+Releases: {{ project.release_set.count }}  <br>
+Project Start: {{ project.project_start_date }}  <br>
+Project End: {{ project.project_end_date}}
+
+<br>
+<br>
+    <ul>
+    {% for release in project.release_set.all %}
+      {{ release }}
+        {% for requirement in release.requirement_set.all %}
+        <li>{{ requirement }}</li>
+        {% endfor %}
+        <br>
+    {% endfor %}
+    </ul>
+
+
+</div>

@@ -8,6 +8,7 @@ DEFAULT_PROJECT = 1
 
 class Project (models.Model):
     project_name = models.CharField(max_length=50)
+    project_slug = models.CharField(max_length=10) 
     project_company = models.CharField(max_length=50)
     project_description = models.CharField(max_length=50)
     project_start_date = models.DateField(blank=True,null=True)
@@ -29,10 +30,10 @@ class Release (models.Model):
 
     def __str__(self):
         #return self.release_name
-        return self.project.project_name + " - Release" + self.release_name
+        return self.project.project_name + " - Release " + self.release_name
 
     def project_release(self):
-        return self.project.project_name + " - Release" + self.release_name
+        return self.project.project_name + " - Release " + self.release_name
 
 
 # Items in the Business Requirements Document
