@@ -56,10 +56,16 @@ class Requirement(models.Model):
         ordering = ['reqd_id', 'id']
 
     def save(self, *args, **kwargs):
-        if not self.reqd_id:
-            self.reqd_id = re.sub("[^0-9.]", "", self.requirement_text)
-        super(Requirement, self).save(*args, **kwargs)
 
+        #Default Value for Requirement ID if null
+        if not self.reqd_id:
+            self.reqd_id = self.requirement_text.split(None, 1)[0] + "."
+
+        #Default Value for Requirement Heading if null
+        if not self.requirement_heading:
+            self.requirement_heading = self.requirement_text.splitlines()[0].split(None, 1)[1]
+
+        super(Requirement, self).save(*args, **kwargs)
 
 
 # Also known as Use Cases. Feature sounds more abstract.
