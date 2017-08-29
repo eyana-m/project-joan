@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import datetime
+import re
 from django.utils import timezone
 from django.db import models
 
@@ -53,6 +54,11 @@ class Requirement(models.Model):
 
     class Meta:
         ordering = ['reqd_id', 'id']
+
+    def save(self, *args, **kwargs):
+        if not self.reqd_id:
+            self.reqd_id = re.sub("[^0-9.]", "", self.requirement_text)
+        super(Requirement, self).save(*args, **kwargs)
 
 
 
