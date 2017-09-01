@@ -19,11 +19,9 @@ class FeatureResource(resources.ModelResource):
 
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
     requirement = fields.Field(column_name="Requirement",attribute="requirement",widget=ManyToManyWidget(Requirement,",","reqd_id"))
-#    release = fields.Field(column_name="Release",widget=ManyToManyWidget(Requirement))
+    release = fields.Field(column_name="Release",widget=ManyToManyWidget(Requirement))
     feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
     feature_text = fields.Field(column_name="Feature", attribute="feature_text")
-
-
 
     class Meta:
         model = Feature

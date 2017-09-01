@@ -72,6 +72,7 @@ class Requirement(models.Model):
 class Feature(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     requirement = models.ManyToManyField(Requirement)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
     feature_heading = models.CharField('Category', max_length=50,blank=True)
     feature_text = models.CharField('Feature Name', max_length=200)
     feature_detail = models.TextField('Details',max_length=300,blank=True,null=True)
