@@ -9,8 +9,8 @@ DEFAULT_PROJECT = 1
 
 
 class Project (models.Model):
-    project_name = models.CharField(max_length=50)
-    slug = models.CharField(max_length=10, null=True)
+    project_name = models.CharField(max_length=50,unique = True)
+    slug = models.SlugField(max_length=10, null=True,unique=True)
     project_company = models.CharField(max_length=50)
     project_description = models.CharField(max_length=50)
     project_start_date = models.DateField(blank=True,null=True)

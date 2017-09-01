@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 
-from import_export import resources
+from import_export import resources, fields, widgets
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
-from import_export import fields
-from import_export import widgets
 
 from django.contrib import admin
 from django.db.models import Count
@@ -17,37 +16,43 @@ from .models import Release
 
 class FeatureResource(resources.ModelResource):
 
-    project = fields.Field(column_name="Project")
-    requirement = fields.Field(column_name="Requirement")
-    release = fields.Field(column_name="Release")
-    feature_heading = fields.Field(column_name="Category")
-    feature_text = fields.Field(column_name="Feature Name")
+
+    project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
+    requirement = fields.Field(column_name="Requirement",attribute="requirement",widget=ManyToManyWidget(Requirement,",","reqd_id"))
+#    release = fields.Field(column_name="Release",widget=ManyToManyWidget(Requirement))
+    feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
+    feature_text = fields.Field(column_name="Feature", attribute="feature_text")
+
+
 
     class Meta:
         model = Feature
-        exclude = ('id', 'created_at', 'updated_at', 'feature_detail',)
+        import_id_fields = ('id',)
+        exclude = ['created_at', 'updated_at', 'feature_detail',]
+        fields = ['id', 'project', 'requirement', 'feature_heading', 'feature_text']
 
-    def dehydrate_requirement(self, feature):
-        temp = []
-        for x in feature.requirement.all():
-            temp.append(x.reqd_id)
-        return ', '.join(temp)
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        dataset.insert_col(0, col=["",]*dataset.height, header="id")
 
-    def dehydrate_project(self, feature):
-        return feature.project.project_name
+    def get_instance(self, instance_loader, row):
+        return False
 
-    def dehydrate_release(self, feature):
-        temp = []
-        for x in feature.requirement.all():
-            temp.append(str(x.release))
-        temp2 = list(set(temp))
-        return ', '.join(temp2)
 
-    def dehydrate_feature_heading(self, feature):
-        return feature.feature_heading
+    # def dehydrate_requirement(self, feature):
+    #     temp = []
+    #     for x in feature.requirement.all():
+    #         temp.append(x.reqd_id)
+    #     return ', '.join(temp)
 
-    def dehydrate_feature_text(self, feature):
-        return feature.feature_text
+    # def dehydrate_project(self, feature):
+    #     return feature.project.project_name
+
+    # def dehydrate_release(self, feature):
+    #     temp = []
+    #     for x in feature.requirement.all():
+    #         temp.append(str(x.release))
+    #     temp2 = list(set(temp))
+    #     return ', '.join(temp2)
 
 
 
@@ -106,7 +111,7 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.allow_tags = True
     tickets.short_description = "Related Tickets"
 
-    list_display = ["feature_text", "feature_heading", requirements, tickets]
+    list_display = ["feature_text", "feature_heading", requirements, 'pk']
 
 
 
