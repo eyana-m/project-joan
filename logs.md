@@ -1,6 +1,19 @@
 # Project Logs
 Trace business requirements with system features and agreements in one view.
 
+### Features in mind:
+
+* ~~Export traceability to csv~~ **09-01**
+* Generate MoM in Word or PDF
+* Attach images and files in `agreement` model
+* Project Dashboard - low priority
+* Generate Use Case Number - concatenation
+* Finalize URL redirection
+* Login!!! (Very basic thing lol)
+* ~~Improve Data Entry/Import by CSV~~ **09-01**
+* Batch Edit
+
+
 ### August 26, 2017 - Saturday
 
 * Set up git
@@ -21,16 +34,7 @@ Next:
 * Polish or model relationships in admin and models
 * If done: start with the views and user experience in the app.
 
-Features in mind:
-* Export traceability to csv
-* Generate MoM in Word or PDF
-* Attach images and files in `agreement` model
-* Project Dashboard - low priority
-* Generate Use Case Number - concatenation
-* Finalize URL redirection
-* Login!!! (Very basic thing lol)
-* Improve Data Entry
-* Batch Edit
+
 
 ### August 28, 2017 - Monday
 
