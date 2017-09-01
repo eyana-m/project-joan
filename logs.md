@@ -29,6 +29,8 @@ Features in mind:
 * Generate Use Case Number - concatenation
 * Finalize URL redirection
 * Login!!! (Very basic thing lol)
+* Improve Data Entry
+* Batch Edit
 
 ### August 28, 2017 - Monday
 
@@ -49,3 +51,12 @@ Now onto user experience
 
 1. Input requirements based on BR
 2. Tag by release - based on release planning.
+
+
+### August 29, 2017 - Tuesday
+
+1. Input SOW10 Data for more precise testing
+
+### September 1, 2017 - Friday
+
+1. Django-Import-Export library for importing and exporting data to csv
