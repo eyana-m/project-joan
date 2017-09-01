@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 from django.contrib import admin
 from django.db.models import Count
 
@@ -9,6 +12,7 @@ from .models import Ticket
 from .models import Agreement
 from .models import Project
 from .models import Release
+
 
 
 def get_admin_url(model,param):
@@ -46,7 +50,7 @@ class RequirementAdmin(admin.ModelAdmin):
     list_display = [requirement, "show_feature_count", features]
 
 
-class FeatureAdmin(admin.ModelAdmin):
+class FeatureAdmin(ImportExportModelAdmin):
     def requirements(self):
         temp = []
         for obj in Requirement.objects.filter(feature__id__exact=self.id):
@@ -66,6 +70,12 @@ class FeatureAdmin(admin.ModelAdmin):
     tickets.short_description = "Related Tickets"
 
     list_display = ["feature_text", "feature_heading", requirements, tickets]
+
+class FeatureResource(resources.ModelResource):
+
+    class Meta:
+        model = Feature
+        exclude = ('id', 'created_at', 'updated_at' )
 
 class TicketAdmin(admin.ModelAdmin):
     def requirements(self):

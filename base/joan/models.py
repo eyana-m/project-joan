@@ -41,7 +41,7 @@ class Release (models.Model):
 # Items in the Business Requirements Document
 class Requirement(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
-    reqd_id = models.CharField(max_length=10,blank=True)
+    reqd_id = models.CharField(max_length=15,blank=True)
     requirement_heading = models.CharField(max_length=70,blank=True)
     requirement_text = models.TextField()
 
@@ -72,8 +72,9 @@ class Requirement(models.Model):
 class Feature(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     requirement = models.ManyToManyField(Requirement)
-    feature_heading = models.CharField(max_length=50,blank=True)
-    feature_text = models.TextField(max_length=200)
+    feature_heading = models.CharField('Category', max_length=50,blank=True)
+    feature_text = models.CharField('Feature Name', max_length=200)
+    feature_detail = models.TextField('Details',max_length=300,blank=True,null=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
