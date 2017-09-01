@@ -16,10 +16,9 @@ from .models import Release
 
 class FeatureResource(resources.ModelResource):
 
-
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
     requirement = fields.Field(column_name="Requirement",attribute="requirement",widget=ManyToManyWidget(Requirement,",","reqd_id"))
-    release = fields.Field(column_name="Release",widget=ManyToManyWidget(Requirement))
+    release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Release,"release_name"))
     feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
     feature_text = fields.Field(column_name="Feature", attribute="feature_text")
 
@@ -27,7 +26,8 @@ class FeatureResource(resources.ModelResource):
         model = Feature
         import_id_fields = ('id',)
         exclude = ['created_at', 'updated_at', 'feature_detail',]
-        fields = ['id', 'project', 'requirement', 'feature_heading', 'feature_text']
+        fields = ['id', 'project', 'requirement', 'release','feature_heading', 'feature_text']
+
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         dataset.insert_col(0, col=["",]*dataset.height, header="id")
