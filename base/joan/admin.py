@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from import_export import fields
+from import_export import widgets
 
 from django.contrib import admin
 from django.db.models import Count
@@ -12,6 +14,40 @@ from .models import Ticket
 from .models import Agreement
 from .models import Project
 from .models import Release
+
+class FeatureResource(resources.ModelResource):
+
+    project = fields.Field(column_name="Project")
+    requirement = fields.Field(column_name="Requirement")
+    release = fields.Field(column_name="Release")
+    feature_heading = fields.Field(column_name="Category")
+    feature_text = fields.Field(column_name="Feature Name")
+
+    class Meta:
+        model = Feature
+        exclude = ('id', 'created_at', 'updated_at', 'feature_detail',)
+
+    def dehydrate_requirement(self, feature):
+        temp = []
+        for x in feature.requirement.all():
+            temp.append(x.reqd_id)
+        return ', '.join(temp)
+
+    def dehydrate_project(self, feature):
+        return feature.project.project_name
+
+    def dehydrate_release(self, feature):
+        temp = []
+        for x in feature.requirement.all():
+            temp.append(str(x.release))
+        temp2 = list(set(temp))
+        return ', '.join(temp2)
+
+    def dehydrate_feature_heading(self, feature):
+        return feature.feature_heading
+
+    def dehydrate_feature_text(self, feature):
+        return feature.feature_text
 
 
 
@@ -50,7 +86,8 @@ class RequirementAdmin(admin.ModelAdmin):
     list_display = [requirement, "show_feature_count", features]
 
 
-class FeatureAdmin(ImportExportModelAdmin):
+class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = FeatureResource
     def requirements(self):
         temp = []
         for obj in Requirement.objects.filter(feature__id__exact=self.id):
@@ -71,11 +108,8 @@ class FeatureAdmin(ImportExportModelAdmin):
 
     list_display = ["feature_text", "feature_heading", requirements, tickets]
 
-class FeatureResource(resources.ModelResource):
 
-    class Meta:
-        model = Feature
-        exclude = ('id', 'created_at', 'updated_at' )
+
 
 class TicketAdmin(admin.ModelAdmin):
     def requirements(self):
