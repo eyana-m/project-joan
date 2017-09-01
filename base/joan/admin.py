@@ -6,6 +6,7 @@ from import_export.admin import ImportExportMixin, ImportExportModelAdmin
 
 from django.contrib import admin
 from django.db.models import Count
+from django.contrib.admin import SimpleListFilter
 
 from .models import Requirement
 from .models import Feature
@@ -13,6 +14,8 @@ from .models import Ticket
 from .models import Agreement
 from .models import Project
 from .models import Release
+
+
 
 class FeatureResource(resources.ModelResource):
 
@@ -36,26 +39,46 @@ class FeatureResource(resources.ModelResource):
         return False
 
 
-    # def dehydrate_requirement(self, feature):
-    #     temp = []
-    #     for x in feature.requirement.all():
-    #         temp.append(x.reqd_id)
-    #     return ', '.join(temp)
-
-    # def dehydrate_project(self, feature):
-    #     return feature.project.project_name
-
-    # def dehydrate_release(self, feature):
-    #     temp = []
-    #     for x in feature.requirement.all():
-    #         temp.append(str(x.release))
-    #     temp2 = list(set(temp))
-    #     return ', '.join(temp2)
 
 
 
 def get_admin_url(model,param):
     return "/admin/joan/"+model+"/%d/" %param.id
+
+
+
+class ProjectFilter(SimpleListFilter):
+    # Human-readable title which will be displayed in the
+    # right admin sidebar just above the filter options.
+    title = 'Project'
+
+    #Parameter for the filter that will be used in the URL query.
+    parameter_name = 'project'
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each
+        tuple is the coded value for the option that will
+        appear in the URL query. The second element is the
+        human-readable name for the option that will appear
+        in the right sidebar.
+        """
+        projects = set([p for p in Project.objects.all()])
+        return [(p.id, p.project_name) for p in projects]
+
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+
+        if self.value():
+            return queryset.filter(release__project__id__exact=self.value())
+
+        else:
+            return queryset
 
 class RequirementAdmin(admin.ModelAdmin):
 
@@ -68,6 +91,9 @@ class RequirementAdmin(admin.ModelAdmin):
 
     def show_feature_count(self, inst):
         return inst.feature_count
+
+    def project(self):
+        return Project.objects.filter(release__id__exact=self.release.id)
 
     def features(self):
         temp = []
@@ -87,6 +113,7 @@ class RequirementAdmin(admin.ModelAdmin):
     show_feature_count.short_description = "Feature Count"
     show_feature_count.admin_order_field = "feature_count"
     list_display = [requirement, "show_feature_count", features]
+    list_filter = [ProjectFilter]
 
 
 class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -109,7 +136,8 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.allow_tags = True
     tickets.short_description = "Related Tickets"
 
-    list_display = ["feature_text", "feature_heading", requirements, 'pk']
+    list_display = ["feature_text", "feature_heading", requirements, 'release']
+    list_filter = [ProjectFilter]
 
 
 

@@ -13,6 +13,8 @@ Trace business requirements with system features and agreements in one view.
 * ~~Improve Data Entry/Import by CSV~~ **09-01**
 * Batch Edit
 
+---
+
 
 ### August 26, 2017 - Saturday
 
@@ -64,3 +66,6 @@ Now onto user experience
 ### September 1, 2017 - Friday
 
 1. Django-Import-Export library for importing and exporting data to csv
+2. Improved Filtering in admin
+3. Added sample project data - BoC Trade. This is to avoid being too constricted with PEMC's use case.
+4. Improvement: GrandParents as ForeignKey 

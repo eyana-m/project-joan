@@ -84,6 +84,14 @@ class Feature(models.Model):
     def __str__(self):
         return self.feature_text
 
+    def save(self, *args, **kwargs):
+
+        #Default Value for Release of null
+        if not self.release:
+            self.release= self.requirement.release
+
+        super(Feature, self).save(*args, **kwargs)
+
 # Filed feature or task tickets per sprint/iteration in the project management tool.
 # One Feature can incur many tickets in many iteration
 class Ticket(models.Model):
