@@ -35,7 +35,7 @@ class FeatureView(generic.DetailView):
         # Call the base implementation first to get a context
         context = super(FeatureView, self).get_context_data(**kwargs)
         context['requirement_list'] = Requirement.objects.filter(feature__id__exact=self.kwargs['pk'])
-        context['releases'] = list(set(Requirement.objects.filter(feature__id__exact=self.kwargs['pk']).values_list('release', flat=True)))
+        #context['releases'] = list(set(Requirement.objects.filter(feature__id__exact=self.kwargs['pk']).values_list('release', flat=True)))
         return context
 
 class ReleaseView(generic.DetailView):

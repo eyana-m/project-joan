@@ -28,6 +28,8 @@ class Release (models.Model):
     release_name = models.CharField(max_length=50)
     release_target_date = models.DateField(blank=True, null=True)
     release_actual_date = models.DateField(blank=True, null=True)
+    release_uat_start_date = models.DateField(blank=True, null=True)
+    release_uat_end_date = models.DateField(blank=True, null=True)
     release_details = models.CharField(max_length=70,blank=True)
 
     def __str__(self):

@@ -24,25 +24,15 @@ Actual Date: {{ release.release_actual_date }}
 <br>
 
 <div class="container horizontal-scroll">
-  <div class="row">
-    <div class="col-xs-4">
-      <b>Related Requirements</b>
-      <ul class="list-unstyled">
-        {% for requirement in release.requirement_set.all %}
-        <li><small><li><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></li>
-        {% endfor %}
-        <br>
-      </ul>
-    </div>
 
     <div class="col-xs-4">
       <b>Related Features</b>
       <ul class="list-unstyled">
-        {% for requirement in release.requirement_set.all %}
-          {% for feature in requirement.feature_set.all %}
+
+          {% for feature in release.feature_set.all %}
           <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
           {% endfor %}
-        {% endfor %}
+
         <br>
       </ul>
     </div>
