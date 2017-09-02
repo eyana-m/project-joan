@@ -112,7 +112,7 @@ class RequirementAdmin(admin.ModelAdmin):
 
     show_feature_count.short_description = "Feature Count"
     show_feature_count.admin_order_field = "feature_count"
-    list_display = [requirement, "show_feature_count", features]
+    list_display = [requirement, features]
     list_filter = [ProjectFilter]
 
 
@@ -136,8 +136,9 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.allow_tags = True
     tickets.short_description = "Related Tickets"
 
-    list_display = ["feature_text", "feature_heading", requirements, 'release']
+    list_display = ["feature_text", "feature_heading", requirements]
     list_filter = [ProjectFilter]
+
 
 
 
@@ -162,7 +163,15 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ["ticket_text", "release_sprint",pm_link, requirements]
 
 
+class ReleaseInline(admin.TabularInline):
+    model = Release
+
+
 class ProjectAdmin(admin.ModelAdmin):
+
+    inlines = [
+        ReleaseInline,
+    ]
 
     def total_releases(self):
         return Release.objects.filter(project__id__exact=self.id).count()
