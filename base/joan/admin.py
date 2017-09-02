@@ -7,6 +7,8 @@ from import_export.admin import ImportExportMixin, ImportExportModelAdmin
 from django.contrib import admin
 from django.db.models import Count
 from django.contrib.admin import SimpleListFilter
+from django import forms
+from django.forms import ModelChoiceField
 
 from .models import Requirement
 from .models import Feature
@@ -80,7 +82,22 @@ class ProjectFilter(SimpleListFilter):
         else:
             return queryset
 
+
+class RequirementForm(forms.ModelForm):
+
+    #project = forms.ModelChoiceField(queryset=Project.objects.all())
+#    release = forms.ModelChoiceField(queryset=Release.objects.all(project__id__exact=project.id))
+
+    class Meta:
+        model = Requirement
+        #fields = ['project', 'release', 'reqd_id', 'requirement_heading', 'requirement_text', 'requirement_details']
+        exclude = ['created_at', 'updated_at']
+
+
+
 class RequirementAdmin(admin.ModelAdmin):
+
+    form = RequirementForm
 
     def requirement(self):
         return self.reqd_id + " " + self.requirement_heading
@@ -140,9 +157,6 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     list_filter = [ProjectFilter]
 
 
-
-
-
 class TicketAdmin(admin.ModelAdmin):
     def requirements(self):
         temp = []
@@ -175,9 +189,6 @@ class ProjectAdmin(admin.ModelAdmin):
 
     def total_releases(self):
         return Release.objects.filter(project__id__exact=self.id).count()
-
-
-    #total_requirements.short_description = "Requirements"
 
     list_display = ["project_name", "project_company", total_releases]
 

@@ -40,7 +40,7 @@ class Release (models.Model):
 
 # Items in the Business Requirements Document
 class Requirement(models.Model):
-    release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     reqd_id = models.CharField('No.',max_length=15,blank=True)
     requirement_heading = models.CharField('Category', max_length=70,blank=True)
     requirement_text = models.CharField('Requirement Name', max_length=300)

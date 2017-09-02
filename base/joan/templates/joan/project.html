@@ -25,15 +25,13 @@ Project End: {{ project.project_end_date}}
    <div class="row">
      <em>by Business Requirements</em<br><br>
     <ul class="list-unstyled">
-    {% for release in project.release_set.all %}
      <div class="col-xs-4">
-      <a href="{% url 'joan:release' release.id %}">{{ release }} </a>
-        {% for requirement in release.requirement_set.all %}
+        {% for requirement in project.requirement_set.all %}
         <li><small><li><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></li>
         {% endfor %}
         <br>
       </div>
-    {% endfor %}
+
     </ul>
     </div>
 </div>
@@ -47,10 +45,10 @@ Project End: {{ project.project_end_date}}
     {% for release in project.release_set.all %}
      <div class="col-xs-4">
       <a href="{% url 'joan:release' release.id %}">{{ release }} </a>
-        {% for requirement in release.requirement_set.all %}
-          {% for feature in requirement.feature_set.all %}
+        {% for feature in release.feature_set.all %}
+
           <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
-          {% endfor %}
+
         {% endfor %}
         <br>
       </div>
