@@ -14,13 +14,16 @@
 
 <h2>{{ project.project_name }}</h2>
 
-Releases: {{ project.release_set.count }}  <br>
-Project Start: {{ project.project_start_date }}  <br>
-Project End: {{ project.project_end_date}}
+<small>
+<b>Releases:</b>  {{ project.release_set.count }}  <br>
+<b>Company:</b> {{ project.project_company}}  <br>
+<b>Project Start:</b>  {{ project.project_start_date }}  <br>
+<b>Project End:</b>  {{ project.project_end_date}}
+</small>
 <br>
 <br>
 
-<a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">Requirements</a>
+<a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">Requirements <span class="badge">{{project.requirement_set.count}}</span></a>
 
 </div>
 
@@ -36,7 +39,6 @@ Project End: {{ project.project_end_date}}
       <a href="{% url 'joan:release' release.id %}">{{ release }} </a>
         {% for feature in release.feature_set.all %}
           <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
-
         {% endfor %}
         <br>
       </div>

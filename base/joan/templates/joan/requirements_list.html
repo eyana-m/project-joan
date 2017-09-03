@@ -39,10 +39,16 @@
 
               <table class="table table-borderless" style="margin-bottom:0;">
                 {% for feature in requirement.feature_set.all %}
-                <tr class="table-borderless">
+                <tr>
                   <td><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
                   <td><small><small>{{ feature.release }}<small></small></td>
-                  <td><span class="badge badge-info"><small>{{ feature.get_feature_status_display }}</small></span></td>
+                    {% if feature.feature_status == 'NW' %}
+                    <td><span class="label label-default"><small>{{ feature.get_feature_status_display }}</small></span></td>
+                    {% elif feature.feature_status == 'IP' %}
+                    <td><span class="label label-warning"><small>{{ feature.get_feature_status_display }}</small></span></td>
+                    {% elif feature.feature_status == 'DO' %}
+                    <td><span class="label label-success"><small>{{ feature.get_feature_status_display }}</small></span></td>
+                    {% endif %}
                 </tr>
                   {% endfor %}
               </table>
