@@ -81,10 +81,12 @@ class Requirement(models.Model):
 class Feature(models.Model):
 
     NEW = 'NW'
+    DONE_USE_CASE = 'DU'
     IN_PROGRESS = 'IP'
     DONE = 'DO'
     FEATURE_STATUS_CHOICES = (
         (NEW, 'New'),
+        (DONE_USE_CASE, 'Use Case Done'),
         (IN_PROGRESS, 'In Progress'),
         (DONE, 'Done'),
     )
