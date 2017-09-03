@@ -27,6 +27,7 @@ Details: {{ release.release_details }}  <br>
 
 
 <div class="container">
+  <h4>Requirements Traceability Matrix</h4>
   <table class="table table-striped table-bordered">
     <tr>
       <th> ID </th>
@@ -84,9 +85,7 @@ Details: {{ release.release_details }}  <br>
 
           {% for feature in release.feature_set.all %}
           <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
-            {% for req in feature.requirements.all %}
-            {{ req.requirement_heading }} <br>
-              {% endfor %}
+
           {% endfor %}
 
         <br>

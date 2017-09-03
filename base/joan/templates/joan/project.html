@@ -17,10 +17,13 @@
 Releases: {{ project.release_set.count }}  <br>
 Project Start: {{ project.project_start_date }}  <br>
 Project End: {{ project.project_end_date}}
-</div>
 <br>
 <br>
+
 <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">Requirements</a>
+
+</div>
+
 
 <hr>
 

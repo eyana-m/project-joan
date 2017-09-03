@@ -13,6 +13,7 @@ Trace business requirements with system features and agreements in one view.
 * ~~Improve Data Entry/Import by CSV~~ **09-01**
 * Batch Edit
 * Handling Sprints!
+* Form for each feature: Use Case Format (Export to Word or PDF)
 
 ---
 

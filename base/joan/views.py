@@ -45,7 +45,7 @@ class ReleaseView(generic.DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ReleaseView, self).get_context_data(**kwargs)
-        context['requirement_list'] = Requirement.objects.filter(feature__release__id__exact=self.kwargs['pk'])
+        context['requirement_list'] = Requirement.objects.filter(feature__release__id__exact=self.kwargs['pk']).distinct()
     #context['feature_list'] = Feature.objects.filter(requirements__in=context['requirement_list'],release__id__exact=self.kwargs['pk'])
         #context['feature_list'] = context['feature_list'].objects.filter()
         #context['releases'] = list(set(Requirement.objects.filter(feature__id__exact=self.kwargs['pk']).values_list('release', flat=True)))
