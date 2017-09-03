@@ -79,3 +79,8 @@ Now onto user experience
 3. Added inlines for Project
 4. Next: Focus on UX in traceability first,
 5. Later: Management part. Sprints
+
+### September 3, 2017 - Sunday
+
+1. Issues: Filter in Django template view
+--- Solved by adding logic in template view itself. Improve on this next time!

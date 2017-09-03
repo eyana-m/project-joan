@@ -40,6 +40,7 @@ class Release (models.Model):
         return self.project.project_name + " - Release " + self.release_name
 
 
+
 # Items in the Business Requirements Document
 class Requirement(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
@@ -88,7 +89,7 @@ class Feature(models.Model):
         (DONE, 'Done'),
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
-    requirement = models.ManyToManyField(Requirement)
+    requirements = models.ManyToManyField(Requirement)
     release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
     feature_heading = models.CharField('Category', max_length=50,blank=True)
     feature_text = models.CharField('Feature Name', max_length=200)

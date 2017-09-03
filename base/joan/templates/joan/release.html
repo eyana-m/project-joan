@@ -13,29 +13,85 @@
 <div class="container">
 
 <h2>{{ release }}</h2>
-
+<h3> Release Checklist </h3>
 Project: <a href="{% url 'joan:project' release.project.id %}">{{ release.project }}</a> <br>
 <br>
 Target Date: {{ release.release_target_date }}  <br>
-Actual Date: {{ release.release_actual_date }}
-
+UAT Start Date: {{ release.release_uat_start_date }} <br>
+UAT End Date: {{ release.release_uat_end_date }}  <br>
+Details: {{ release.release_details }}  <br>
 </div>
 <br>
 <br>
 
+
+
+<div class="container">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th> ID </th>
+      <th> Requirement</th>
+      <th> Feature</th>
+
+    </tr>
+
+
+
+      {% for requirement in requirement_list %}
+
+
+      <tr>
+        {% if requirement.with_reqd_id %}
+          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
+        {% endif %}
+          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
+          {% if requirement.feature_set.count == 0 %}
+            <td></td>
+          {% else %}
+            <td style="padding: 0" class="col-md-6">
+
+              <table class="table table-borderless" style="margin-bottom:0;">
+
+                {% for feature in requirement.feature_set.all %}
+                  {% if feature.release.id is release.id %}
+                    <tr class="table-borderless">
+                      <td><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                      <td><small><small>{{ feature.release }}<small></small></td>
+                      <td><span class="badge badge-info"><small>{{ feature.get_feature_status_display }}</small></span></td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+              </table>
+            </td>
+          {% endif %}
+      </tr>
+
+      {% endfor %}
+
+
+
+  </table>
+
+</div>
+</div>
+
+</div>
+
 <div class="container horizontal-scroll">
 
-    <div class="col-xs-4">
       <b>Related Features</b>
       <ul class="list-unstyled">
 
           {% for feature in release.feature_set.all %}
           <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
+            {% for req in feature.requirements.all %}
+            {{ req.requirement_heading }} <br>
+              {% endfor %}
           {% endfor %}
 
         <br>
       </ul>
-    </div>
+
 
 
   </div>
