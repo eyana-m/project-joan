@@ -8,37 +8,56 @@
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
+
 <div class="container">
 
-<h2>All Requirements</h2>
+  <h2>All Requirements</h2> Project: <a href="{% url 'joan:project' project.id %}">{{ project }}</a> <br> Requirement Count: {{ project.requirement_set.count }}
+  <br> <br>
+  <div class="container horizontal-scroll">
+    <div class="row">
+      <em>Business Requirements</em<br><br>
 
-Project: <a href="{% url 'joan:project' project.id %}">{{ project }}</a> <br>
-Requirement Count: {{ project.requirement_set.count }}
-<br> <br>
-<div class="container horizontal-scroll">
-   <div class="row">
-     <em>Business Requirements</em<br><br>
-    <ul class="list-unstyled">
       <table class="table table-striped table-bordered">
+        <tr>
+          <th> ID </th>
+          <th> Requirement</th>
+          <th> Feature</th>
+
+        </tr>
         {% for requirement in project.requirement_set.all %}
+
         <tr>
           {% if requirement.with_reqd_id %}
-          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
+            <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
           {% endif %}
-          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
+            <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
+          {% if requirement.feature_set.count == 0 %}
+            <td></td>
+          {% else %}
+            <td style="padding: 0" class="col-md-6">
+
+              <table class="table table-borderless" style="margin-bottom:0;">
+                {% for feature in requirement.feature_set.all %}
+                <tr class="table-borderless">
+                  <td><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                  <td><small><small>{{ feature.release }}<small></small></td>
+                  <td><span class="badge badge-info"><small>{{ feature.get_feature_status_display }}</small></span></td>
+                </tr>
+                  {% endfor %}
+              </table>
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
 
       </table>
 
-    </ul>
     </div>
 </div>
 
 
-  ...
+
 
 
 

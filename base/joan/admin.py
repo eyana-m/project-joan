@@ -154,7 +154,7 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.short_description = "Related Tickets"
 
     list_display = ["feature_text", "feature_heading", requirements]
-    list_filter = [ProjectFilter, "release"]
+    list_filter = [ProjectFilter, "release", "feature_status"]
 
 
 class TicketAdmin(admin.ModelAdmin):

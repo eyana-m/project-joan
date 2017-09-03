@@ -34,7 +34,7 @@ class Release (models.Model):
 
     def __str__(self):
         #return self.release_name
-        return "Release " + self.release_name
+        return "Rel " + self.release_name
 
     def project_release(self):
         return self.project.project_name + " - Release " + self.release_name
@@ -83,9 +83,9 @@ class Feature(models.Model):
     IN_PROGRESS = 'IP'
     DONE = 'DO'
     FEATURE_STATUS_CHOICES = (
-        (NEW, 'NEW'),
-        (IN_PROGRESS, 'IN PROGRESS'),
-        (DONE, 'DONE'),
+        (NEW, 'New'),
+        (IN_PROGRESS, 'In Progress'),
+        (DONE, 'Done'),
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     requirement = models.ManyToManyField(Requirement)
