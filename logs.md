@@ -12,6 +12,7 @@ Trace business requirements with system features and agreements in one view.
 * Login!!! (Very basic thing lol)
 * ~~Improve Data Entry/Import by CSV~~ **09-01**
 * Batch Edit
+* Handling Sprints!
 
 ---
 
@@ -68,4 +69,13 @@ Now onto user experience
 1. Django-Import-Export library for importing and exporting data to csv
 2. Improved Filtering in admin
 3. Added sample project data - BoC Trade. This is to avoid being too constricted with PEMC's use case.
-4. Improvement: GrandParents as ForeignKey 
+4. Improvement: GrandParents as ForeignKey
+
+
+### September 2, 2017 - Saturday
+
+1. Data Prep - Project 2
+2. Polished models
+3. Added inlines for Project
+4. Next: Focus on UX in traceability first,
+5. Later: Management part. Sprints

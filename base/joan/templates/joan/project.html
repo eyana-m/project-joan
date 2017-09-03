@@ -20,21 +20,7 @@ Project End: {{ project.project_end_date}}
 </div>
 <br>
 <br>
-
-<div class="container horizontal-scroll">
-   <div class="row">
-     <em>by Business Requirements</em<br><br>
-    <ul class="list-unstyled">
-     <div class="col-xs-4">
-        {% for requirement in project.requirement_set.all %}
-        <li><small><li><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></li>
-        {% endfor %}
-        <br>
-      </div>
-
-    </ul>
-    </div>
-</div>
+<a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">Requirements</a>
 
 <hr>
 
@@ -43,10 +29,9 @@ Project End: {{ project.project_end_date}}
      <em>by Use Cases</em><br><br>
     <ul class="list-unstyled">
     {% for release in project.release_set.all %}
-     <div class="col-xs-4">
+     <div class="col-xs-4 word-wrap">
       <a href="{% url 'joan:release' release.id %}">{{ release }} </a>
         {% for feature in release.feature_set.all %}
-
           <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
 
         {% endfor %}

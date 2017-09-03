@@ -15,11 +15,14 @@
 <h3>Business Requirement:</h3>
 <h2>{{ requirement.requirement_heading }}</h2>
 
-Release: {{ requirement.release }}  <br>
-Project: <a href="{% url 'joan:project' requirement.release.project.id %}">{{ requirement.release.project }}</a> <br>
+Release: {{ requirement.project.release }}  <br>
+Project: <a href="{% url 'joan:project' requirement.project.id %}">{{ requirement.project }}</a> <br>
 <br>
 BR Number: {{ requirement.reqd_id }}<br>
-Details: <p><em><small>{{ requirement.requirement_text }}</small></em></p>
+Details:
+{% for line in requirement.requirement_text.splitlines %}
+<p><em><small>{{ line }}</small></em></p>
+{% endfor %}
 </div>
 </div>
 <br>
@@ -34,5 +37,9 @@ Details: <p><em><small>{{ requirement.requirement_text }}</small></em></p>
       {% endfor %}
       </ul>
     </div>
-<a class="btn btn-info" href="{% url 'joan:project' requirement.release.project.id %}">Home</a>
+
 </div>
+<hr>
+
+<a class="btn btn-info" href="{% url 'joan:project' requirement.project.id %}">Project</a>
+<a class="btn btn-success" href="{% url 'joan:requirements_list' requirement.project.id %}">All Requirements</a>

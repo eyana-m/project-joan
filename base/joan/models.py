@@ -51,8 +51,13 @@ class Requirement(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
+    with_reqd_id = models.BooleanField('With Identifier',default=True)
+
 
     def __str__(self):
+        return self.requirement_heading
+
+    def reqd_id_heading(self):
         return self.reqd_id + " " + self.requirement_heading
 
     class Meta:
@@ -73,6 +78,15 @@ class Requirement(models.Model):
 
 # Also known as Use Cases. Feature sounds more abstract.
 class Feature(models.Model):
+
+    NEW = 'NW'
+    IN_PROGRESS = 'IP'
+    DONE = 'DO'
+    FEATURE_STATUS_CHOICES = (
+        (NEW, 'NEW'),
+        (IN_PROGRESS, 'IN PROGRESS'),
+        (DONE, 'DONE'),
+    )
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     requirement = models.ManyToManyField(Requirement)
     release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
@@ -80,9 +94,15 @@ class Feature(models.Model):
     feature_text = models.CharField('Feature Name', max_length=200)
     feature_details = models.TextField('Details',max_length=300,blank=True,null=True)
 
+    feature_status = models.CharField(max_length=2,choices=FEATURE_STATUS_CHOICES,default=NEW,)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
+    def is_new(self):
+        return self.feature_status in (self.NEW)
+
+    def is_done(self):
+        return self.feature_status in (self.DONE)
 
     def __str__(self):
         return self.feature_text
