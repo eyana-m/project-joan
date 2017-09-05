@@ -114,7 +114,7 @@ class RequirementAdmin(admin.ModelAdmin):
 
     def features(self):
         temp = []
-        for obj in Feature.objects.filter(requirement__id__exact=self.id):
+        for obj in Feature.objects.filter(requirements__id__exact=self.id):
             temp.append('<a href="%s">%s</a>' %(get_admin_url("feature",obj), obj.feature_text))
 
         if len(temp) >2:
@@ -153,7 +153,7 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.allow_tags = True
     tickets.short_description = "Related Tickets"
 
-    list_display = ["feature_text", "feature_heading", requirements]
+    list_display = ["feature_text", "feature_heading", requirements, "feature_status"]
     list_filter = [ProjectFilter, "release", "feature_status"]
 
 
