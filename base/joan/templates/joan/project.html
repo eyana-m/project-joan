@@ -10,18 +10,13 @@
 
 <h2>{{ project.project_name }}</h2>
 <br>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
 
   <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading"role="tab" id="headingOne">
-      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <div class="panel-heading" >
         {{ project.project_name }}
-      </a>
     </div>
     <!-- List group -->
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <ul class="list-group">
         <li class="list-group-item"><b>Company:</b> {{ project.project_company}} </li>
         <li class="list-group-item"><b>Project Start:</b>  {{ project.project_start_date }} </li>
@@ -29,9 +24,8 @@
         <li class="list-group-item"><b>Description:</b>  <em>{{ project.project_description}} </em> </li>
         <li class="list-group-item"><b>Release Count:</b>  {{ project.release_set.count }} </li>
       </ul>
-    </div>
   </div>
-</div>
+
 
 </small>
 <br>
