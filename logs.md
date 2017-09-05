@@ -90,3 +90,5 @@ Now onto user experience
 
 
 ### September 5, 2017 - Tuesday
+1. Issue: not working bs3 collapse.js
+2. Added base.html template
