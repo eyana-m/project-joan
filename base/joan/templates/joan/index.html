@@ -1,15 +1,12 @@
-{% load static %}
-{# Load the tag library #}
-{% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
+{% extends 'joan/base.html' %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Projects{% endblock %}</title>
+</head>
+<body>
+  {% block pagecontent %}
 <div class="container">
 
 <h2>Projects</h2>
@@ -25,3 +22,6 @@
     <p>No projects are available.</p>
 {% endif %}
 </div>
+{% endblock %}
+</body>
+</html>

@@ -14,6 +14,7 @@ Trace business requirements with system features and agreements in one view.
 * Batch Edit
 * Handling Sprints!
 * Form for each feature: Use Case Format (Export to Word or PDF)
+* Google Calendar Sync (Nice to Have)
 
 ---
 
@@ -85,3 +86,7 @@ Now onto user experience
 
 1. Issues: Filter in Django template view
 --- Solved by adding logic in template view itself. Improve on this next time!
+2. Please be guided by the flowcharts and ERD (See official GDrive)
+
+
+### September 5, 2017 - Tuesday

@@ -1,15 +1,14 @@
-{% load static %}
-{# Load the tag library #}
-{% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% extends 'joan/base.html' %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{{ feature.feature_text }}{% endblock %}</title>
+</head>
+<body>
+  {% block pagecontent %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
 <div class="container">
  <div class="row">
 <h3>Feature:</h3>
@@ -34,3 +33,7 @@ Module: {{ feature.feature_heading }}
     </div>
    <a class="btn btn-info" href="{% url 'joan:project' feature.project.id %}">Home</a>
 </div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,20 +1,13 @@
-{% load static %}
-{# Load the tag library #}
-{% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% extends 'joan/base.html' %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{{  release  }}{% endblock %}</title>
+</head>
+<body>
+  {% block pagecontent %}
 
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-
-<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
-<script type="text/javascript" src="{% bootstrap_jquery_url %}">
-
-</script>
 <div class="container">
 
 <h2>{{ release }}</h2>
@@ -110,3 +103,7 @@ Details: {{ release.release_details }}  <br>
 
   <a class="btn btn-info" href="{% url 'joan:project' release.project.id %}">Home</a>
 </div>
+
+{% endblock %}
+</body>
+</html>

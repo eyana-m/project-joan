@@ -1,15 +1,14 @@
-{% load static %}
-{# Load the tag library #}
-{% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% extends 'joan/base.html' %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{{  requirement.requirement_heading }}{% endblock %}</title>
+</head>
+<body>
+  {% block pagecontent %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
 <div class="container">
    <div class="row">
 <h3>Business Requirement:</h3>
@@ -42,4 +41,11 @@ Details:
 <hr>
 
 <a class="btn btn-info" href="{% url 'joan:project' requirement.project.id %}">Project</a>
+
 <a class="btn btn-success" href="{% url 'joan:requirements_list' requirement.project.id %}">All Requirements</a>
+
+
+
+{% endblock %}
+</body>
+</html>

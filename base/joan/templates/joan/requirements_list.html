@@ -1,14 +1,11 @@
-{% load static %}
-{# Load the tag library #}
-{% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-<link rel="stylesheet" type="text/css" href="{% static 'joan/style.css' %}" />
+{% extends 'joan/base.html' %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{{ project.project_name }} | All Requirements {% endblock %}</title>
+</head>
+<body>
+  {% block pagecontent %}
 
 <div class="container">
 
@@ -73,3 +70,7 @@
 
 
 </div>
+
+{% endblock %}
+</body>
+</html>
