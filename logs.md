@@ -92,3 +92,7 @@ Now onto user experience
 ### September 5, 2017 - Tuesday
 1. Issue: not working bs3 collapse.js
 2. Added base.html template
+3. Started Simple and Functional Dashboard
+4. Next:
+[ ] Finalize I/O of Requirements-Feature Mapping.
+[ ] Integrate `Ticket`, `Sprint` and `Agreement` models
