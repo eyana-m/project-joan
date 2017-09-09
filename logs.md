@@ -104,8 +104,16 @@ Now onto user experience
 1. `inclusion_tags` for feature status
 2. Created `Sprint` model.
 3. Polished other models.
-4. Incorporated Sprint in project Dashboard
+4. Incorporated Sprint in project dashboard
 5. import export `Ticket` model. Do note the templates for import and export are different.
+
+
+### Next
+1. UX/Styling
+2. Dates in dashboard
+3. Auto update parent tickets based on child.
+4. Polishing
+5. Documentation on process flows.
 
 ----
 
