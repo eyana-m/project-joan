@@ -87,6 +87,7 @@ Now onto user experience
 1. Issues: Filter in Django template view
 --- Solved by adding logic in template view itself. Improve on this next time!
 2. Please be guided by the flowcharts and ERD (See official GDrive)
+3. Set up git in Atom!
 
 
 ### September 5, 2017 - Tuesday
@@ -99,6 +100,8 @@ Now onto user experience
 
 
 ### September 9, 2017 - Saturday
+1. `inclusion_tags` for feature status
+
 (What do I need to know?)
 
 #### Project Dashboard

@@ -1,5 +1,6 @@
 
 {% extends 'joan/base.html' %}
+{% load feature_extras %}
 
 <html lang="en">
 <head>
@@ -16,8 +17,8 @@
 
 Release: {{ feature.release }} <br>
 Project: {{ feature.project }} <br>
-Status: {{ feature.get_feature_status_display }} <br>
-Module: {{ feature.feature_heading }}
+Module: {{ feature.feature_heading }} <br>
+Status: {% show_feature_status feature %}
 </div>
 <br>
 <br>

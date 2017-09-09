@@ -1,5 +1,6 @@
-
 {% extends 'joan/base.html' %}
+{% load feature_extras %}
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -56,15 +57,7 @@ Details: {{ release.release_details }}  <br>
                     <tr class="table-borderless">
                       <td><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
                       <td><small><small>{{ feature.release }}<small></small></td>
-                      {% if feature.feature_status == 'NW' %}
-                      <td><span class="label label-default"><small>{{ feature.get_feature_status_display }}</small></span></td>
-                      {% elif feature.feature_status == 'DU' %}
-                      <td><span class="label label-warning"><small>{{ feature.get_feature_status_display }}</small></span></td>
-                      {% elif feature.feature_status == 'IP' %}
-                      <td><span class="label label-info"><small>{{ feature.get_feature_status_display }}</small></span></td>
-                      {% elif feature.feature_status == 'DO' %}
-                      <td><span class="label label-success"><small>{{ feature.get_feature_status_display }}</small></span></td>
-                      {% endif %}
+                      <td>{% show_feature_status feature %}</td>
                     </tr>
                   {% endif %}
                   {% endfor %}

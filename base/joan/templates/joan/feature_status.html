@@ -1,0 +1,9 @@
+{% if feature.feature_status == 'NW' %}
+<span class="label label-default"><small>{{ feature.get_feature_status_display }}</small></span>
+{% elif feature.feature_status == 'DU' %}
+<span class="label label-warning"><small>{{ feature.get_feature_status_display }}</small></span>
+{% elif feature.feature_status == 'IP' %}
+<span class="label label-info"><small>{{ feature.get_feature_status_display }}</small></span>
+{% elif feature.feature_status == 'DO' %}
+<span class="label label-success"><small>{{ feature.get_feature_status_display }}</small></span>
+{% endif %}
