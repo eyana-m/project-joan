@@ -1,22 +1,48 @@
-{% extends 'joan/base.html' %}
-{% load feature_extras %}
+{% extends 'joan/base.html' %} {% load feature_extras %}
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %} {{ sprint }}  {% endblock %}</title>
+  <title>{% block title %} {{ sprint }} {% endblock %}</title>
 </head>
+
 <body>
-{% block pagecontent %}
-
-{{ sprint.project }} <br>
-{{ sprint.release }} <br>
-{{ sprint.sprint_start_date}} <br>
-{{ sprint.sprint_end_date}} <br>
-{{ sprint.sprint_status}} <br>
+  {% block pagecontent %}
+  <div class="container">
 
 
+    {{ sprint.project }} <br>
+    {{ sprint.release }} <br>
+    {{ sprint.sprint_start_date}} <br>
+    {{ sprint.sprint_end_date}} <br>
+    {{ sprint.sprint_status}} <br>
+
+    <br>
+
+    {% if sprint.ticket_set.all %}
+    <table class="table table-bordered">
+      <tr>
+        <th> Ticket Name</th>
+        <th> DEN ID </th>
+        <th> Dev Assigned </th>
+        <th> Status</th>
+      </tr>
+      {% for ticket in sprint.ticket_set.all %}
+      <tr>
+        <td>{{ ticket.ticket_text }}</td>
+        <td><a href="{{ ticket.ticket_url}}" target="_blank">{{ ticket.ticket_id }}</a></td>
+        <td>{{ ticket.dev_assigned }}</td>
+        <td>{{ ticket.get_ticket_status_display }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %} No tickets! {% endif %}
+  </div>
 
 
-{% endblock %}
+  <a class="btn btn-info" href="{% url 'joan:project' sprint.project.id %}">Home</a>
+  {% endblock %}
+
 </body>
+
 </html>

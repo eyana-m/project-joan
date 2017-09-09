@@ -5,16 +5,17 @@ Trace business requirements with system features and agreements in one view.
 
 * ~~Export traceability to csv~~ **09-01**
 * Generate MoM in Word or PDF
-* Attach images and files in `agreement` model
-* Project Dashboard - low priority
+* Attach images and files in `Agreement` model
+* Project Dashboard - low priority **starting**
 * Generate Use Case Number - concatenation
 * Finalize URL redirection
 * Login!!! (Very basic thing lol)
 * ~~Improve Data Entry/Import by CSV~~ **09-01**
 * Batch Edit
-* Handling Sprints!
+* ~~Handling Sprints!~~ **09-09**
 * Form for each feature: Use Case Format (Export to Word or PDF)
 * Google Calendar Sync (Nice to Have)
+* Auto update parent model (`Feature`) if all child models (`Ticket`) are done
 
 ---
 
@@ -101,9 +102,14 @@ Now onto user experience
 
 ### September 9, 2017 - Saturday
 1. `inclusion_tags` for feature status
-2. Created `sprint` model.
+2. Created `Sprint` model.
 3. Polished other models.
-4. Incorporated in project Dashboard
+4. Incorporated Sprint in project Dashboard
+5. import export `Ticket` model. Do note the templates for import and export are different.
+
+----
+
+### Scratch Paper
 
 (What do I need to know?)
 
