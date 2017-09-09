@@ -55,17 +55,19 @@ class TicketResource(resources.ModelResource):
 
 
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
-    feature = fields.Field(column_name="Feature",attribute="feature",widget=ManyToManyWidget(Requirement,",","reqd_id"))
-    release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Release,"release_name"))
-    feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
-    feature_text = fields.Field(column_name="Feature", attribute="feature_text")
+    feature = fields.Field(column_name="Feature",attribute="feature",widget=ManyToManyWidget(Feature,",","feature_text"))
+    release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Sprint,"release"))
+    sprint = fields.Field(column_name="Sprint",attribute="sprint",widget=ForeignKeyWidget(Sprint,"sprint_name"))
+    ticket_text = fields.Field(column_name="Ticket Text", attribute="ticket_text")
+    ticket_id = fields.Field(column_name="Ticket ID", attribute="ticket_id")
+    dev_assigned = fields.Field(column_name="Developer", attribute="dev_assigned")
+    ticket_url = fields.Field(column_name="Link", attribute="ticket_url")
+
 
     class Meta:
         model = Feature
         import_id_fields = ('id',)
-        exclude = ['created_at', 'updated_at', 'feature_detail',]
-        fields = ['id', 'project', 'requirement', 'release','feature_heading', 'feature_text']
-
+        exclude = ['created_at', 'updated_at' ]
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         dataset.insert_col(0, col=["",]*dataset.height, header="id")
@@ -116,9 +118,6 @@ class ProjectFilter(SimpleListFilter):
 
 
 class RequirementForm(forms.ModelForm):
-
-    #project = forms.ModelChoiceField(queryset=Project.objects.all())
-#    release = forms.ModelChoiceField(queryset=Release.objects.all(project__id__exact=project.id))
 
     class Meta:
         model = Requirement
@@ -190,14 +189,23 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 class TicketAdmin(admin.ModelAdmin):
-    def requirements(self):
-        temp = []
-        for obj in Requirement.objects.filter(feature__id__exact=self.feature.id):
-            temp.append('<a href="%s">%s</a>' %(get_admin_url("requirement",obj), obj.reqd_id))
-        return temp
 
-    requirements.allow_tags = True
-    requirements.short_description = "Related Requirements"
+    resource_class = TicketResource
+    def features(self):
+        temp = []
+        for obj in Feature.objects.filter(ticket__id__exact=self.id):
+            temp.append('<a href="%s">%s</a>' %(get_admin_url("feature",obj), obj.feature_text))
+        if len(temp) >2:
+            temp2 = temp[:2]
+            temp2.append('<a href="/admin/joan/feature"> more</a>')
+            return temp2
+        else:
+            return temp
+        #return '<a href="%s" target="_blank">%s</a>' %(get_admin_url("feature",self.feature), self.feature.feature_text)
+
+
+    features.allow_tags = True
+    features.short_description = "Related Features"
 
     def pm_link(self):
         return '<a href="%s" target="_blank">%s</a>' %(self.ticket_url, self.ticket_id)
@@ -206,7 +214,7 @@ class TicketAdmin(admin.ModelAdmin):
     pm_link.short_description = "PM Tool Link"
 
 
-    list_display = ["ticket_text",pm_link, requirements]
+    list_display = ["ticket_text",pm_link, features, "sprint", "ticket_status"]
 
 
 class ReleaseInline(admin.StackedInline):

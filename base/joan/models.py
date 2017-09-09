@@ -165,7 +165,7 @@ class Ticket(models.Model):
     )
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
-    feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
+    features = models.ManyToManyField(Feature)
     sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, default=DEFAULT_SPRINT)
     ticket_id = models.CharField(max_length=10,blank=True)
     ticket_text = models.CharField(max_length=200)
