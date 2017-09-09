@@ -42,6 +42,37 @@ class FeatureResource(resources.ModelResource):
         return False
 
 
+class TicketResource(resources.ModelResource):
+
+
+    # project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
+    # feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
+    # sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, default=DEFAULT_SPRINT)
+    # ticket_id = models.CharField(max_length=10,blank=True)
+    # ticket_text = models.CharField(max_length=200)
+    # ticket_url = models.CharField(max_length=50,blank=True)
+    # is_feature = models.BooleanField(default=True)
+
+
+    project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
+    feature = fields.Field(column_name="Feature",attribute="feature",widget=ManyToManyWidget(Requirement,",","reqd_id"))
+    release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Release,"release_name"))
+    feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
+    feature_text = fields.Field(column_name="Feature", attribute="feature_text")
+
+    class Meta:
+        model = Feature
+        import_id_fields = ('id',)
+        exclude = ['created_at', 'updated_at', 'feature_detail',]
+        fields = ['id', 'project', 'requirement', 'release','feature_heading', 'feature_text']
+
+
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        dataset.insert_col(0, col=["",]*dataset.height, header="id")
+
+    def get_instance(self, instance_loader, row):
+        return False
+
 
 
 

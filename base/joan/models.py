@@ -152,6 +152,18 @@ class Sprint(models.Model):
 # Filed feature or task tickets per sprint/iteration in the project management tool.
 # One Feature can incur many tickets in many iteration
 class Ticket(models.Model):
+
+    NEW = 'NW'
+    IN_PROGRESS = 'IP'
+    FOR_FV = 'FV'
+    DONE = 'DO'
+    TICKET_STATUS_CHOICES = (
+        (NEW, 'New'),
+        (IN_PROGRESS, 'In Progress'),
+        (FOR_FV, 'For FV'),
+        (DONE, 'Done'),
+    )
+
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
     sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, default=DEFAULT_SPRINT)
@@ -159,6 +171,7 @@ class Ticket(models.Model):
     ticket_text = models.CharField(max_length=200)
     ticket_url = models.CharField(max_length=50,blank=True)
     dev_assigned = models.CharField(max_length=50,blank=True)
+    ticket_status = models.CharField(max_length=2,choices=TICKET_STATUS_CHOICES,default=NEW,)
     is_feature = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
