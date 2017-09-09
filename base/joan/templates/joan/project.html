@@ -104,13 +104,18 @@
 
 
   {% for sprint in sprint_list %}
-  <tr>
+  {% if sprint.sprint_status == 'AC' %}
+  <tr style="background: #f4e495">
+  {% else %}
+  <tr style="background: #aaa; font-style: italic; color: #666">
+  {% endif %}
     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>
     <td>{{ sprint.sprint_end_date }}</td>
     <td>{{ sprint.sprint_end_date }} </td>
     <td>{{ sprint.get_sprint_status_display}} </td>
   </tr>
+
   {% endfor %}
 
 
