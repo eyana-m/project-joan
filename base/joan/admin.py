@@ -23,7 +23,7 @@ from .models import Sprint
 class FeatureResource(resources.ModelResource):
 
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
-    requirement = fields.Field(column_name="Requirement",attribute="requirement",widget=ManyToManyWidget(Requirement,",","reqd_id"))
+    requirement = fields.Field(column_name="Requirement",attribute="requirements",widget=ManyToManyWidget(Requirement,",","reqd_id"))
     release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Release,"release_name"))
     feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
     feature_text = fields.Field(column_name="Feature", attribute="feature_text")
@@ -44,36 +44,43 @@ class FeatureResource(resources.ModelResource):
 
 class TicketResource(resources.ModelResource):
 
-
-    # project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
-    # feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
-    # sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, default=DEFAULT_SPRINT)
-    # ticket_id = models.CharField(max_length=10,blank=True)
-    # ticket_text = models.CharField(max_length=200)
-    # ticket_url = models.CharField(max_length=50,blank=True)
-    # is_feature = models.BooleanField(default=True)
-
-
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
-    feature = fields.Field(column_name="Feature",attribute="feature",widget=ManyToManyWidget(Feature,",","feature_text"))
-    release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Sprint,"release"))
-    sprint = fields.Field(column_name="Sprint",attribute="sprint",widget=ForeignKeyWidget(Sprint,"sprint_name"))
+    features = fields.Field(column_name="Features",attribute="features",widget=ManyToManyWidget(Feature,"|","feature_text"))
+    sprint = fields.Field(column_name="Sprint",attribute="sprint",widget=ForeignKeyWidget(Sprint,"release_sprint"))
     ticket_text = fields.Field(column_name="Ticket Text", attribute="ticket_text")
     ticket_id = fields.Field(column_name="Ticket ID", attribute="ticket_id")
     dev_assigned = fields.Field(column_name="Developer", attribute="dev_assigned")
     ticket_url = fields.Field(column_name="Link", attribute="ticket_url")
+    is_feature = fields.Field(column_name="Is Feature", attribute="is_feature")
 
 
     class Meta:
-        model = Feature
+        model = Ticket
         import_id_fields = ('id',)
         exclude = ['created_at', 'updated_at' ]
+        fields = ['project', 'features', 'sprint', 'ticket_text', 'ticket_id', 'dev_assigned','ticket_url', 'is_feature']
+
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         dataset.insert_col(0, col=["",]*dataset.height, header="id")
 
     def get_instance(self, instance_loader, row):
         return False
+    #
+    # def features(self):
+    #     temp = []
+    #     for obj in Feature.objects.filter(ticket__id__exact=self.id):
+    #         temp.append('<a href="%s">%s</a>' %(get_admin_url("feature",obj), obj.feature_text))
+    #     if len(temp) >2:
+    #         temp2 = temp[:2]
+    #         temp2.append('<a href="/admin/joan/feature"> more</a>')
+    #         return temp2
+    #     else:
+    #         return temp
+    # class FullNameForeignKeyWidget(ForeignKeyWidget):
+    #     def get_queryset(self, value, row):
+    #         return self.model.objects.filter(
+    #         )
 
 
 
@@ -188,7 +195,7 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     list_filter = [ProjectFilter, "release", "feature_status"]
 
 
-class TicketAdmin(admin.ModelAdmin):
+class TicketAdmin(ImportExportMixin, admin.ModelAdmin):
 
     resource_class = TicketResource
     def features(self):

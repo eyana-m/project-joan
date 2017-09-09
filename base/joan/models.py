@@ -146,6 +146,7 @@ class Sprint(models.Model):
     def __str__(self):
         return "%s - %s" %(self.release, self.sprint_name)
 
+    @property
     def release_sprint(self):
         return "%s - %s" %(self.release, self.sprint_name)
 
