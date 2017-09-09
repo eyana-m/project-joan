@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^feature/(?P<pk>[a-zA-Z0-9-]+)/$', views.FeatureView.as_view(), name='feature'),
     url(r'^release/(?P<pk>[a-zA-Z0-9-]+)/$', views.ReleaseView.as_view(), name='release'),
     url(r'^project/(?P<pk>[a-zA-Z0-9-]+)/requirements', views.ProjectRequirementsView.as_view(), name='requirements_list'),
-        url(r'^project/(?P<pk>[a-zA-Z0-9-]+)/features', views.ProjectFeaturesView.as_view(), name='features_list'),
+    url(r'^project/(?P<pk>[a-zA-Z0-9-]+)/features', views.ProjectFeaturesView.as_view(), name='features_list'),
+    url(r'^sprint/(?P<pk>[a-zA-Z0-9-]+)/$', views.SprintView.as_view(), name='sprint'),
 ]

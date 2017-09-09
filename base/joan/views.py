@@ -62,3 +62,7 @@ class ProjectRequirementsView(generic.DetailView):
 class ProjectFeaturesView(generic.DetailView):
     model = Project
     template_name = 'joan/features_list.html'
+
+class SprintView(generic.DetailView):
+    model = Sprint
+    template_name = 'joan/sprint.html'

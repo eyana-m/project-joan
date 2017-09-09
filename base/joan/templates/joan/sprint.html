@@ -1,0 +1,22 @@
+{% extends 'joan/base.html' %}
+{% load feature_extras %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %} {{ sprint }}  {% endblock %}</title>
+</head>
+<body>
+{% block pagecontent %}
+
+{{ sprint.project }} <br>
+{{ sprint.release }} <br>
+{{ sprint.sprint_start_date}} <br>
+{{ sprint.sprint_end_date}} <br>
+{{ sprint.sprint_status}} <br>
+
+
+
+
+{% endblock %}
+</body>
+</html>

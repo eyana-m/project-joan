@@ -73,7 +73,7 @@
         </div>
         <div class="panel-body text-center">
           <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a>
-          <a class="btn btn-info" href="{% url 'joan:features_list' project.id %}">View All Features <span class="badge">{{ features_count }}</span></a>
+          <a class="btn btn-info" href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a>
           <button class="btn btn-warning">View Release 1</button>
         </div>
       </div>
@@ -105,7 +105,7 @@
 
   {% for sprint in sprint_list %}
   <tr>
-    <td>{{ sprint }}</td>
+    <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>
     <td>{{ sprint.sprint_end_date }}</td>
     <td>{{ sprint.sprint_end_date }} </td>
