@@ -43,10 +43,17 @@ class FeatureResource(resources.ModelResource):
 
 
 class TicketResource(resources.ModelResource):
+    class FullSprintForeignKeyWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row):
+            return self.model.objects.filter(
+                release__project__project_name__exact=row["Project"],
+                release__release_name__exact=row["Release"],
+                sprint_name__iexact=row["Sprint"]
+            )
 
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
     features = fields.Field(column_name="Features",attribute="features",widget=ManyToManyWidget(Feature,"|","feature_text"))
-    sprint = fields.Field(column_name="Sprint",attribute="sprint",widget=ForeignKeyWidget(Sprint,"release_sprint"))
+    sprint = fields.Field(column_name="Sprint",attribute="sprint",widget=FullSprintForeignKeyWidget(Sprint,"sprint_name"))
     ticket_text = fields.Field(column_name="Ticket Text", attribute="ticket_text")
     ticket_id = fields.Field(column_name="Ticket ID", attribute="ticket_id")
     dev_assigned = fields.Field(column_name="Developer", attribute="dev_assigned")
@@ -60,27 +67,15 @@ class TicketResource(resources.ModelResource):
         exclude = ['created_at', 'updated_at' ]
         fields = ['project', 'features', 'sprint', 'ticket_text', 'ticket_id', 'dev_assigned','ticket_url', 'is_feature']
 
+    def dehydrate_sprint(self, ticket):
+        return '%s - %s' % (ticket.sprint.release, ticket.sprint.sprint_name)
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         dataset.insert_col(0, col=["",]*dataset.height, header="id")
 
     def get_instance(self, instance_loader, row):
         return False
-    #
-    # def features(self):
-    #     temp = []
-    #     for obj in Feature.objects.filter(ticket__id__exact=self.id):
-    #         temp.append('<a href="%s">%s</a>' %(get_admin_url("feature",obj), obj.feature_text))
-    #     if len(temp) >2:
-    #         temp2 = temp[:2]
-    #         temp2.append('<a href="/admin/joan/feature"> more</a>')
-    #         return temp2
-    #     else:
-    #         return temp
-    # class FullNameForeignKeyWidget(ForeignKeyWidget):
-    #     def get_queryset(self, value, row):
-    #         return self.model.objects.filter(
-    #         )
+
 
 
 
