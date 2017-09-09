@@ -13,6 +13,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Project.objects.order_by('id')[:10]
 
+
 # List of Requirements by Release under the Project
 class ProjectView(generic.DetailView):
     model = Project
@@ -22,6 +23,7 @@ class ProjectView(generic.DetailView):
         # Call the base implementation first to get a context
         context = super(ProjectView, self).get_context_data(**kwargs)
         context['sprint_list'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).order_by('-sprint_end_date')
+        context['features_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).count()
         return context
 
 class RequirementView(generic.DetailView):
@@ -56,3 +58,7 @@ class ReleaseView(generic.DetailView):
 class ProjectRequirementsView(generic.DetailView):
     model = Project
     template_name = 'joan/requirements_list.html'
+
+class ProjectFeaturesView(generic.DetailView):
+    model = Project
+    template_name = 'joan/features_list.html'
