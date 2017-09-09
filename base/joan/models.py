@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.db import models
 
 DEFAULT_PROJECT = 1
+DEFAULT_SPRINT = 1
 
 
 class Project (models.Model):
@@ -86,7 +87,7 @@ class Feature(models.Model):
     DONE = 'DO'
     FEATURE_STATUS_CHOICES = (
         (NEW, 'New'),
-        (DONE_USE_CASE, 'Use Case Done'),
+        (DONE_USE_CASE, 'UC Done'),
         (IN_PROGRESS, 'In Progress'),
         (DONE, 'Done'),
     )
@@ -118,17 +119,42 @@ class Feature(models.Model):
 
         super(Feature, self).save(*args, **kwargs)
 
+
+### Sprint
+### FK: Project, Release
+### Has many tickets
+class Sprint(models.Model):
+    NEW = 'NW'
+    ACTIVE = 'AC'
+    DONE = 'DO'
+    SPRINT_STATUS_CHOICES = (
+        (NEW, 'New'),
+        (ACTIVE, 'Active'),
+        (DONE, 'Done'),
+    )
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
+    sprint_name = models.CharField(max_length=20,blank=True)
+    sprint_details = models.CharField(max_length=100,blank=True,null=True)
+    sprint_start_date = models.DateField(blank=True, null=True)
+    sprint_end_date = models.DateField(blank=True, null=True)
+    feature_status = models.CharField(max_length=2,choices=SPRINT_STATUS_CHOICES,default=NEW,)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+
+    def __str__(self):
+        return self.release + " " + self.sprint_name
+
 # Filed feature or task tickets per sprint/iteration in the project management tool.
 # One Feature can incur many tickets in many iteration
 class Ticket(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
+    sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, default=DEFAULT_SPRINT)
     ticket_id = models.CharField(max_length=10,blank=True)
     ticket_text = models.CharField(max_length=200)
     ticket_url = models.CharField(max_length=50,blank=True)
-    release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
-    #release = models.CharField(max_length=5)
-    iteration = models.CharField(max_length=5,null=True, blank=True)
     is_feature = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
@@ -141,7 +167,7 @@ class Ticket(models.Model):
         return "Rel %s - Iter %s" %(self.release, self.iteration)
 
     class Meta:
-        ordering = ['release', 'id', 'ticket_text']
+        ordering = ['sprint', 'id', 'ticket_text']
 
 
 # Relate to Requirements, Meeting
