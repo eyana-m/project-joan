@@ -93,6 +93,36 @@ Now onto user experience
 1. Issue: not working bs3 collapse.js
 2. Added base.html template
 3. Started Simple and Functional Dashboard
-4. Next:
-[ ] Finalize I/O of Requirements-Feature Mapping.
-[ ] Integrate `Ticket`, `Sprint` and `Agreement` models
+4. Next:  
+[ ] Finalize I/O of Requirements-Feature Mapping.  
+[ ] Integrate `Ticket`, `Sprint` and `Agreement` models  
+
+
+### September 9, 2017 - Saturday
+(What do I need to know?)
+
+#### Project Dashboard
+
+Use Case: I want to track the current status of the project delivery
+
+* Current Sprint  
+* Deadline  
+* Allocated Sprints for Project  
+* How many sprints per release  
+* Target release dates  
+* Sprint Statuses  
+
+#### Release Page
+
+Use Case: I want to check if all intended requirements for the release are met.
+
+*   Release details (important dates, descriptions)
+*  All requirements and corresponding features.
+* Soon: Test Cases!
+
+#### Requirements Page
+
+Use Case: I want to check if all intended requirements for the whole project are met.
+
+*  All requirements and corresponding features.
+* Soon: Test Cases!
