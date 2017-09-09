@@ -25,3 +25,8 @@ li a {
 .table-borderless tr:first-child td{
   border-top: none!important
 }
+
+
+div {
+  font-size: 0.5em;
+}

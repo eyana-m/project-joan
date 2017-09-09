@@ -3,8 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-
-from .models import Requirement, Feature, Ticket, Project, Release
+from .models import Requirement, Feature, Ticket, Project, Release, Sprint
 
 # List of Projects
 class IndexView(generic.ListView):
@@ -18,9 +17,12 @@ class IndexView(generic.ListView):
 class ProjectView(generic.DetailView):
     model = Project
     template_name = 'joan/project.html'
-    pk_url_kwarg = 'pk'
-    #context_object_name = 'latest_requirement_list'
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ProjectView, self).get_context_data(**kwargs)
+        context['sprint_list'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).order_by('-sprint_end_date')
+        return context
 
 class RequirementView(generic.DetailView):
     model = Requirement

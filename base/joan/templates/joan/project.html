@@ -18,14 +18,15 @@
     <div class="col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading" >
-            Today is <b>{% now "l - F d, Y"  %}</b>
+            <small><em>Today is</em></small><br>
+            <h4><b>{% now "l - F d, Y"  %}</b></h4>
         </div>
         <div class="panel-body">
-            <b>Current Sprint:</b> Release 1 - Iteration 4 <br>
-            <b>Deadline:</b>  September 9, 2017 (1 man-day to go!) <br>
+            <small><em>Current Sprint </em></small><br>
+            <small><em>Deadline</em></small><br>
             <hr>
-            <b>Current Release:</b>  Release 1<br>
-            <b>Deadline</b> September 11, 2017 (2 man-day to go!)<br>
+            <small><em>Current Release</em></small><br>
+            <small><em>Deadline</em></small><br>
         </div>
       </div>
     </div>
@@ -33,7 +34,7 @@
     <div class="col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading" >
-          About the Project
+          Overview
         </div>
         <div class="panel-body">
             Project Name: {{project.project_name }} <br>
@@ -71,7 +72,7 @@
           Call to Action
         </div>
         <div class="panel-body text-center">
-          <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a> <br> <br>
+          <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a>
           <button class="btn btn-info">View All Features</button>
           <button class="btn btn-warning">View Release 1</button>
         </div>
@@ -94,23 +95,27 @@
 
 <table class="table table-striped table-bordered">
   <tr>
-    <th> Release</th>
-    <th> Sprint </th>
+    <th> Release-Sprint</th>
     <th> Start Date</th>
     <th> End Date</th>
     <th> Workdays to go!</th>
     <th> Status</th>
   </tr>
 
-  <tr>
-    <td>Rel 2.2 </td>
-    <td>Iter 1 </td>
-    <td>{% lorem 2 w random %} </td>
-    <td>{% lorem 2 w random %} </td>
-    <td>{% lorem 2 w random %} </td>
-    <td><span class="label label-success"> Done</span> </td>
 
+  {% for sprint in sprint_list %}
+  <tr>
+    <td>{{ sprint }}</td>
+    <td>{{ sprint.sprint_start_date }}</td>
+    <td>{{ sprint.sprint_end_date }}</td>
+    <td>{{ sprint.sprint_end_date }} </td>
+    <td>{{ sprint.get_sprint_status_display}} </td>
   </tr>
+  {% endfor %}
+
+
+
+
 
 </table>
 </div>

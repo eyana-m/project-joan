@@ -16,6 +16,7 @@ from .models import Ticket
 from .models import Agreement
 from .models import Project
 from .models import Release
+from .models import Sprint
 
 
 
@@ -174,7 +175,7 @@ class TicketAdmin(admin.ModelAdmin):
     pm_link.short_description = "PM Tool Link"
 
 
-    list_display = ["ticket_text", "release_sprint",pm_link, requirements]
+    list_display = ["ticket_text",pm_link, requirements]
 
 
 class ReleaseInline(admin.StackedInline):
@@ -206,9 +207,16 @@ class ReleaseAdmin(admin.ModelAdmin):
     list_display =  ["project_release"]
 
 
+
+class SprintAdmin(admin.ModelAdmin):
+
+    list_display = ["release_sprint", "project", "sprint_start_date", "sprint_end_date", "sprint_status"]
+
+
 admin.site.register(Requirement,RequirementAdmin)
 admin.site.register(Feature,FeatureAdmin)
 admin.site.register(Ticket,TicketAdmin)
 admin.site.register(Agreement)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Release, ReleaseAdmin)
+admin.site.register(Sprint, SprintAdmin)

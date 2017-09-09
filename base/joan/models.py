@@ -139,12 +139,15 @@ class Sprint(models.Model):
     sprint_details = models.CharField(max_length=100,blank=True,null=True)
     sprint_start_date = models.DateField(blank=True, null=True)
     sprint_end_date = models.DateField(blank=True, null=True)
-    feature_status = models.CharField(max_length=2,choices=SPRINT_STATUS_CHOICES,default=NEW,)
+    sprint_status = models.CharField(max_length=2,choices=SPRINT_STATUS_CHOICES,default=NEW,)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
     def __str__(self):
-        return self.release + " " + self.sprint_name
+        return "%s - %s" %(self.release, self.sprint_name)
+
+    def release_sprint(self):
+        return "%s - %s" %(self.release, self.sprint_name)
 
 # Filed feature or task tickets per sprint/iteration in the project management tool.
 # One Feature can incur many tickets in many iteration
@@ -163,8 +166,6 @@ class Ticket(models.Model):
     def __str__(self):
         return self.ticket_text
 
-    def release_sprint(self):
-        return "Rel %s - Iter %s" %(self.release, self.iteration)
 
     class Meta:
         ordering = ['sprint', 'id', 'ticket_text']
