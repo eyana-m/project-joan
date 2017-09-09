@@ -158,6 +158,7 @@ class Ticket(models.Model):
     ticket_id = models.CharField(max_length=10,blank=True)
     ticket_text = models.CharField(max_length=200)
     ticket_url = models.CharField(max_length=50,blank=True)
+    dev_assigned = models.CharField(max_length=50,blank=True)
     is_feature = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
