@@ -47,7 +47,7 @@ class Requirement(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
     reqd_id = models.CharField('No.',max_length=15,blank=True)
     requirement_heading = models.CharField('Category', max_length=70,blank=True)
-    requirement_text = models.CharField('Requirement Name', max_length=300)
+    requirement_text = models.CharField('Requirement Name', max_length=300,unique=True)
     requirement_details = models.TextField('Details',max_length=400,blank=True,null=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
@@ -95,7 +95,7 @@ class Feature(models.Model):
     requirements = models.ManyToManyField(Requirement)
     release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, blank=True)
     feature_heading = models.CharField('Category', max_length=50,blank=True)
-    feature_text = models.CharField('Feature Name', max_length=200)
+    feature_text = models.CharField('Feature Name', max_length=200,unique=True)
     feature_details = models.TextField('Details',max_length=300,blank=True,null=True)
 
     feature_status = models.CharField(max_length=2,choices=FEATURE_STATUS_CHOICES,default=NEW,)

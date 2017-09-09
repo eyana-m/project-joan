@@ -22,9 +22,17 @@ from .models import Sprint
 
 class FeatureResource(resources.ModelResource):
 
+    #Ensure release model is within project context
+    class ReleaseForeignKeyWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row):
+            return self.model.objects.filter(
+                release__project__project_name__exact=row["Project"],
+                release_name__exact=row["Release"],
+            )
+
     project = fields.Field(column_name="Project",attribute="project",widget=ForeignKeyWidget(Project,"project_name"))
     requirement = fields.Field(column_name="Requirement",attribute="requirements",widget=ManyToManyWidget(Requirement,",","reqd_id"))
-    release = fields.Field(column_name="Release",attribute="release",widget=ForeignKeyWidget(Release,"release_name"))
+    release = fields.Field(column_name="Release",attribute="release",widget=ReleaseForeignKeyWidget(Release,"release_name"))
     feature_heading = fields.Field(column_name="Category", attribute="feature_heading")
     feature_text = fields.Field(column_name="Feature", attribute="feature_text")
 
@@ -43,6 +51,9 @@ class FeatureResource(resources.ModelResource):
 
 
 class TicketResource(resources.ModelResource):
+    
+    ## Separate Release Column for Import.
+    ## Ensure Release and Sprint is within project context
     class FullSprintForeignKeyWidget(ForeignKeyWidget):
         def get_queryset(self, value, row):
             return self.model.objects.filter(
