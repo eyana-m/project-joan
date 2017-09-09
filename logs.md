@@ -146,3 +146,14 @@ Use Case: I want to check if all intended requirements for the whole project are
 
 *  All requirements and corresponding features.
 * Soon: Test Cases!
+
+
+#### Sprint Page
+
+Use Case: I want to be able to report what happened during the sprint.
+
+must be able to:     
+* view related features (and maybe related requirement)    
+* update status on the spot  
+* (nice to have) update logs
+* generate report status/retrospective per sprint  

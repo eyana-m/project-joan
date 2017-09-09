@@ -98,7 +98,8 @@
     <th> Release-Sprint</th>
     <th> Start Date</th>
     <th> End Date</th>
-    <th> Workdays to go!</th>
+    <th> Tickets </th>
+    <th> Mandays to go!</th>
     <th> Status</th>
   </tr>
 
@@ -113,14 +114,12 @@
     <td>{{ sprint.sprint_start_date }}</td>
     <td>{{ sprint.sprint_end_date }}</td>
     <td>{{ sprint.sprint_end_date }} </td>
+    <td> **1** </td>
+    <td> **10 mandays** </td>
     <td>{{ sprint.get_sprint_status_display}} </td>
   </tr>
 
   {% endfor %}
-
-
-
-
 
 </table>
 </div>
