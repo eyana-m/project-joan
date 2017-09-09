@@ -18,16 +18,14 @@
     <div class="col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading" >
-            Today is <b>Friday - September 9, 2017</b>
+            Today is <b>{% now "l, F d Y"  %}</b>
         </div>
         <div class="panel-body">
-            <small>
             <b>Current Sprint:</b> Release 1 - Iteration 4 <br>
             <b>Deadline:</b>  September 9, 2017 (1 man-day to go!) <br>
             <hr>
             <b>Current Release:</b>  Release 1<br>
             <b>Deadline</b> September 11, 2017 (2 man-day to go!)<br>
-          </small>
         </div>
       </div>
     </div>
@@ -38,13 +36,12 @@
           About the Project
         </div>
         <div class="panel-body">
-            <small>
-            <b>Project Name:</b> {{project.project_name }} <br>
-            <b>Company:</b> {{ project.project_company}} <br>
-            <b>Project Start:</b>  {{ project.project_start_date }} <br>
-            <b>Project End:</b>  {{ project.project_end_date}}<br>
-            <b>Description:</b>  <em>{{ project.project_description}} </em><br>
-            <b>Release Count:</b>  {{ project.release_set.count }}<br></small>
+            Project Name: {{project.project_name }} <br>
+            Company: {{ project.project_company}} <br>
+            Project Start:  {{ project.project_start_date }} <br>
+            Project End:  {{ project.project_end_date}}<br>
+            Description:  <em>{{ project.project_description}} </em><br>
+            Release Count:  {{ project.release_set.count }}<br>
         </div>
       </div>
     </div>
@@ -52,18 +49,6 @@
 </div> <!--end row-->
 
   <div class="row">
-    <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading" >
-          Call to Action
-        </div>
-        <div class="panel-body text-center">
-          <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a>
-          <button class="btn btn-warning">View Release 1</button><br><br>
-          <button class="btn btn-danger">Add Requirement</button>
-        </div>
-      </div>
-    </div>
 
     <div class="col-sm-6">
       <div class="panel panel-default">
@@ -71,15 +56,28 @@
           In Numbers
         </div>
         <div class="panel-body">
-          <small>
-          <b>Requirements Met:</b> 10 out of 30 (33%)<br>
-          <b>Features Met:</b> 10 out of 30 (33%) <br>
+          Requirements Met: 10 out of 30 (33%)<br>
+          Features Met: 10 out of 30 (33%) <br>
           <hr>
-          <b>Use Cases Done:</b> 30 out of 30 (100%)<br>
-          <b>For Functional Validation:</b> 3 out of 30 (10%) <br>
+          Use Cases Done: 30 out of 30 (100%)<br>
+          For Functional Validation: 3 out of 30 (10%) <br>
         </div>
       </div>
     </div>
+
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading" >
+          Call to Action
+        </div>
+        <div class="panel-body text-center">
+          <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a> <br> <br>
+          <button class="btn btn-info">View All Features</button>
+          <button class="btn btn-warning">View Release 1</button>
+        </div>
+      </div>
+    </div>
+
   </div> <!--end row-->
   </div><!--end container-->
 
@@ -128,7 +126,7 @@
      <div class="col-xs-4 word-wrap">
       <a href="{% url 'joan:release' release.id %}">{{ release }} </a> <span class="badge">{{ release.feature_set.count}}</span>
         {% for feature in release.feature_set.all %}
-          <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
+          <li><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></li>
         {% endfor %}
         <br>
       </div>
