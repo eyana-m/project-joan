@@ -101,6 +101,9 @@ Now onto user experience
 
 ### September 9, 2017 - Saturday
 1. `inclusion_tags` for feature status
+2. Created `sprint` model.
+3. Polished other models.
+4. Incorporated in project Dashboard
 
 (What do I need to know?)
 
