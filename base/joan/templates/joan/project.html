@@ -18,7 +18,7 @@
     <div class="col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading" >
-            <small><em>Today is</em></small><br>
+            Today is
             <h4><b>{% now "l - F d, Y"  %}</b></h4>
         </div>
         <div class="panel-body">
@@ -113,9 +113,8 @@
     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>
     <td>{{ sprint.sprint_end_date }}</td>
-    <td>{{ sprint.sprint_end_date }} </td>
-    <td> **1** </td>
-    <td> **10 mandays** </td>
+    <td> 1 </td>
+    <td> 10 mandays </td>
     <td>{{ sprint.get_sprint_status_display}} </td>
   </tr>
 
