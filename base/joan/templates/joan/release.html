@@ -55,9 +55,9 @@ Details: {{ release.release_details }}  <br>
                 {% for feature in requirement.feature_set.all %}
                   {% if feature.release.id is release.id %}
                     <tr class="table-borderless">
-                      <td><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                      <td><small><small>{{ feature.release }}<small></small></td>
-                      <td>{% show_feature_status feature %}</td>
+                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
+                      <td class="col-md-2">{% show_feature_status feature %}</td>
                     </tr>
                   {% endif %}
                   {% endfor %}
