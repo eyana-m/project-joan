@@ -12,18 +12,18 @@
 <div class="container">
 
 <br>
-  <div class="pull-right">
+  <div class="pull-right" style="color: red">
     must be able to: <br>
-    view related features (and maybe related requirement)<br>
-    update status on the spot <br>
-    (nice to have) update logs <br>
+    <s> view related features (and maybe related requirement)</s><br>
+    (form) update status on the spot <br>
+    (form) add sprint notes <br>
     generate report status/retrospective per sprint <br>
   </div>
   <div class="container">
 
 
-    {{ sprint.project }} <br>
-    {{ sprint.release }} <br>
+    <a href="{% url 'joan:project' sprint.project.id %}">{{ sprint.project }}</a> <br>
+    <a href="{% url 'joan:release' sprint.release.id %}">{{ sprint.release }}</a> <br>
     {{ sprint.sprint_start_date}} <br>
     {{ sprint.sprint_end_date}} <br>
     {{ sprint.get_sprint_status_display}} <br>
