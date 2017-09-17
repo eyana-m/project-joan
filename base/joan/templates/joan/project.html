@@ -53,11 +53,11 @@
           In Numbers
         </div>
         <div class="panel-body">
-          Requirements Met: {{ requirements_met_count }} out of {{ project.requirement_set.count }} (33%)<br>
+          Requirements Met: {{ requirements_met_count }} out of {{ project.requirement_set.count }} ({{requirements_met_percentage}})<br>
           Features Met: {{ features_done_count }} out of {{ features_count }} ({{ features_done_percentage }}) <br>
           <hr>
-          Use Cases Done: 30 out of {{ features_count }} (100%)<br>
-          For Functional Validation: 3 out of {{ features_count }} (10%) <br>
+          Use Cases Done: {{ features_uc_done_count }} out of {{ features_count }} ({{ features_uc_done_percentage }})<br>
+          For Functional Validation: {{ features_for_fv_count }}  out of {{ features_uc_done_count }}  ({{ features_for_fv_percentage }}) <br>
         </div>
       </div>
     </div>
