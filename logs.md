@@ -108,13 +108,18 @@ Now onto user experience
 5. import export `Ticket` model. Do note the templates for import and export are different.
 
 
+
+### September 17, 2017 - Sunday
+1. Project Dashboard enhancement (Counts, percentages, Dates, Workdays)
+2. Added template tags - count business days
+3. Auto update tickets based on **dates** for `Sprint` model
+
+
 ### Next
 1. UX/Styling
-2. Dates in dashboard
-3. Auto update parent tickets based on child.
-4. Polishing
-5. Documentation on process flows.
-
+2. Auto update parent tickets based on child.
+3. Polishing
+4. Documentation on process flows.
 ----
 
 ### Scratch Paper
@@ -125,12 +130,12 @@ Now onto user experience
 
 Use Case: I want to track the current status of the project delivery
 
-* Current Sprint  
-* Deadline  
-* Allocated Sprints for Project  
-* How many sprints per release  
-* Target release dates  
-* Sprint Statuses  
+* ~~Current Sprint~~  **Done 09-15**
+* ~~Deadline~~  **Done 09-15**
+* ~~Allocated Sprints for Project~~  **Done 09-15**
+* ~~How many sprints per release~~ **Done 09-15**
+* ~~Target release dates~~  **Done 09-15**
+* ~~Sprint Statuses~~  **Done 09-15**
 
 #### Release Page
 
@@ -151,7 +156,6 @@ Use Case: I want to check if all intended requirements for the whole project are
 #### Sprint Page
 
 Use Case: I want to be able to report what happened during the sprint.
-
 must be able to:     
 * view related features (and maybe related requirement)    
 * update status on the spot  

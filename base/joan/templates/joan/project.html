@@ -72,7 +72,7 @@
           <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a><br>
           <a href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a><br>
         {% for release in project.release_set.all %}
-          <a href="{% url 'joan:release' release.id %}">View {{ release }} </a> <br>
+          <a href="{% url 'joan:release' release.id %}">View {{ release }} <span class="badge">{{ release.sprint_set.count}}</span> </a><br>
         {% endfor %}
         </div>
       </div>
