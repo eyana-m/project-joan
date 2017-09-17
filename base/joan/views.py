@@ -43,9 +43,9 @@ class ProjectView(generic.DetailView):
         context['features_done_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='DO').count()
         context['features_done_percentage'] = percentage(context['features_done_count'],context['features_count'] )
 
-        context['features_uc_done_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='DU').count()
-        context['features_uc_done_percentage'] = percentage(context['features_uc_done_count'],context['features_count'] )
-
+        uc_done_only = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='DU').count()
+        context['features_uc_done_count'] = context['features_done_count'] + uc_done_only
+        context['features_uc_done_percentage'] = percentage(context['features_uc_done_count'] ,context['features_count'])
 
         context['features_for_fv_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='FV').count()
         context['features_for_fv_percentage'] = percentage(context['features_for_fv_count'],context['features_uc_done_count'])

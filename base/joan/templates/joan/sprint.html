@@ -9,6 +9,9 @@
 <body>
   {% block pagecontent %}
 
+<div class="container">
+
+<br>
   <div class="pull-right">
     must be able to: <br>
     view related features (and maybe related requirement)<br>
@@ -23,7 +26,7 @@
     {{ sprint.release }} <br>
     {{ sprint.sprint_start_date}} <br>
     {{ sprint.sprint_end_date}} <br>
-    {{ sprint.sprint_status}} <br>
+    {{ sprint.get_sprint_status_display}} <br>
 
     <br>
 
@@ -31,16 +34,24 @@
     <table class="table table-bordered">
       <tr>
         <th> Ticket Name</th>
+        <th> Features</th>
         <th> DEN ID </th>
         <th> Dev Assigned </th>
         <th> Status</th>
+
       </tr>
       {% for ticket in sprint.ticket_set.all %}
       <tr>
         <td>{{ ticket.ticket_text }}</td>
+        <td>
+            {% for feature in ticket.features.all %}
+            <a href="{% url 'joan:feature' feature.id %}"> {{ feature.id }} </a>
+            {% endfor %}
+        </td>
         <td><a href="{{ ticket.ticket_url}}" target="_blank">{{ ticket.ticket_id }}</a></td>
         <td>{{ ticket.dev_assigned }}</td>
         <td>{{ ticket.get_ticket_status_display }}</td>
+
       </tr>
       {% endfor %}
     </table>
@@ -49,6 +60,8 @@
 
 
   <a class="btn btn-info" href="{% url 'joan:project' sprint.project.id %}">Home</a>
+
+  </div>
   {% endblock %}
 
 </body>

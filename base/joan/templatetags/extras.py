@@ -2,7 +2,6 @@ from django import template
 from django.template.loader import get_template
 from datetime import timedelta, date
 from django.utils.timezone import localtime, now
-
 register = template.Library()
 t = get_template('joan/feature_status.html')
 
@@ -32,3 +31,15 @@ def count_business_days(to_date):
 
     except AttributeError:
         return ''
+
+@register.filter
+def get_features(ticket):
+    temp = []
+    for obj in Feature.objects.filter(ticket__id__exact=self.id):
+        temp.append("obj.feature_text")
+    if len(temp) >1:
+        temp2 = temp[:1]
+        temp2.append('more')
+        return temp2
+    else:
+        return temp
