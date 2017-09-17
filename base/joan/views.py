@@ -24,7 +24,6 @@ class IndexView(generic.ListView):
 class ProjectView(generic.DetailView):
     model = Project
     template_name = 'joan/project.html'
-    #add_business_days =
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context

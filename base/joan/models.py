@@ -85,11 +85,13 @@ class Feature(models.Model):
     NEW = 'NW'
     DONE_USE_CASE = 'DU'
     IN_PROGRESS = 'IP'
+    FOR_FV = 'FV'
     DONE = 'DO'
     FEATURE_STATUS_CHOICES = (
         (NEW, 'New'),
         (DONE_USE_CASE, 'UC Done'),
         (IN_PROGRESS, 'In Progress'),
+        (FOR_FV, 'For FV'),
         (DONE, 'Done'),
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=DEFAULT_PROJECT)
