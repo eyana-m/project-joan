@@ -22,11 +22,11 @@
             <h4><b>{% now "l - F d, Y"  %}</b></h4>
         </div>
         <div class="panel-body">
-            <small><em>Current Sprint: </em></small> <a href="{% url 'joan:sprint' current_sprint.id %}">{{ current_sprint }}</a> |
-            <small><em>Deadline</em></small><br>
+            <small><em>Current Sprint: </em></small> <a href="{% url 'joan:sprint' current_sprint.id %}">{{ current_sprint }}</a>
+            <small><em>({{ sprint_man_days_left }} man-days left!)</em></small><br>
 
-            <small><em>Current Release: </em></small> <a href="{% url 'joan:release' current_sprint.release.id %}">{{ current_sprint.release }}</a> |
-            <small><em>Deadline</em></small><br>
+            <small><em>Current Release: </em></small> <a href="{% url 'joan:release' current_sprint.release.id %}">{{ current_sprint.release }}</a>
+            <small><em>({{ release_man_days_left }} man-days left until UAT!)</em></small><br>
         </div>
       </div>
     </div>

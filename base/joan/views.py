@@ -4,6 +4,12 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Requirement, Feature, Ticket, Project, Release, Sprint
+from datetime import timedelta, date
+from django.utils.timezone import localtime, now
+
+def count_business_days(from_date, to_date):
+    day_generator = (from_date + timedelta(x + 1) for x in range((to_date - from_date).days))
+    return sum(1 for day in day_generator if day.weekday() < 5)
 
 # List of Projects
 class IndexView(generic.ListView):
@@ -18,11 +24,15 @@ class IndexView(generic.ListView):
 class ProjectView(generic.DetailView):
     model = Project
     template_name = 'joan/project.html'
+    #add_business_days =
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ProjectView, self).get_context_data(**kwargs)
-        context['current_sprint'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(sprint_status__exact='AC').get()
+        current_sprint = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(sprint_status__exact='AC').get()
+        context['current_sprint'] = current_sprint
+        context['sprint_man_days_left'] = count_business_days(localtime(now()).date(),current_sprint.sprint_end_date)
+        context['release_man_days_left'] = count_business_days(localtime(now()).date(),current_sprint.release.release_uat_start_date)
         context['sprint_list'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).order_by('-sprint_end_date')
         context['features_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).count()
         return context

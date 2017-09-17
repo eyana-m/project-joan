@@ -39,7 +39,7 @@
                 {% for feature in requirement.feature_set.all %}
                 <tr>
                   <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                  <td class="col-md-2"><small><small>{{ feature.release }}<small></small></td>
+                  <td class="col-md-2"><small><small><a href="">{{ feature.release }}</a><small></small></td>
                   <td class="col-md-2">
                   {% show_feature_status feature %}
                   </td>
