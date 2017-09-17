@@ -121,9 +121,7 @@ Now onto user experience
 3. Polishing
 4. Documentation on process flows.
 5. Forms: update ticket statuses!
-----
 
-### Scratch Paper
 
 (What do I need to know?)
 
