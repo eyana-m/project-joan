@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import datetime
 import re
 from django.utils import timezone
+from django.utils.timezone import localtime, now
 from django.db import models
 
 DEFAULT_PROJECT = 1
@@ -149,6 +150,12 @@ class Sprint(models.Model):
     @property
     def release_sprint(self):
         return "%s - %s" %(self.release, self.sprint_name)
+
+    def save(self, *args, **kwargs):
+        if self.sprint_end_date < localtime(now()).date():
+            self.sprint_status = 'DO'
+        super(Sprint, self).save(*args, **kwargs)
+
 
 # Filed feature or task tickets per sprint/iteration in the project management tool.
 # One Feature can incur many tickets in many iteration

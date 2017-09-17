@@ -33,16 +33,12 @@
 
     <div class="col-sm-6">
       <div class="panel panel-default">
-        <div class="panel-heading" >
-          Overview
-        </div>
         <div class="panel-body">
-            Project Name: {{project.project_name }} <br>
-            Company: {{ project.project_company}} <br>
-            Project Start:  {{ project.project_start_date }} <br>
-            Project End:  {{ project.project_end_date}}<br>
-            Description:  <em>{{ project.project_description}} </em><br>
-            Release Count:  {{ project.release_set.count }}<br>
+            <b>{{project.project_name }}</b> <br>
+            <b>{{ project.project_company}}</b> <br>
+            <b>{{ project.project_start_date }}</b> <em>(Project Start)</em><br>
+            <b>{{ project.project_end_date}}</b><em>(Project End)</em><br>
+            <em>{{ project.project_description}} </em><br>
         </div>
       </div>
     </div>
@@ -108,7 +104,7 @@
   {% if sprint.sprint_status == 'AC' %}
   <tr style="background: #f4e495">
   {% else %}
-  <tr style="background: #aaa; font-style: italic; color: #666">
+  <tr style="background: #aaa; font-style: italic; color: #444; font-style: strikethrough">
   {% endif %}
     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>
