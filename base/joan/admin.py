@@ -51,7 +51,7 @@ class FeatureResource(resources.ModelResource):
 
 
 class TicketResource(resources.ModelResource):
-    
+
     ## Separate Release Column for Import.
     ## Ensure Release and Sprint is within project context
     class FullSprintForeignKeyWidget(ForeignKeyWidget):
@@ -197,7 +197,7 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.allow_tags = True
     tickets.short_description = "Related Tickets"
 
-    list_display = ["feature_text", "feature_heading", requirements, "feature_status"]
+    list_display = ["feature_text", "feature_heading", requirements, "release",  "feature_status"]
     list_filter = [ProjectFilter, "release", "feature_status"]
 
 

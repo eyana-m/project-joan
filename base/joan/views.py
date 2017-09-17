@@ -11,6 +11,9 @@ def count_business_days(from_date, to_date):
     day_generator = (from_date + timedelta(x + 1) for x in range((to_date - from_date).days))
     return sum(1 for day in day_generator if day.weekday() < 5)
 
+def percentage(part, whole):
+    return "{:.0%}".format(part/whole)
+
 # List of Projects
 class IndexView(generic.ListView):
     template_name = 'joan/index.html'
@@ -34,6 +37,9 @@ class ProjectView(generic.DetailView):
         context['release_man_days_left'] = count_business_days(localtime(now()).date(),current_sprint.release.release_uat_start_date)
         context['sprint_list'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).order_by('-sprint_end_date')
         context['features_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).count()
+        context['features_done_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='DO').count()
+        context['features_done_percentage'] = percentage(context['features_done_count'],context['features_count'] )
+        context['requirements_met_count'] = Requirement.objects.filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__exact='DO').distinct().count()
         return context
 
 class RequirementView(generic.DetailView):
