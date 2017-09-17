@@ -1,5 +1,6 @@
 
 {% extends 'joan/base.html' %}
+{% load extras %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -68,9 +69,11 @@
           Call to Action
         </div>
         <div class="panel-body text-center">
-          <a class href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a>
-          <a class="btn btn-info" href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a>
-          <button class="btn btn-warning">View Release 1</button>
+          <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a><br>
+          <a href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a><br>
+        {% for release in project.release_set.all %}
+          <a href="{% url 'joan:release' release.id %}">View {{ release }} </a> <br>
+        {% endfor %}
         </div>
       </div>
     </div>
@@ -109,8 +112,8 @@
     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>
     <td>{{ sprint.sprint_end_date }}</td>
-    <td> 1 </td>
-    <td> 10 mandays </td>
+    <td> {{ sprint.ticket_set.count }}</td>
+    <td> {{ sprint.sprint_end_date|count_business_days}}</td>
     <td>{{ sprint.get_sprint_status_display}} </td>
   </tr>
 

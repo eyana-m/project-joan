@@ -1,0 +1,34 @@
+from django import template
+from django.template.loader import get_template
+from datetime import timedelta, date
+from django.utils.timezone import localtime, now
+
+register = template.Library()
+t = get_template('joan/feature_status.html')
+
+@register.inclusion_tag(t)
+def show_feature_status(feature):
+    return {'feature': feature}
+
+@register.inclusion_tag(t)
+def show_feature_status(feature):
+    return {'feature': feature}
+
+@register.filter(expects_localtime=True)
+def count_business_days(to_date):
+    from_date = localtime(now()).date()
+    try:
+        #future
+        if to_date >= from_date:
+            day_generator = (from_date + timedelta(x + 1) for x in range((to_date - from_date).days))
+            mandays = sum(1 for day in day_generator if day.weekday() < 5)
+            if mandays > 1: return str(mandays)  + " workdays to go"
+            else: return str(mandays)  + " workday to go"
+        else:
+            day_generator = (from_date + timedelta(x + 1) for x in range((from_date - to_date).days))
+            mandays = sum(1 for day in day_generator if day.weekday() < 5) - 1
+            if mandays > 1: return str(mandays)  + " workdays ago"
+            else: return str(mandays)  + " workday ago"
+
+    except AttributeError:
+        return ''
