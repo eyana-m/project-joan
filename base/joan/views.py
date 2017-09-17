@@ -22,6 +22,7 @@ class ProjectView(generic.DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ProjectView, self).get_context_data(**kwargs)
+        context['current_sprint'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).filter(sprint_status__exact='AC').get()
         context['sprint_list'] = Sprint.objects.filter(release__project__id__exact=self.kwargs['pk']).order_by('-sprint_end_date')
         context['features_count'] = Feature.objects.filter(release__project__id__exact=self.kwargs['pk']).count()
         return context
