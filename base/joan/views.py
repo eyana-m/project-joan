@@ -92,6 +92,8 @@ class ReleaseView(generic.DetailView):
 
         context['done_sprint_list'] = Sprint.objects.filter(release__id__exact=self.kwargs['pk']).filter(sprint_status__exact='DO')
 
+        context['sprint_list'] = Sprint.objects.filter(release__id__exact=self.kwargs['pk']).order_by('-sprint_end_date')
+
         return context
 
 class ProjectRequirementsView(generic.DetailView):

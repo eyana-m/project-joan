@@ -8,6 +8,21 @@ li a {
     color: green;
 }
 
+.done-tr {
+  background: #cecece;
+  font-style: italic;
+  color: #a8a8a8;
+}
+
+.done-tr a{
+  color: #a8a8a8;
+  text-decoration: underline;
+
+}
+.current-tr{
+  background: #f4e495
+}
+
 .panel{
   border-radius: 0;
   border: none;
@@ -45,5 +60,5 @@ li a {
 }
 
 .table tr{
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
