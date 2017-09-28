@@ -69,15 +69,11 @@
           Call to Action
         </div>
         <div class="panel-body text-center">
-          <div class="col-md-6">
-            <a class="btn btn-success" href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a><br><br>
-            <a class="btn btn-success" href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a><br>
-          </div>
-          <div class="col-md-6">
-            {% for release in project.release_set.all %}
-              <a class="btn btn-success" href="{% url 'joan:release' release.id %}">View {{ release }} <span class="badge">{{ release.sprint_set.count}}</span> </a><br><br>
-            {% endfor %}
-          </div>
+          <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a><br>
+          <a href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a><br>
+        {% for release in project.release_set.all %}
+          <a href="{% url 'joan:release' release.id %}">View {{ release }} <span class="badge">{{ release.sprint_set.count}}</span> </a><br>
+        {% endfor %}
         </div>
       </div>
     </div>
@@ -111,7 +107,7 @@
   {% if sprint.sprint_status == 'AC' %}
   <tr style="background: #f4e495">
   {% else %}
-  <tr style="background: #aaa; font-style: italic; font-size: 0.9em; color: #444; font-style: strikethrough">
+  <tr style="background: #aaa; font-style: italic; color: #444; font-style: strikethrough">
   {% endif %}
     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>

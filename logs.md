@@ -115,14 +115,17 @@ Now onto user experience
 3. Auto update tickets based on **dates** for `Sprint` model
 
 
+<<<<<<< HEAD
 
 ### September 28, 2017 - Sunday
 
 
+=======
+>>>>>>> parent of c259616... last minute notes on release and sprint
 ### Next
-1. Focus on `Release` and `Sprint` pages. (See each page for notes)
-2. General UX/Styling
-3. Auto update parent tickets based on child.
+1. UX/Styling
+2. Auto update parent tickets based on child.
+3. Polishing
 4. Documentation on process flows.
 5. Forms: update ticket statuses!
 6. Login!!!
@@ -145,9 +148,9 @@ Use Case: I want to track the current status of the project delivery
 
 Use Case: I want to check if all intended requirements for the release are met.
 
-*  Release details (important dates, descriptions)
+*   Release details (important dates, descriptions)
 *  All requirements and corresponding features.
-*  Soon: Test Cases!
+* Soon: Test Cases!
 
 #### Requirements Page
 
