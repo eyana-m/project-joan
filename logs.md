@@ -116,10 +116,13 @@ Now onto user experience
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ### September 28, 2017 - Sunday
 
 
+=======
+>>>>>>> parent of c259616... last minute notes on release and sprint
 =======
 >>>>>>> parent of c259616... last minute notes on release and sprint
 ### Next
