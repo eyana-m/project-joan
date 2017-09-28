@@ -114,23 +114,11 @@ Now onto user experience
 2. Added template tags - count business days
 3. Auto update tickets based on **dates** for `Sprint` model
 
+### September 28, 2017
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-### September 28, 2017 - Sunday
+1. Fixed Issue #3
 
 
-=======
->>>>>>> parent of c259616... last minute notes on release and sprint
-=======
->>>>>>> parent of c259616... last minute notes on release and sprint
-=======
->>>>>>> parent of c259616... last minute notes on release and sprint
-=======
->>>>>>> parent of c259616... last minute notes on release and sprint
 ### Next
 1. UX/Styling
 2. Auto update parent tickets based on child.

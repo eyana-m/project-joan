@@ -23,333 +23,74 @@ Details: {{ release.release_details }}  <br>
 <br>
 
 
+<div class="container">
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-    <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
+  <div class="panel-group" id="accordion">
+      <div class="panel panel-default"> <!--RTM-->
+          <div class="panel-heading">
+              <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                      Collapsible Group Item #1
+                      Requirements Traceability Matrix
                   </a>
               </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-          <div class="panel-body">
-            <table class="table table-striped table-bordered">
-              <tr>
-                <th> ID </th>
-                <th> Requirement</th>
-                <th> Feature</th>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                  <tr>
+                    <th> ID </th>
+                    <th> Requirement</th>
+                    <th> Feature</th>
 
-              </tr>
-              {% for requirement in requirement_list %}
-              <tr>
-                {% if requirement.with_reqd_id %}
-                <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
-                {% endif %}
-                <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-                {% if requirement.feature_set.count == 0 %}
-                <td></td>
-                {% else %}
-                <td style="padding: 0" class="col-md-6">
-=======
-<div class="container">
-  <h4>Requirements Traceability Matrix</h4>
-  <table class="table table-striped table-bordered">
-    <tr>
-      <th> ID </th>
-      <th> Requirement</th>
-      <th> Feature</th>
-=======
-<div class="container">
-  <h4>Requirements Traceability Matrix</h4>
-  <table class="table table-striped table-bordered">
-    <tr>
-      <th> ID </th>
-      <th> Requirement</th>
-      <th> Feature</th>
+                  </tr>
+                  {% for requirement in requirement_list %}
+                  <tr>
+                    {% if requirement.with_reqd_id %}
+                    <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
+                    {% endif %}
+                    <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
+                    {% if requirement.feature_set.count == 0 %}
+                    <td></td>
+                    {% else %}
+                    <td style="padding: 0" class="col-md-6">
 
-    </tr>
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
+                      <table class="table table-borderless" style="margin-bottom:0;">
 
-    </tr>
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-<<<<<<< HEAD
-                  <table class="table table-borderless" style="margin-bottom:0;">
-
-<<<<<<< HEAD
-                    {% for feature in requirement.feature_set.all %} {% if feature.release.id is release.id %}
-                    <tr class="table-borderless">
-                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
-                      <td class="col-md-2">{% show_feature_status feature %}</td>
-                    </tr>
-                    {% endif %} {% endfor %}
-                  </table>
-                </td>
-                {% endif %}
-              </tr>
-
-              {% endfor %}
-            </table>
-=======
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-<<<<<<< HEAD
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-<div class="container">
-  <h4>Requirements Traceability Matrix</h4>
-  <table class="table table-striped table-bordered">
-    <tr>
-      <th> ID </th>
-      <th> Requirement</th>
-      <th> Feature</th>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-    </tr>
-
-
-
-      {% for requirement in requirement_list %}
-
-<<<<<<< HEAD
-  <div class="container horizontal-scroll">
-    <b>Related Features</b>
-    <ul class="list-unstyled">
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-      <tr>
-        {% if requirement.with_reqd_id %}
-          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
-        {% endif %}
-          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-          {% if requirement.feature_set.count == 0 %}
-            <td></td>
-          {% else %}
-            <td style="padding: 0" class="col-md-6">
-
-<<<<<<< HEAD
-=======
-
-      {% for requirement in requirement_list %}
-
-
-=======
-
-      {% for requirement in requirement_list %}
-
-
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-      <tr>
-        {% if requirement.with_reqd_id %}
-          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
-        {% endif %}
-          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-          {% if requirement.feature_set.count == 0 %}
-            <td></td>
-          {% else %}
-            <td style="padding: 0" class="col-md-6">
-
-<<<<<<< HEAD
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-              <table class="table table-borderless" style="margin-bottom:0;">
-
-                {% for feature in requirement.feature_set.all %}
-                  {% if feature.release.id is release.id %}
-                    <tr class="table-borderless">
-                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
-                      <td class="col-md-2">{% show_feature_status feature %}</td>
-                    </tr>
-                  {% endif %}
+                        {% for feature in requirement.feature_set.all %} {% if feature.release.id is release.id %}
+                        <tr class="table-borderless">
+                          <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                          <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
+                          <td class="col-md-2">{% show_feature_status feature %}</td>
+                        </tr>
+                        {% endif %} {% endfor %}
+                      </table>
+                    </td>
+                    {% endif %}
+                  </tr>
                   {% endfor %}
-              </table>
-            </td>
-          {% endif %}
-      </tr>
-
-      {% endfor %}
-
-
-
-  </table>
-
-</div>
-</div>
-
-</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-=======
-
-    </tr>
-
-
-
-      {% for requirement in requirement_list %}
-
-
-      <tr>
-        {% if requirement.with_reqd_id %}
-          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
-        {% endif %}
-          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-          {% if requirement.feature_set.count == 0 %}
-            <td></td>
-          {% else %}
-            <td style="padding: 0" class="col-md-6">
-
-              <table class="table table-borderless" style="margin-bottom:0;">
-
-                {% for feature in requirement.feature_set.all %}
-                  {% if feature.release.id is release.id %}
-                    <tr class="table-borderless">
-                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
-                      <td class="col-md-2">{% show_feature_status feature %}</td>
-                    </tr>
-                  {% endif %}
-                  {% endfor %}
-              </table>
-            </td>
-          {% endif %}
-      </tr>
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-<<<<<<< HEAD
-    </tr>
-
-
-
-<<<<<<< HEAD
-      {% for requirement in requirement_list %}
-
-
-      <tr>
-        {% if requirement.with_reqd_id %}
-          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
-        {% endif %}
-          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-          {% if requirement.feature_set.count == 0 %}
-            <td></td>
-          {% else %}
-            <td style="padding: 0" class="col-md-6">
-
-              <table class="table table-borderless" style="margin-bottom:0;">
-
-                {% for feature in requirement.feature_set.all %}
-                  {% if feature.release.id is release.id %}
-                    <tr class="table-borderless">
-                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
-                      <td class="col-md-2">{% show_feature_status feature %}</td>
-                    </tr>
-                  {% endif %}
-                  {% endfor %}
-              </table>
-            </td>
-          {% endif %}
-      </tr>
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-<div class="container horizontal-scroll">
-
-<<<<<<< HEAD
-      <b>Related Features</b>
-      <ul class="list-unstyled">
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-          {% for feature in release.feature_set.all %}
-          <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
-
-          {% endfor %}
-
-        <br>
-      </ul>
-
-<<<<<<< HEAD
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-  </table>
-
-</div>
-</div>
-
-</div>
-<<<<<<< HEAD
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-=======
->>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
-=======
->>>>>>> parent of 8caa409... Issue #4 on rtm tag.
-
-<div class="container horizontal-scroll">
-
-      <b>Related Features</b>
-      <ul class="list-unstyled">
-
-          {% for feature in release.feature_set.all %}
-          <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
-
-          {% endfor %}
-
-        <br>
-      </ul>
-
-
-
+                </table>
+              </div>
+          </div>
+      </div><!--RTM-->
+      <div class="panel panel-default"> <!--RTM-->
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                      Related Features
+                  </a>
+              </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse">
+              Hello
+              </div>
+          </div>
+      </div><!--RTM-->
   </div>
+  <!--end accordion panel-->
 
-  <a class="btn btn-info" href="{% url 'joan:project' release.project.id %}">Home</a>
+    <a class="btn btn-info" href="{% url 'joan:project' release.project.id %}">Home</a>
 </div>
 
-<div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    Collapsible Group Item #1
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <div class="panel-body">
-                Anim pariatur cliche reprehenderit
-            </div>
-        </div>
-    </div>
 </div>
 
 {% endblock %}
