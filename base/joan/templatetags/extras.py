@@ -7,11 +7,8 @@ t = get_template('joan/feature_status.html')
 
 @register.inclusion_tag(t)
 def show_feature_status(feature):
-    return {'feature': feature}
+    return {'feature': feature }
 
-@register.inclusion_tag(t)
-def show_feature_status(feature):
-    return {'feature': feature}
 
 @register.filter(expects_localtime=True)
 def count_business_days(to_date):
@@ -31,6 +28,7 @@ def count_business_days(to_date):
 
     except AttributeError:
         return ''
+
 
 @register.filter
 def get_features(ticket):

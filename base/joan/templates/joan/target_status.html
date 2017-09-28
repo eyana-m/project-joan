@@ -1,0 +1,13 @@
+{% if target == 'On Target' %}
+<div class="label-success">{{ target }}</div>
+{% elif target == 'Late' %}
+<div class="label-danger" style="color: #fff">{{ target }}</div>
+{% elif target == 'Due Today' %}
+<div class="label-warning">{{ target }}</div>
+{% if target == 'Done' %}
+<div class="label-success">{{ target }}</div>
+{% else %}
+<div class="label-default">{{ target }}</div>
+{% endif %}
+
+<!--Note: need to add more logic based on release_status-->
