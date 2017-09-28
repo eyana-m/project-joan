@@ -10,6 +10,11 @@ li a {
 
 .panel{
   border-radius: 0;
+  border: none;
+}
+
+.panel .panel-default{
+  border-radius: 0;
 }
 
 .module {
