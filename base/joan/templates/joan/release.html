@@ -20,7 +20,6 @@
   </div>
 
 <h2>{{ release }}</h2>
-<h3> Release Checklist </h3>
 Project: <a href="{% url 'joan:project' release.project.id %}">{{ release.project }}</a> <br>
 <br>
 Target Date: {{ release.release_target_date }}  <br>
@@ -103,6 +102,23 @@ Details: {{ release.release_details }}  <br>
   </div>
 
   <a class="btn btn-info" href="{% url 'joan:project' release.project.id %}">Home</a>
+</div>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    Collapsible Group Item #1
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                Anim pariatur cliche reprehenderit
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

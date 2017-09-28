@@ -6,6 +6,7 @@ from django.utils import timezone
 from .models import Requirement, Feature, Ticket, Project, Release, Sprint
 from datetime import timedelta, date
 from django.utils.timezone import localtime, now
+from django.contrib.auth import authenticate, login
 
 def count_business_days(from_date, to_date):
     day_generator = (from_date + timedelta(x + 1) for x in range((to_date - from_date).days))

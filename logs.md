@@ -116,6 +116,8 @@ Now onto user experience
 
 
 
+### September 28, 2017 - Sunday
+
 
 ### Next
 1. Focus on `Release` and `Sprint` pages. (See each page for notes)
@@ -123,6 +125,7 @@ Now onto user experience
 3. Auto update parent tickets based on child.
 4. Documentation on process flows.
 5. Forms: update ticket statuses!
+6. Login!!!
 
 
 (What do I need to know?)
