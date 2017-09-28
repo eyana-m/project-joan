@@ -37,6 +37,7 @@ Details: {{ release.release_details }}  <br>
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
     <div class="panel-group" id="accordion">
@@ -75,10 +76,22 @@ Details: {{ release.release_details }}  <br>
       <th> ID </th>
       <th> Requirement</th>
       <th> Feature</th>
+=======
+<div class="container">
+  <h4>Requirements Traceability Matrix</h4>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th> ID </th>
+      <th> Requirement</th>
+      <th> Feature</th>
 
     </tr>
 >>>>>>> parent of 8caa409... Issue #4 on rtm tag.
 
+    </tr>
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
+
+<<<<<<< HEAD
                   <table class="table table-borderless" style="margin-bottom:0;">
 
 <<<<<<< HEAD
@@ -147,6 +160,12 @@ Details: {{ release.release_details }}  <br>
       {% for requirement in requirement_list %}
 
 
+=======
+
+      {% for requirement in requirement_list %}
+
+
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
       <tr>
         {% if requirement.with_reqd_id %}
           <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
@@ -157,9 +176,12 @@ Details: {{ release.release_details }}  <br>
           {% else %}
             <td style="padding: 0" class="col-md-6">
 
+<<<<<<< HEAD
 >>>>>>> parent of 8caa409... Issue #4 on rtm tag.
 =======
 >>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
+=======
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
               <table class="table table-borderless" style="margin-bottom:0;">
 
                 {% for feature in requirement.feature_set.all %}
@@ -186,6 +208,7 @@ Details: {{ release.release_details }}  <br>
 </div>
 
 </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -297,6 +320,8 @@ Details: {{ release.release_details }}  <br>
 >>>>>>> parent of 8caa409... Issue #4 on rtm tag.
 =======
 >>>>>>> 07e832292b0c6c352253377795270300a4e41d0d
+=======
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
 
 <div class="container horizontal-scroll">
 
