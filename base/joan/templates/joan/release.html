@@ -2,32 +2,38 @@
 {% load extras %}
 
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}{{ release }}{% endblock %}</title>
+  <title>{% block title %}{{  release  }}{% endblock %}</title>
 </head>
-
 <body>
   {% block pagecontent %}
 
-  <div class="container">
+<div class="container">
 
-    <div class="pull-right" style="color: red">
-      must be able to: <br> fix styling! <br> (form) update status on the spot <br> (form) add informal release notes <br> (form) generate official release notes in pdf/word <br>
-    </div>
-
-    <h2>{{ release }}</h2> Project: <a href="{% url 'joan:project' release.project.id %}">{{ release.project }}</a> <br>
-    <br> Target Date: {{ release.release_target_date }} <br> UAT Start Date: {{ release.release_uat_start_date }} <br> UAT End Date: {{ release.release_uat_end_date }} <br> Details: {{ release.release_details }} <br>
+  <div class="pull-right" style="color: red">
+    must be able to: <br>
+    fix styling! <br>
+    (form) update status on the spot <br>
+    (form) add informal release notes <br>
+    (form) generate official release notes in pdf/word <br>
   </div>
-  <br>
-  <br>
+
+<h2>{{ release }}</h2>
+Project: <a href="{% url 'joan:project' release.project.id %}">{{ release.project }}</a> <br>
+<br>
+Target Date: {{ release.release_target_date }}  <br>
+UAT Start Date: {{ release.release_uat_start_date }} <br>
+UAT End Date: {{ release.release_uat_end_date }}  <br>
+Details: {{ release.release_details }}  <br>
+</div>
+<br>
+<br>
 
 
 
-  <div class="container">
-    <h4>Requirements Traceability Matrix</h4>
-
+<<<<<<< HEAD
+<<<<<<< HEAD
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -73,40 +79,164 @@
 
               {% endfor %}
             </table>
+=======
+=======
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
+<div class="container">
+  <h4>Requirements Traceability Matrix</h4>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th> ID </th>
+      <th> Requirement</th>
+      <th> Feature</th>
+<<<<<<< HEAD
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
 
-          </div>
-        </div>
-      </div>
-    </div>
+    </tr>
 
 
-  </div>
-  </div>
 
-  </div>
+      {% for requirement in requirement_list %}
 
+<<<<<<< HEAD
   <div class="container horizontal-scroll">
     <b>Related Features</b>
     <ul class="list-unstyled">
+=======
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
 
-      {% for feature in release.feature_set.all %}
-      <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
+      <tr>
+        {% if requirement.with_reqd_id %}
+          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
+        {% endif %}
+          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
+          {% if requirement.feature_set.count == 0 %}
+            <td></td>
+          {% else %}
+            <td style="padding: 0" class="col-md-6">
+
+              <table class="table table-borderless" style="margin-bottom:0;">
+
+                {% for feature in requirement.feature_set.all %}
+                  {% if feature.release.id is release.id %}
+                    <tr class="table-borderless">
+                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
+                      <td class="col-md-2">{% show_feature_status feature %}</td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+              </table>
+            </td>
+          {% endif %}
+      </tr>
 
       {% endfor %}
 
-      <br>
-    </ul>
+
+
+  </table>
+
+</div>
+</div>
+
+</div>
+=======
+
+    </tr>
+
+
+
+      {% for requirement in requirement_list %}
+
+
+      <tr>
+        {% if requirement.with_reqd_id %}
+          <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
+        {% endif %}
+          <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
+          {% if requirement.feature_set.count == 0 %}
+            <td></td>
+          {% else %}
+            <td style="padding: 0" class="col-md-6">
+
+              <table class="table table-borderless" style="margin-bottom:0;">
+
+                {% for feature in requirement.feature_set.all %}
+                  {% if feature.release.id is release.id %}
+                    <tr class="table-borderless">
+                      <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                      <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
+                      <td class="col-md-2">{% show_feature_status feature %}</td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+              </table>
+            </td>
+          {% endif %}
+      </tr>
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
+
+<div class="container horizontal-scroll">
+
+<<<<<<< HEAD
+      <b>Related Features</b>
+      <ul class="list-unstyled">
+=======
+>>>>>>> parent of 8caa409... Issue #4 on rtm tag.
+
+          {% for feature in release.feature_set.all %}
+          <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
+
+          {% endfor %}
+
+        <br>
+      </ul>
+
+  </table>
+
+</div>
+</div>
+
+</div>
+
+<div class="container horizontal-scroll">
+
+      <b>Related Features</b>
+      <ul class="list-unstyled">
+
+          {% for feature in release.feature_set.all %}
+          <li><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></li>
+
+          {% endfor %}
+
+        <br>
+      </ul>
 
 
 
   </div>
 
   <a class="btn btn-info" href="{% url 'joan:project' release.project.id %}">Home</a>
-  </div>
+</div>
 
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    Collapsible Group Item #1
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                Anim pariatur cliche reprehenderit
+            </div>
+        </div>
+    </div>
+</div>
 
-
-  {% endblock %}
+{% endblock %}
 </body>
-
 </html>
