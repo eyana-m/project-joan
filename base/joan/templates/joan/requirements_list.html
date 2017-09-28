@@ -9,59 +9,115 @@
   {% block pagecontent %}
 
 <div class="container">
-
-  <h2>All Requirements</h2> Project: <a href="{% url 'joan:project' project.id %}">{{ project }}</a> <br> Requirement Count: {{ project.requirement_set.count }}
-  <br> <br>
-  <div class="container horizontal-scroll">
+  <br>
     <div class="row">
-        <h4>Requirements Traceability Matrix</h4>
+        <div class="col-sm-4">
+          <div class="panel module">
+            <h4>{{ project }}</h4>
+            <div class="panel-body">
+            <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:project' project.id %}">View Project Dashboard</a></small><br>
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="">View Current Release</a></small><br>
+            <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:features_list' project.id %}">View All Features</a></small>
+          </div><!--end panel body-->
+          </div><!--panel-->
+        </div><!--col-end-->
 
-      <table class="table table-bordered">
-        <tr>
-          <th> ID </th>
-          <th> Requirement</th>
-          <th> Feature</th>
+        <div class="col-sm-8">
+          <div class="panel module">
 
-        </tr>
-        {% for requirement in project.requirement_set.all %}
+            <div class="row">
+              <div class="col-sm-12">
+              <h4>All Requirements</h4>
+              </div>
 
-        <tr>
-          {% if requirement.with_reqd_id %}
-            <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
-          {% endif %}
-            <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-          {% if requirement.feature_set.count == 0 %}
-            <td></td>
-          {% else %}
-            <td style="padding: 0" class="col-md-6">
 
-              <table class="table table-borderless" style="margin-bottom:0;">
-                {% for feature in requirement.feature_set.all %}
-                <tr>
-                  <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                  <td class="col-md-2"><small><small><a href="">{{ feature.release }}</a><small></small></td>
-                  <td class="col-md-2">
-                  {% show_feature_status feature %}
-                  </td>
-                </tr>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-3 text-center">
+                    <span style="font-size: 2em">{{ project.requirement_set.count}}</span><br>
+                    <small>Requirements</small>
+                  </div> <!--col-sm-3-->
+
+                  <div class="col-sm-3 text-center">
+                    <span style="font-size: 2em">{{ project.requirement_set.count}}</span><br>
+                    <small>In Progress</small>
+                  </div> <!--col-sm-3-->
+
+                  <div class="col-sm-3 text-center">
+                    <span style="font-size: 2em">{{ project.requirement_set.count}}</span><br>
+                    <small>Complete</small>
+                  </div> <!--col-sm-3-->
+
+                  <div class="col-sm-3 text-center">
+                    <div class="btn">
+                      <strong>Ongoing</strong>
+                      <br><small>Status</small>
+                    </div>
+                  </div> <!--col-sm-3-->
+                </div><!--row-->
+
+
+              </div><!--panel body-->
+            </div>
+          </div><!--panel-->
+        </div><!--col-end-->
+    </div><!--row-->
+</div><!--end container-->
+<div class="container">
+
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default"> <!--Related Sprint-->
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    Requirements Traceability Matrix <div class="pull-right">Something</div>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <tr>
+                    <th> ID </th>
+                    <th> Requirement</th>
+                    <th> Feature</th>
+
+                  </tr>
+                  {% for requirement in project.requirement_set.all %}
+
+                  <tr>
+                    {% if requirement.with_reqd_id %}
+                      <td><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></td>
+                    {% endif %}
+                      <td class="col-md-6"><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></td>
+                    {% if requirement.feature_set.count == 0 %}
+                      <td></td>
+                    {% else %}
+                      <td style="padding: 0" class="col-md-6">
+
+                        <table class="table table-borderless" style="margin-bottom:0;">
+                          {% for feature in requirement.feature_set.all %}
+                          <tr>
+                            <td class="col-md-8"><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></small></td>
+                            <td class="col-md-2"><small><a href="">{{ feature.release }}</a></small></td>
+                            <td class="col-md-2">
+                            {% show_feature_status feature %}
+                            </td>
+                          </tr>
+                            {% endfor %}
+                        </table>
+                      </td>
+                    {% endif %}
+                  </tr>
                   {% endfor %}
-              </table>
-            </td>
-          {% endif %}
-        </tr>
-        {% endfor %}
 
-      </table>
+                </table>
+             </div><!--end panel-body-->
+        </div>
+    </div><!--Sprint-->
+  </div>
 
-    </div>
-</div>
-
-
-
-
-
-
-  <a class="btn btn-info" href="{% url 'joan:project' project.id %}">Home</a>
+<a class="btn btn-info" href="{% url 'joan:project' project.id %}">Home</a>
 
 
 </div>
