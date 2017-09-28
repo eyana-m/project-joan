@@ -99,6 +99,13 @@ class ReleaseView(generic.DetailView):
 class ProjectRequirementsView(generic.DetailView):
     model = Project
     template_name = 'joan/requirements_list.html'
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ProjectRequirementsView, self).get_context_data(**kwargs)
+
+        # Select all requirements where all features are done
+        context['done_requirement_list'] = Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__exact='DO').exclude(feature__feature_status__in=('NW', 'DU', 'FV'))
+        return context
 
 class ProjectFeaturesView(generic.DetailView):
     model = Project
