@@ -26,67 +26,148 @@ Details: {{ release.release_details }}  <br>
 <div class="container">
 
   <div class="panel-group" id="accordion">
-      <div class="panel panel-default"> <!--RTM-->
+    <div class="panel panel-default"> <!--Related Sprint-->
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    Sprints <div class="pull-right">{{ done_sprint_list.count }} out of {{ release.sprint_set.count }} allocated sprints done</div>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse in">
+              <div class="panel-body">
+                 <table class="table table-striped table-bordered">
+                   <tr>
+                     <th>Release-Sprint</th>
+                     <th>Start Date</th>
+                     <th>End Date</th>
+                     <th>Tickets </th>
+                     <th>Work days</th>
+                     <th> Status</th>
+                   </tr>
+                   {% for sprint in release.sprint_set.all %}
+                   {% if sprint.sprint_status == 'AC' %}
+                   <tr style="background: #f4e495; font-size: 0.9em;">
+                   {% else %}
+                   <tr style="background: #aaa; font-style: italic; color: #444; font-style: strikethrough">
+                   {% endif %}
+                     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
+                     <td>{{ sprint.sprint_start_date }}</td>
+                     <td>{{ sprint.sprint_end_date }}</td>
+                     <td> {{ sprint.ticket_set.count }}</td>
+                     <td> {{ sprint.sprint_end_date|count_business_days}}</td>
+                     <td>{{ sprint.get_sprint_status_display}} </td>
+                   </tr>
+
+                   {% endfor %}
+
+                 </table>
+             </div><!--end panel-body-->
+        </div>
+    </div><!--Sprint-->
+    <div class="panel panel-default"> <!--RTM-->
           <div class="panel-heading">
               <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                      Requirements Traceability Matrix
+                      Requirements Traceability Matrix <div class="pull-right">{{ done_requirement_list.count}} out of {{ requirement_list.count}} requirements done</div>
                   </a>
               </h4>
           </div>
-          <div id="collapseOne" class="panel-collapse collapse in">
+          <div id="collapseOne" class="panel-collapse collapse">
               <div class="panel-body">
                 <table class="table table-striped table-bordered">
                   <tr>
                     <th> ID </th>
-                    <th> Requirement</th>
-                    <th> Feature</th>
+                    <th> Requirement <div class="pull-right"><span class="badge">{{ requirement_list.count}}</a></div></th>
+                    <th> Feature <div class="pull-right"><span class="badge">{{ release.feature_set.count}}</a></div></th>
 
                   </tr>
                   {% for requirement in requirement_list %}
+
+                  {% if requirement in done_requirement_list %}
+                  <tr style="background: #aaa; font-style: italic; color: #444; font-style: strikethrough; font-size=0.9em">
+                      {% else %}
                   <tr>
-                    {% if requirement.with_reqd_id %}
-                    <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
                     {% endif %}
-                    <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
-                    {% if requirement.feature_set.count == 0 %}
-                    <td></td>
-                    {% else %}
-                    <td style="padding: 0" class="col-md-6">
+                        {% if requirement.with_reqd_id %}
+                        <td><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement.reqd_id }}</a></small></td>
+                        {% endif %}
 
-                      <table class="table table-borderless" style="margin-bottom:0;">
+                        <td class="col-md-6"><small><a href="{% url 'joan:requirement' requirement.id %}">{{ requirement }}</a></small></td>
 
-                        {% for feature in requirement.feature_set.all %} {% if feature.release.id is release.id %}
-                        <tr class="table-borderless">
-                          <td class="col-md-8"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                          <td class="col-md-2"><small><small><a href="{% url 'joan:release' feature.release.id %}">{{ feature.release }}</a><small></small></td>
-                          <td class="col-md-2">{% show_feature_status feature %}</td>
-                        </tr>
-                        {% endif %} {% endfor %}
-                      </table>
-                    </td>
-                    {% endif %}
+                        {% if requirement.feature_set.count == 0 %}
+                        <td></td>
+                        {% else %}
+
+                        <td style="padding: 0" class="col-md-6">
+
+                          {% if requirement in done_requirement_list %}
+                          <table class="table table-borderless" style="margin-bottom:0;background: #aaa; font-style: italic; color: #444; font-style: strikethrough; font-size=0.9em">
+                          {% else %}
+                          <table class="table table-borderless" style="margin-bottom:0;">
+                          {% endif %}
+
+                            {% for feature in requirement.feature_set.all %} {% if feature.release.id is release.id %}
+                            <tr class="table-borderless">
+                              <td class="col-md-10"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
+                              <td class="col-md-2">{% show_feature_status feature %}</td>
+                            </tr>
+                            {% endif %} {% endfor %}
+                          </table>
+                        </td>
+                        {%  endif %}
+
+
                   </tr>
+
                   {% endfor %}
                 </table>
               </div>
           </div>
       </div><!--RTM-->
-      <div class="panel panel-default"> <!--RTM-->
+    <div class="panel panel-default"> <!--Related Features-->
           <div class="panel-heading">
               <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                      Related Features
+                      Related Features <div class="pull-right">{{ done_feature_list.count }} out of {{ release.feature_set.count }} features done</div>
                   </a>
               </h4>
           </div>
           <div id="collapseTwo" class="panel-collapse collapse">
-              Hello
-              </div>
+               <div class="panel-body">
+                  <table class="table table-striped table-bordered">
+                    <tr>
+                      <th> Feature</th>
+                      <th> Ticket Count</th>
+                      <th> Sprint</th>
+                    </tr>
+                    {% for feature in release.feature_set.all %}
+                      <tr style="font-size: 0.9em;">
+                        <td>
+                          {% if feature.feature_status == 'DO' %}
+                           <s><a href="{% url 'joan:feature' feature.id %}"> {{ feature }}</a></s>
+                           {% else %}
+                           <a href="{% url 'joan:feature' feature.id %}"> {{ feature }}</a>
+                           {% endif %}
+                        </td>
+                        <td>{{ feature.ticket_set.count }}</td>
+                        <td>
+                          {% for ticket in feature.ticket_set.all %}
+                            <a href="{% url 'joan:sprint' ticket.sprint.id %}">{{ticket.sprint}}</a>
+                          {% endfor %}
+
+                        </td>
+                      </tr>
+                    {% endfor %}
+
+                  </table>
+
+              </div><!--end panel-body-->
           </div>
-      </div><!--RTM-->
-  </div>
-  <!--end accordion panel-->
+      </div><!--Related Features-->
+
+  </div><!--end accordion panel-->
+
 
     <a class="btn btn-info" href="{% url 'joan:project' release.project.id %}">Home</a>
 </div>

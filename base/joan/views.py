@@ -7,6 +7,7 @@ from .models import Requirement, Feature, Ticket, Project, Release, Sprint
 from datetime import timedelta, date
 from django.utils.timezone import localtime, now
 from django.contrib.auth import authenticate, login
+from django.db.models import Q
 
 def count_business_days(from_date, to_date):
     day_generator = (from_date + timedelta(x + 1) for x in range((to_date - from_date).days))
@@ -81,9 +82,16 @@ class ReleaseView(generic.DetailView):
         # Call the base implementation first to get a context
         context = super(ReleaseView, self).get_context_data(**kwargs)
         context['requirement_list'] = Requirement.objects.filter(feature__release__id__exact=self.kwargs['pk']).distinct()
-    #context['feature_list'] = Feature.objects.filter(requirements__in=context['requirement_list'],release__id__exact=self.kwargs['pk'])
-        #context['feature_list'] = context['feature_list'].objects.filter()
-        #context['releases'] = list(set(Requirement.objects.filter(feature__id__exact=self.kwargs['pk']).values_list('release', flat=True)))
+
+        # Select all requirements where all features are done
+        context['done_requirement_list'] = Requirement.objects.distinct().filter(feature__release__id__exact=self.kwargs['pk']).filter(feature__feature_status__exact='DO').exclude(feature__feature_status__in=('NW', 'DU', 'FV'))
+
+        context['done_feature_list'] = Feature.objects.filter(release__id__exact=self.kwargs['pk']).filter(feature_status__exact='DO')
+
+        context['done_feature_list'] = Feature.objects.filter(release__id__exact=self.kwargs['pk']).filter(feature_status__exact='DO')
+
+        context['done_sprint_list'] = Sprint.objects.filter(release__id__exact=self.kwargs['pk']).filter(sprint_status__exact='DO')
+
         return context
 
 class ProjectRequirementsView(generic.DetailView):
