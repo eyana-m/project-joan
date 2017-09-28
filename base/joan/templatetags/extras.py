@@ -3,7 +3,6 @@ from django.template.loader import get_template
 from datetime import timedelta, date
 from django.utils.timezone import localtime, now
 register = template.Library()
-
 t = get_template('joan/feature_status.html')
 rtm = get_template('joan/rtm.html')
 
@@ -11,9 +10,9 @@ rtm = get_template('joan/rtm.html')
 def show_feature_status(feature):
     return {'feature': feature}
 
-@register.inclusion_tag(rtm)
-def show_rtm(requirement_list):
-    return {'requirement_list': requirement_list}
+@register.inclusion_tag(t)
+def show_feature_status(feature):
+    return {'feature': feature}
 
 @register.filter(expects_localtime=True)
 def count_business_days(to_date):
@@ -45,3 +44,5 @@ def get_features(ticket):
         return temp2
     else:
         return temp
+
+    
