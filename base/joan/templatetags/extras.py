@@ -4,7 +4,6 @@ from datetime import timedelta, date
 from django.utils.timezone import localtime, now
 register = template.Library()
 t = get_template('joan/feature_status.html')
-rtm = get_template('joan/rtm.html')
 
 @register.inclusion_tag(t)
 def show_feature_status(feature):
