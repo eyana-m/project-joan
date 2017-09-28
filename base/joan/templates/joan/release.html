@@ -1,24 +1,69 @@
 {% extends 'joan/base.html' %}
 {% load extras %}
 
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{{  release  }}{% endblock %}</title>
+
+
+
+
 </head>
+
 <body>
   {% block pagecontent %}
 
 <div class="container">
 
-<h2>{{ release }}</h2>
-Project: <a href="{% url 'joan:project' release.project.id %}">{{ release.project }}</a> <br>
+
+  <h2>{{ release }}</h2>
+
+<div class="panel module">
+  Project: <a href="{% url 'joan:project' release.project.id %}">{{ release.project }}</a> <br>
+  <br>
+
+  <div class="col-sm-3 text-center">
+      <div class="btn" data-toggle="tooltip" data-html="true" title="  {{release.release_target_date|count_business_days }}" style="cursor: pointer">
+        {{ release.release_target_date }} <br>
+        <small>Target Launch</small><br>
+      </div>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="btn" data-toggle="tooltip" data-html="true" title="  {{ release.release_uat_start_date|count_business_days }}" style="cursor: pointer">
+      {{ release.release_uat_start_date }} <br>
+      <small>UAT Start Date</small><br>
+    </div>
+  </div>
+
+
+  <div class="col-sm-3">
+
+    <div class="btn" data-toggle="tooltip" data-html="true" title="  {{ release.release_uat_end_date|count_business_days }}" style="cursor: pointer">
+      {{ release.release_uat_end_date }} <br>
+      <small>UAT End Date</small><br>
+    </div>
+
+  </div>
+
+  <div class="col-sm-3">
+      <div class="btn">
+                <strong>Ongoing</strong>
+        <br><small>Status</small>
+      </div>
+  </div>
+
+
 <br>
-Target Date: {{ release.release_target_date }}  <br>
-UAT Start Date: {{ release.release_uat_start_date }} <br>
-UAT End Date: {{ release.release_uat_end_date }}  <br>
-Details: {{ release.release_details }}  <br>
+
+  Details: {{ release.release_details }}
+
+
+  </div>
 </div>
+
 <br>
 <br>
 

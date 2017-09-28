@@ -1,8 +1,21 @@
+body {
+/*background: white url("images/texturetastic_gray.png") repeat right bottom; */
+  background: #E6ECF0;
+  }
+}
+
 li a {
     color: green;
 }
 
+.panel{
+  border-radius: 0;
+}
 
+.module {
+  padding: 20px 15px 15px 15px;
+
+}
 /* horizontal scroll */
 .horizontal-scroll > .row {
   overflow-x: auto;
@@ -27,5 +40,5 @@ li a {
 }
 
 .table tr{
-  font-size: 0.5em;
+  font-size: 0.9em;
 }
