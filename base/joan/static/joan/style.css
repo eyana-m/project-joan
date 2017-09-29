@@ -23,7 +23,12 @@ li a {
 a .done {
   color: #a8a8a8;
   text-decoration: underline;
+}
 
+span .subtle-text{
+  color: #a8a8a8;
+  font-style: italic;
+  font-size: 0.5em;
 }
 .current-tr{
   background: #f4e495

@@ -47,7 +47,8 @@
                               <div class="col-sm-3 text-center">
                                 <div class="btn">
                                   <a href="" data-toggle="tooltip" data-html="true" title="  {{sprint.sprint_start_date|count_business_days }}" style="cursor: pointer">{{ sprint.sprint_start_date|date:"l - M d, Y" }}</a> <br>
-                                  <small>Start Date</small>
+                                  <small>Start Date</small><br>
+                                  <span style="color: #a8a8a8; font-style: italic;font-size: 0.8em;">{{sprint.sprint_start_date|count_business_days }}</span>
 
                                 </div>
                               </div><!--end tidbit info-->
@@ -56,7 +57,9 @@
                               <div class="col-sm-3 text-center">
                                 <div class="btn">
                                   <a href=""  data-toggle="tooltip" data-html="true" title="  {{sprint.sprint_end_date|count_business_days }}" style="cursor: pointer">{{ sprint.sprint_end_date|date:"l - M d, Y" }}</a> <br>
-                                  <small>End Date</small>
+                                  <small>End Date</small><br>
+                                  <span style="color: #a8a8a8; font-style: italic;font-size: 0.8em;">{{sprint.sprint_end_date|count_business_days }}</span>
+
                                 </div>
                               </div><!--end tidbit info-->
 
