@@ -28,7 +28,15 @@
 
           <div class="row">
             <div class="col-sm-12">
-            <h4> {{ sprint }} &nbsp; </h4>
+            <h4> {{ sprint }}
+              &nbsp; <span class="text-right" style="font-style: italic"><small>
+                {% if release.release_details %}
+                  {{ release.release_details }}
+                {% else %}
+                  At a glimpse
+                {% endif %}
+              </small></span>
+            </h4>
             </div>
 
             <div class="panel-body">
@@ -122,41 +130,54 @@
   </div>
 
   <div class="container">
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default"> <!--Related Sprint-->
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                      Tickets for this Sprint <div class="pull-right">Export</div>
+                  </a>
+              </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  {% if sprint.ticket_set.all %}
+                  <table class="table table-bordered">
+                    <tr>
+                      <th> Ticket Name</th>
+                      <th> Feature #</th>
+                      <th> DEN # </th>
+                      <th> Dev Assigned </th>
+                      <th> Status</th>
 
-    <br>
+                    </tr>
+                    {% for ticket in sprint.ticket_set.all %}
+                    {% if ticket.status == 'DO' %}
+                    <tr class="done-tr">
+                        {% else %}
+                    <tr>
+                    {% endif %}
+                      <td>{{ ticket.ticket_text }}</td>
+                      <td>
+                          {% for feature in ticket.features.all %}
+                          <a href="{% url 'joan:feature' feature.id %}"> {{ feature.id }} </a>
+                          {% endfor %}
+                      </td>
+                      <td><a href="{{ ticket.ticket_url}}" target="_blank">{{ ticket.ticket_id }}</a></td>
+                      <td>{{ ticket.dev_assigned }}</td>
+                      <td>{% show_status ticket %}</td>
 
-    {% if sprint.ticket_set.all %}
-    <table class="table table-bordered">
-      <tr>
-        <th> Ticket Name</th>
-        <th> Features</th>
-        <th> DEN ID </th>
-        <th> Dev Assigned </th>
-        <th> Status</th>
-
-      </tr>
-      {% for ticket in sprint.ticket_set.all %}
-      <tr>
-        <td>{{ ticket.ticket_text }}</td>
-        <td>
-            {% for feature in ticket.features.all %}
-            <a href="{% url 'joan:feature' feature.id %}"> {{ feature.id }} </a>
-            {% endfor %}
-        </td>
-        <td><a href="{{ ticket.ticket_url}}" target="_blank">{{ ticket.ticket_id }}</a></td>
-        <td>{{ ticket.dev_assigned }}</td>
-        <td>{% show_status ticket %}</td>
-
-      </tr>
-      {% endfor %}
-    </table>
-    {% else %} No tickets! {% endif %}
-  </div>
-
-
-  <a class="btn btn-info" href="{% url 'joan:project' sprint.project.id %}">Home</a>
-
-  </div>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                  {% else %} No tickets! {% endif %}
+               </div><!--end panel-body-->
+          </div>
+      </div><!--Sprint-->
+    </div>
+<br>
+<a class="btn btn-info" href="{% url 'joan:project' sprint.project.id %}">Home</a>
+  </div><!--end container-->
   {% endblock %}
 
 </body>
