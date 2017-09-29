@@ -145,6 +145,7 @@ class Sprint(models.Model):
     status = models.CharField(max_length=2,choices=SPRINT_STATUS_CHOICES,default=NEW,)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
+    is_accepted = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s - %s" %(self.release, self.sprint_name)

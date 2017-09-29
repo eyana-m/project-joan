@@ -63,7 +63,13 @@
                               <div class="col-sm-3 text-center">
                                   <div class="btn">
                                     <strong>{{ sprint.get_status_display}}</strong>
-                                    <br><small>Status</small>
+                                    <br>
+                                        {% if sprint.is_accepted %}
+                                          <small><span style="color: green">Accepted</span></small>
+                                        {% else %}
+                                          <small><span style="color: red">With Open Items</span></small>
+                                        {% endif %}
+
                                   </div>
                               </div> <!--end tidbit info-->
 

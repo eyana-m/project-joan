@@ -6,4 +6,8 @@
 <span class="label label-info"><small>{{ model.get_status_display}}</small></span>
 {% elif model.status == 'DO' %}
 <span class="label label-success"><small>{{ model.get_status_display }}<all></span>
+{% elif model.status == 'FV' %}
+<span class="label label-warning"><small>{{ model.get_status_display }}<all></span>
+{% else %}
+<span class="label label-default"><small>{{ model.get_status_display }}<all></span>
 {% endif %}
