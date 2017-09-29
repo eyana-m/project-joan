@@ -3,6 +3,9 @@ Trace business requirements with system features and agreements in one view. No 
 
 Named after [Joan Holloway](https://en.wikipedia.org/wiki/Joan_Holloway) from Mad Men. In the show, Joan handles all clerical and administrative work at the advertising agency Sterling Cooper Draper Price.
 
+![Screenshot](/screenshot-release-0929.png)
+_Initial look of the **Release** page_
+
 For the meantime, check out my [project logs](https://github.com/eyana-m/project-joan/blob/master/logs.md)!
 
 ----
