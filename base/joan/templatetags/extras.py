@@ -4,11 +4,11 @@ from datetime import timedelta, date
 from django.utils.timezone import localtime, now
 
 register = template.Library()
-t = get_template('joan/feature_status.html')
+t = get_template('joan/status.html')
 
 @register.inclusion_tag(t)
-def show_feature_status(feature):
-    return {'feature': feature }
+def show_status(model):
+    return {'model': model }
 
 
 @register.filter(expects_localtime=True)

@@ -19,6 +19,7 @@
 <div class="container">
 <br>
   <div class="row">
+
     <div class="col-sm-4">
       <div class="panel module">
         <h4>{{ release.project }}</h4>
@@ -174,7 +175,7 @@
                             {% endif %}
 
                               <td class="col-md-10"><small><small><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a><small></small></td>
-                              <td class="col-md-2">{% show_feature_status feature %}</td>
+                              <td class="col-md-2">{% show_status feature %}</td>
                             </tr>
                             {% endif %} {% endfor %}
                           </table>

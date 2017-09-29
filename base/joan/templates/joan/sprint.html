@@ -62,7 +62,7 @@
 
                               <div class="col-sm-3 text-center">
                                   <div class="btn">
-                                    <strong>{{ sprint.get_sprint_status_display}}</strong>
+                                    <strong>{{ sprint.get_status_display}}</strong>
                                     <br><small>Status</small>
                                   </div>
                               </div> <!--end tidbit info-->
@@ -112,9 +112,6 @@
 
   <div class="container">
 
-
-
-
     <br>
 
     {% if sprint.ticket_set.all %}
@@ -137,7 +134,7 @@
         </td>
         <td><a href="{{ ticket.ticket_url}}" target="_blank">{{ ticket.ticket_id }}</a></td>
         <td>{{ ticket.dev_assigned }}</td>
-        <td>{{ ticket.get_ticket_status_display }}</td>
+        <td>{% show_status ticket %}</td>
 
       </tr>
       {% endfor %}
