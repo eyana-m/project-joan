@@ -117,6 +117,12 @@ Now onto user experience
 ### September 28, 2017
 
 1. Fixed Issue #3
+2. Revamped Release page
+3. Revamped Requirement List Page
+4. Revamped Feature List Page
+5. Encountered templatetag issues #5
+
+### September 29, 2017
 
 
 ### Next

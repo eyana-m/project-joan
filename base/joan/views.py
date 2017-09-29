@@ -26,6 +26,11 @@ def get_requirements_status(done, project):
         status = "Ongoing"
     return status
 
+def get_current_sprint(project):
+    try:
+        return Sprint.objects.filter(release__project__id__exact=project).filter(sprint_status__exact='AC').get()
+    except:
+        return "No current sprint"
 
 
 # List of Projects
@@ -121,6 +126,7 @@ class ProjectRequirementsView(generic.DetailView):
         context['done_requirement_list'] = Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__exact='DO').exclude(feature__feature_status__in=('NW', 'DU', 'FV'))
         context['ongoing_requirements_count'] = Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__in=('NW', 'DU', 'FV')).count() + Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__isnull=True).count()
         context['requirements_status'] = get_requirements_status(context['done_requirement_list'],self.kwargs['pk'])
+        context['current_sprint'] = get_current_sprint(self.kwargs['pk'])
         return context
 
 class ProjectFeaturesView(generic.DetailView):
@@ -133,6 +139,7 @@ class ProjectFeaturesView(generic.DetailView):
         context['done_feature_list'] = Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='DO')
         context['ongoing_features_count'] = Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__in=('NW', 'DU', 'FV')).count() + Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__isnull=True).count()
         context['features_status']= get_requirements_status(context['done_feature_list'],self.kwargs['pk'])
+        context['current_sprint'] = get_current_sprint(self.kwargs['pk'])
         return context
 
 class SprintView(generic.DetailView):

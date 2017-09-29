@@ -16,7 +16,7 @@
             <h4>{{ project }}</h4>
             <div class="panel-body">
             <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:project' project.id %}">View Project Dashboard</a></small><br>
-          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="">View Current Release</a></small><br>
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:sprint' current_sprint.id %}">View Current Sprint: {{current_sprint}}</a></small><br>
             <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:features_list' project.id %}">View All Features</a></small>
           </div><!--end panel body-->
           </div><!--panel-->
