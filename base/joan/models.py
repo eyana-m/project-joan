@@ -156,7 +156,9 @@ class Sprint(models.Model):
     def save(self, *args, **kwargs):
         if self.sprint_end_date < localtime(now()).date():
             self.sprint_status = 'DO'
-        elif self.sprint_end_date > localtime(now()).date() and self.sprint_start_date <= localtime(now()).date():
+        elif self.sprint_start_date >localtime(now()).date():
+            self.sprint_status = 'NW'
+        elif self.sprint_end_date >= localtime(now()).date() and self.sprint_start_date <= localtime(now()).date():
             self.sprint_status = 'AC'
         else:
             self.sprint_status = 'NW'
