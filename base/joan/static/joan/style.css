@@ -19,6 +19,12 @@ li a {
   text-decoration: underline;
 
 }
+
+a .done {
+  color: #a8a8a8;
+  text-decoration: underline;
+
+}
 .current-tr{
   background: #f4e495
 }

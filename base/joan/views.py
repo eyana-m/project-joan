@@ -8,6 +8,7 @@ from datetime import timedelta, date
 from django.utils.timezone import localtime, now
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
+from django.http import HttpResponse
 
 def count_business_days(from_date, to_date):
     day_generator = (from_date + timedelta(x + 1) for x in range((to_date - from_date).days))
@@ -16,6 +17,16 @@ def count_business_days(from_date, to_date):
 def percentage(part, whole):
     try: return "{:.0%}".format(part/whole)
     except: return '0%'
+
+#Add HTML decorators soon!
+def get_requirements_status(done, project):
+    if Requirement.objects.distinct().filter(project__id__exact=project).count() == done.count():
+        status = "Complete"
+    else:
+        status = "Ongoing"
+    return status
+
+
 
 # List of Projects
 class IndexView(generic.ListView):
@@ -99,17 +110,30 @@ class ReleaseView(generic.DetailView):
 class ProjectRequirementsView(generic.DetailView):
     model = Project
     template_name = 'joan/requirements_list.html'
+
+
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ProjectRequirementsView, self).get_context_data(**kwargs)
 
         # Select all requirements where all features are done
         context['done_requirement_list'] = Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__exact='DO').exclude(feature__feature_status__in=('NW', 'DU', 'FV'))
+        context['ongoing_requirements_count'] = Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__in=('NW', 'DU', 'FV')).count() + Requirement.objects.distinct().filter(project__id__exact=self.kwargs['pk']).filter(feature__feature_status__isnull=True).count()
+        context['requirements_status'] = get_requirements_status(context['done_requirement_list'],self.kwargs['pk'])
         return context
 
 class ProjectFeaturesView(generic.DetailView):
     model = Project
     template_name = 'joan/features_list.html'
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ProjectFeaturesView, self).get_context_data(**kwargs)
+        context['all_features'] = Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk'])
+        context['done_feature_list'] = Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__exact='DO')
+        context['ongoing_features_count'] = Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__in=('NW', 'DU', 'FV')).count() + Feature.objects.distinct().filter(release__project__id__exact=self.kwargs['pk']).filter(feature_status__isnull=True).count()
+        context['features_status']= get_requirements_status(context['done_feature_list'],self.kwargs['pk'])
+        return context
 
 class SprintView(generic.DetailView):
     model = Sprint

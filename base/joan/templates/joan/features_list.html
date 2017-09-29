@@ -9,25 +9,109 @@
 <body>
   {% block pagecontent %}
   <div class="container">
-    <h4>Use Cases</h4>
-    <div class="row">
+    <br>
+      <div class="row">
+          <div class="col-sm-4">
+            <div class="panel module">
+              <h4>{{ project }}</h4>
+              <div class="panel-body">
+              <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:project' project.id %}">View Project Dashboard</a></small><br>
+              <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements</a></small>
+            </div><!--end panel body-->
+            </div><!--panel-->
+          </div><!--col-end-->
 
+          <div class="col-sm-8">
+            <div class="panel module">
+
+              <div class="row">
+                <div class="col-sm-12">
+                <h4>All Use Cases <small><em>Synonymous to features</em></small></h4>
+                </div>
+
+
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-sm-3 text-center">
+                      <span style="font-size: 2em">{{ all_features.count}}</span><br>
+                      <small>Use Cases</small>
+                    </div> <!--col-sm-3-->
+
+                    <div class="col-sm-3 text-center">
+                      <span style="font-size: 2em">{{ ongoing_features_count }}</span><br>
+                      <small>In Progress</small>
+                    </div> <!--col-sm-3-->
+
+                    <div class="col-sm-3 text-center">
+                      <span style="font-size: 2em">{{ done_feature_list.count }}</span><br>
+                      <small>Complete</small>
+                    </div> <!--col-sm-3-->
+
+                    <div class="col-sm-3 text-center">
+                      <div class="btn">
+                        <strong>Ongoing</strong>
+                        <br><small>Status</small>
+                      </div>
+                    </div> <!--col-sm-3-->
+                  </div><!--row-->
+
+
+                </div><!--panel body-->
+              </div>
+            </div><!--panel-->
+          </div><!--col-end-->
+      </div><!--row-->
+  </div><!--end container-->
+
+
+  <div class="container">
+    <div class="row">
       <ul class="list-unstyled">
         {% for release in project.release_set.all %}
-        <div class="col-xs-4 word-wrap">
-          <a href="{% url 'joan:release' release.id %}">{{ release }} </a> <span class="badge">{{ release.feature_set.count}}</span> {% for feature in release.feature_set.all %}
-          <li><a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a></li>
-          {% endfor %}
-          <br>
+        <div class="col-xs-4">
+
+          <div class="panel module">
+              <span style="font-size: 1.5em; font-weight: 500">{{ release }} </span>	&#183;
+              <small><a href="{% url 'joan:release' release.id %}">View Release</a></small>
+                <div class="pull-right"><span class="badge">{{ release.feature_set.count}}</span></div>
+
+              <div class="panel-body">
+
+                {% if release.feature_set.count == 0 %}
+
+                <span>No features yet!</span>
+                  {% else %}
+
+                  {% for feature in release.feature_set.all %}
+                  <li>
+                    {% if feature.feature_status == 'DO' %}
+                    <small><s><a href="{% url 'joan:feature' feature.id %}" style="color: #a8a8a8;
+                      ">{{ feature }}</a></s></small>
+                    {% else %}
+                      <a href="{% url 'joan:feature' feature.id %}">{{ feature }}</a>
+                    {% endif %}
+                  </li>
+                  {% endfor %}
+                {% endif %}
+
+              </div>
+
+
+          </div><!--panel module-->
+
+
+
         </div>
         {% endfor %}
       </ul>
-    </div>
-  </div>
+    </div><!--row-->
+  </div><!--container-->
 
-  <a class="btn btn-info" href="{% url 'joan:project' project.id %}">Home</a>
 
-  </div>
+  <div class="container">
+    <a class="btn btn-info" href="{% url 'joan:project' project.id %}">Home</a>
+    <br>
+  </div><!--container-->
   {% endblock %}
 </body>
 

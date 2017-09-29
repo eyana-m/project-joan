@@ -2,6 +2,7 @@ from django import template
 from django.template.loader import get_template
 from datetime import timedelta, date
 from django.utils.timezone import localtime, now
+
 register = template.Library()
 t = get_template('joan/feature_status.html')
 
@@ -41,3 +42,8 @@ def get_features(ticket):
         return temp2
     else:
         return temp
+
+@register.filter
+def get_done_features(release):
+    done = Feature.objects.filter(release__id__exact=self.id).filter(feature_status_exact="DO").count()
+    return done
