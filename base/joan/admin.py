@@ -197,8 +197,8 @@ class FeatureAdmin(ImportExportMixin, admin.ModelAdmin):
     tickets.allow_tags = True
     tickets.short_description = "Related Tickets"
 
-    list_display = ["feature_text", "feature_heading", requirements, "release",  "feature_status"]
-    list_filter = [ProjectFilter, "release", "feature_status"]
+    list_display = ["feature_text", "feature_heading", requirements, "release",  "status"]
+    list_filter = [ProjectFilter, "release", "status"]
 
 
 class TicketAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -227,7 +227,7 @@ class TicketAdmin(ImportExportMixin, admin.ModelAdmin):
     pm_link.short_description = "PM Tool Link"
 
 
-    list_display = ["ticket_text",pm_link, features, "sprint", "ticket_status"]
+    list_display = ["ticket_text",pm_link, features, "sprint", "status"]
 
 
 class ReleaseInline(admin.StackedInline):
@@ -262,7 +262,7 @@ class ReleaseAdmin(admin.ModelAdmin):
 
 class SprintAdmin(admin.ModelAdmin):
 
-    list_display = ["release_sprint", "project", "sprint_start_date", "sprint_end_date", "sprint_status"]
+    list_display = ["release_sprint", "project", "sprint_start_date", "sprint_end_date", "status"]
 
 
 admin.site.register(Requirement,RequirementAdmin)

@@ -101,15 +101,15 @@ class Feature(models.Model):
     feature_text = models.CharField('Feature Name', max_length=200,unique=True)
     feature_details = models.TextField('Details',max_length=300,blank=True,null=True)
 
-    feature_status = models.CharField(max_length=2,choices=FEATURE_STATUS_CHOICES,default=NEW,)
+    status = models.CharField(max_length=2,choices=FEATURE_STATUS_CHOICES,default=NEW,)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
     def is_new(self):
-        return self.feature_status in (self.NEW)
+        return self.status in (self.NEW)
 
     def is_done(self):
-        return self.feature_status in (self.DONE)
+        return self.status in (self.DONE)
 
     def __str__(self):
         return self.feature_text
@@ -142,7 +142,7 @@ class Sprint(models.Model):
     sprint_details = models.CharField(max_length=100,blank=True,null=True)
     sprint_start_date = models.DateField(blank=True, null=True)
     sprint_end_date = models.DateField(blank=True, null=True)
-    sprint_status = models.CharField(max_length=2,choices=SPRINT_STATUS_CHOICES,default=NEW,)
+    status = models.CharField(max_length=2,choices=SPRINT_STATUS_CHOICES,default=NEW,)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
@@ -155,13 +155,13 @@ class Sprint(models.Model):
 
     def save(self, *args, **kwargs):
         if self.sprint_end_date < localtime(now()).date():
-            self.sprint_status = 'DO'
+            self.status = 'DO'
         elif self.sprint_start_date >localtime(now()).date():
-            self.sprint_status = 'NW'
+            self.status = 'NW'
         elif self.sprint_end_date >= localtime(now()).date() and self.sprint_start_date <= localtime(now()).date():
-            self.sprint_status = 'AC'
+            self.status = 'AC'
         else:
-            self.sprint_status = 'NW'
+            self.status = 'NW'
         super(Sprint, self).save(*args, **kwargs)
 
 
@@ -187,7 +187,7 @@ class Ticket(models.Model):
     ticket_text = models.CharField(max_length=200)
     ticket_url = models.CharField(max_length=50,blank=True)
     dev_assigned = models.CharField(max_length=50,blank=True)
-    ticket_status = models.CharField(max_length=2,choices=TICKET_STATUS_CHOICES,default=NEW,)
+    status = models.CharField(max_length=2,choices=TICKET_STATUS_CHOICES,default=NEW,)
     is_feature = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True)
@@ -196,9 +196,22 @@ class Ticket(models.Model):
     def __str__(self):
         return self.ticket_text
 
+    def is_new(self):
+        return self.status in (self.NEW)
+
+    def is_done(self):
+        return self.status in (self.DONE)
+
+    def is_np(self):
+        return self.status in (self.IN_PROGRESS)
+
+    def is_fv(self):
+        return self.status in (self.FOR_FV)
+
 
     class Meta:
         ordering = ['sprint', 'id', 'ticket_text']
+
 
 
 # Relate to Requirements, Meeting
