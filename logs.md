@@ -126,6 +126,10 @@ Now onto user experience
 1. Polished Requirements List Page
 2. Polished Feature List Page
 3. Revamped Sprint Page
+[] Project Dashboard
+[] Feature Page
+[] Requirement Page
+
 
 Notes on Sprint Page
 must be able to:
