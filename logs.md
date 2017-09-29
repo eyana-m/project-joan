@@ -123,6 +123,16 @@ Now onto user experience
 5. Encountered templatetag issues #5
 
 ### September 29, 2017
+1. Polished Requirements List Page
+2. Polished Feature List Page
+3. Revamped Sprint Page
+
+Notes on Sprint Page
+must be able to:
+view related features (and maybe related requirement)
+update status on the spot
+(nice to have) update logs
+generate report status/retrospective per sprin
 
 
 ### Next

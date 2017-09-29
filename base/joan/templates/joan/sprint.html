@@ -8,25 +8,112 @@
 
 <body>
   {% block pagecontent %}
+  <div class="container">
+  <br>
+    <div class="row">
 
-<div class="container">
+      <div class="col-sm-4">
+        <div class="panel module">
+          <h4>{{ sprint.project }}</h4>
+          <div class="panel-body">
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:project' sprint.release.project.id %}">View Project Dashboard</a></small><br>
+        <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:requirements_list' sprint.release.project.id %}">View All Requirements</a></small><br>
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:features_list' sprint.release.project.id %}">View All Features</a></small>
+        </div><!--end panel body-->
+        </div><!--panel-->
+      </div><!--col-end-->
 
-<br>
-  <div class="pull-right">
-    must be able to: <br>
-    view related features (and maybe related requirement)<br>
-    update status on the spot <br>
-    (nice to have) update logs <br>
-    generate report status/retrospective per sprint <br>
+      <div class="col-sm-8">
+        <div class="panel module">
+
+          <div class="row">
+            <div class="col-sm-12">
+            <h4> {{ sprint }} &nbsp; </h4>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="row">
+
+
+                              <div class="col-sm-3 text-center">
+                                  <div class="btn">
+                                    <span style="font-size: 2em">{{ all_features.count }}</span><br>
+                                    <small>Features</small>
+                                  </div>
+                              </div><!--end tidbit info-->
+
+
+                              <div class="col-sm-3 text-center">
+                                <div class="btn">
+                                  <a href="" data-toggle="tooltip" data-html="true" title="  {{sprint.sprint_start_date|count_business_days }}" style="cursor: pointer">{{ sprint.sprint_start_date|date:"l - M d, Y" }}</a> <br>
+                                  <small>Start Date</small>
+
+                                </div>
+                              </div><!--end tidbit info-->
+
+
+                              <div class="col-sm-3 text-center">
+                                <div class="btn">
+                                  <a href=""  data-toggle="tooltip" data-html="true" title="  {{sprint.sprint_end_date|count_business_days }}" style="cursor: pointer">{{ sprint.sprint_end_date|date:"l - M d, Y" }}</a> <br>
+                                  <small>End Date</small>
+                                </div>
+                              </div><!--end tidbit info-->
+
+                              <div class="col-sm-3 text-center">
+                                  <div class="btn">
+                                    <strong>{{ sprint.get_sprint_status_display}}</strong>
+                                    <br><small>Status</small>
+                                  </div>
+                              </div> <!--end tidbit info-->
+
+                            </div><!--row-->
+
+              <hr>
+
+              <div class="row">
+
+                <div class="col-sm-3 text-center">
+                  <div class="btn">
+                    <span style="font-size: 2em">{{ sprint.ticket_set.count }}</span><br>
+                    <small>Tickets</small>
+                  </div>
+                </div><!--end tidbit info-->
+
+                <div class="col-sm-3 text-center">
+                  <div class="btn">
+                    <span style="font-size: 2em">{{in_progress_tickets.count }}</span><br>
+                    <small>In Progress</small>
+                  </div>
+                </div><!--end tidbit info-->
+
+                <div class="col-sm-3 text-center">
+                    <div class="btn">
+                      <span style="font-size: 2em">{{ for_fv_tickets.count  }}</span><br>
+                      <small>For FV</small>
+                    </div>
+                </div><!--end tidbit info-->
+
+                <div class="col-sm-3 text-center">
+                    <div class="btn">
+                      <span style="font-size: 2em">{{ done_tickets.count }}</span><br>
+                      <small>Done</small>
+                    </div>
+                </div><!--end tidbit info-->
+
+              </div><!--row-1-->
+      </div> <!--end panel body-->
+        </div><!--panel-->
+      </div><!--col-end-->
+
+    </div> <!--row-->
+
   </div>
+
   <div class="container">
 
 
-    {{ sprint.project }} <br>
-    {{ sprint.release }} <br>
-    {{ sprint.sprint_start_date}} <br>
-    {{ sprint.sprint_end_date}} <br>
-    {{ sprint.get_sprint_status_display}} <br>
+
 
     <br>
 
