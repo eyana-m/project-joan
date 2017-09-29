@@ -33,6 +33,8 @@ def get_current_sprint(project):
         return "No current sprint"
 
 
+
+
 # List of Projects
 class IndexView(generic.ListView):
     template_name = 'joan/index.html'
@@ -72,6 +74,7 @@ class ProjectView(generic.DetailView):
         context['requirements_met_count'] = Requirement.objects.filter(project__id__exact=self.kwargs['pk']).filter(feature__status__exact='DO').distinct().count()
 
         context['requirements_met_percentage'] = percentage(context['requirements_met_count'],requirements_count)
+
         return context
 
 class RequirementView(generic.DetailView):
@@ -158,6 +161,8 @@ class SprintView(generic.DetailView):
         context['in_progress_tickets'] = Ticket.objects.filter(sprint_id__exact=self.kwargs['pk']).filter(status__exact='IP')
         context['for_fv_tickets'] = Ticket.objects.filter(sprint_id__exact=self.kwargs['pk']).filter(status__exact='FV')
         context['new_tickets'] = Ticket.objects.filter(sprint_id__exact=self.kwargs['pk']).filter(status__exact='NW')
+
+
 
 
         return context

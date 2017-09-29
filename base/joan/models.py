@@ -151,6 +151,16 @@ class Sprint(models.Model):
         return "%s - %s" %(self.release, self.sprint_name)
 
     @property
+    def is_accepted_string(self):
+        if self.is_accepted: return "Accepted"
+        else: return "Open"
+
+    @property
+    def is_accepted_long_string(sprint):
+        if sprint.is_accepted: return "Accepted"
+        else: return "With Open Items"
+
+    @property
     def release_sprint(self):
         return "%s - %s" %(self.release, self.sprint_name)
 

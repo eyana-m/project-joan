@@ -92,7 +92,7 @@
 
 <h4> Sprints</h4>
 
-<table class="table table-striped table-bordered">
+<table class="table table-bordered">
   <tr>
     <th> Release-Sprint</th>
     <th> Start Date</th>
@@ -104,17 +104,29 @@
 
 
   {% for sprint in sprint_list %}
-  {% if sprint.status == 'AC' %}
-  <tr style="background: #f4e495">
-  {% else %}
-  <tr style="background: #aaa; font-style: italic; color: #444; font-style: strikethrough">
-  {% endif %}
+    {% if sprint.status == 'AC' %}
+      <tr style="background: #f4e495">
+    {% elif sprint.status == 'DO'%}
+      <tr class="done-tr">
+    {% else %}
+      <tr>
+    {% endif %}
     <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
     <td>{{ sprint.sprint_start_date }}</td>
     <td>{{ sprint.sprint_end_date }}</td>
     <td> {{ sprint.ticket_set.count }}</td>
     <td> {{ sprint.sprint_end_date|count_business_days}}</td>
-    <td>{{ sprint.get_status_display}} </td>
+
+
+    <td>
+        {% if sprint.status == 'DO'%}
+              {{ sprint.get_status_display}} ({{ sprint.is_accepted_long_string }})
+          {% else %}
+                {{ sprint.get_status_display}}
+          {% endif %}
+     </td>
+
+
   </tr>
 
   {% endfor %}

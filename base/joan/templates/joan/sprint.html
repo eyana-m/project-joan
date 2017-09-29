@@ -17,8 +17,10 @@
           <h4>{{ sprint.project }}</h4>
           <div class="panel-body">
           <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:project' sprint.release.project.id %}">View Project Dashboard</a></small><br>
-        <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:requirements_list' sprint.release.project.id %}">View All Requirements</a></small><br>
-          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:features_list' sprint.release.project.id %}">View All Features</a></small>
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:requirements_list' sprint.release.project.id %}">View All Requirements</a></small><br>
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:features_list' sprint.release.project.id %}">View All Features</a></small><br><br>
+          <small><span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:release' sprint.release.id %}">View Release: {{ sprint.release }}</a></small><br>
+
         </div><!--end panel body-->
         </div><!--panel-->
       </div><!--col-end-->
