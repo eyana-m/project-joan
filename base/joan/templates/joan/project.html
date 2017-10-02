@@ -33,17 +33,25 @@
     </div>
 
     <div class="col-sm-6">
-      <div class="panel panel-default">
+      <div class="panel module">
+          <h4>{{ project.project_name }}</h4>
         <div class="panel-body">
-            <b>{{ project.project_name }}</b> <br>
-            <b>{{ project.project_company}}</b> <br>
-            <b>{{ project.project_start_date }}</b> <em>(Project Start)</em><br>
-            <b>{{ project.project_end_date}}</b><em>(Project End)</em><br>
-            <em>{{ project.project_description}} </em><br>
+            This project starts on <b>{{ project.project_start_date }}</b> and ends on
+            <b>{{ project.project_end_date}}</b>. The project is under {{ project.project_company }} and covers:<br> <b>{{ project.project_description}}</b>.<br>
+
         </div>
       </div>
     </div>
 
+
+    <div class="col-sm-4">
+      <div class="panel module">
+        <h4>{{ project }}</h4>
+        <div class="panel-body">
+
+      </div><!--end panel body-->
+      </div><!--panel-->
+    </div><!--col-end-->
 </div> <!--end row-->
 
   <div class="row">
@@ -64,16 +72,20 @@
     </div>
 
     <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading" >
-          Call to Action
-        </div>
-        <div class="panel-body text-center">
-          <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements <span class="badge">{{project.requirement_set.count}}</span></a><br>
-          <a href="{% url 'joan:features_list' project.id %}">View All Use Cases <span class="badge">{{ features_count }}</span></a><br>
+      <div class="panel module">
+        <div class="panel-body">
+
+
+          <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements </a><br>
+          <a href="{% url 'joan:features_list' project.id %}">View All Use Cases </a><br>
+
+
+
         {% for release in project.release_set.all %}
-          <a href="{% url 'joan:release' release.id %}">View {{ release }} <span class="badge">{{ release.sprint_set.count}}</span> </a><br>
+          <a href="{% url 'joan:release' release.id %}">View {{ release }} </a><br>
         {% endfor %}
+
+
         </div>
       </div>
     </div>
