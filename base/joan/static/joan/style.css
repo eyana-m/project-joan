@@ -1,6 +1,7 @@
 body {
 /*background: white url("images/texturetastic_gray.png") repeat right bottom; */
   background: #E6ECF0;
+  font-family: 'Lato', sans-serif;
   }
 }
 
@@ -24,6 +25,12 @@ a .done {
   color: #a8a8a8;
   text-decoration: underline;
 }
+
+a .no-border-radius{
+  border-radius: 0;
+  margin-bottom: 2em;
+}
+
 
 span .subtle-text{
   color: #a8a8a8;
@@ -72,4 +79,9 @@ span .subtle-text{
 
 .table tr{
   font-size: 0.8em;
+}
+.table>tbody>.more-padding>td,{
+  padding-left: 15px;
+  padding-right: 15px;
+
 }

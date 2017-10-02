@@ -1,159 +1,180 @@
-
-{% extends 'joan/base.html' %}
-{% load extras %}
+ {% extends 'joan/base.html' %} {% load extras %}
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{{ project.project_name }}{% endblock %}</title>
 </head>
+
 <body>
   {% block pagecontent %}
 
-<div class="container">
-  <h2>{{ project.project_name }}</h2>
-</div>
-<br>
+  <br>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading" >
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
             <small>Today is</small>
             <!-- <div class="col-sm-9 pull-right"> -->
-              <h4>{% now "l - F d, Y"  %}</h4>
+            <h4>{% now "l - F d, Y"  %}</h4>
             <!-- </div> -->
+          </div>
+          <div class="panel-body" style="padding: 0">
+            <table class="table">
+              <tr>
+                <td style="padding-left: 15px">Current Sprint:</td>
+                <td style="padding-right: 15px">
+                  <a href="{% url 'joan:sprint' current_sprint.id %}">{{ current_sprint }}</a>
+                  <span class="pull-right"><small><em> {{ sprint_man_days_left }} man-days left! </em></small></span>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-left: 15px">Current Release:</td>
+                <td style="padding-right: 15px">
+                  <a href="{% url 'joan:release' current_sprint.release.id %}">{{ current_sprint.release }}</a>
+                  <span class="pull-right"><small><em> {{ release_man_days_left }} man-days left until UAT! </em></small></span>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <div class="panel-body" style="padding: 0">
-          <table class="table">
-            <tr>
-              <td>Current Sprint:</td>
-              <td>
-                <a href="{% url 'joan:sprint' current_sprint.id %}">{{ current_sprint }}</a>
-                <span class="pull-right"><small><em> {{ sprint_man_days_left }} man-days left! </em></small></span>
-              </td>
-            </tr>
-            <tr>
-              <td>Current Release:</td>
-              <td>
-                <a href="{% url 'joan:release' current_sprint.release.id %}">{{ current_sprint.release }}</a>
-                <span class="pull-right"><small><em> {{ release_man_days_left }} man-days left until UAT! </em></small></span>
-              </td>
-            </tr>
-          </table>
+      </div><!--col-sm-6-->
 
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="panel module">
+      <div class="col-sm-6">
+        <div class="panel module">
           <h4>{{ project.project_name }}</h4>
-        <div class="panel-body">
+          <div class="panel-body">
             This project starts on <b>{{ project.project_start_date }}</b> and ends on
             <b>{{ project.project_end_date}}</b>. The project is under {{ project.project_company }} and covers:<br> <b>{{ project.project_description}}</b>.<br>
 
+          </div>
         </div>
       </div>
+
     </div>
+    <!--end row-->
 
-</div> <!--end row-->
+    <div class="row">
 
-  <div class="row">
+      <div class="col-sm-8">
+        <div class="panel module">
+          <div class="panel-body" style="padding-top: 0">
+            <h4 style="font-weight: 300">In Numbers</h4>
+            <div class="col-sm-3 text-center">
+              <span style="font-size: 2em">{{ requirements_met_count }}</span><br>
+              <small>Requirements Met <br> out of {{ project.requirement_set.count }} ({{requirements_met_percentage}})
+            </small>
+            </div>
+            <!--col-sm-3-->
 
-    <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading" >
-          In Numbers
-        </div>
-        <div class="panel-body">
-          Requirements Met: {{ requirements_met_count }} out of {{ project.requirement_set.count }} ({{requirements_met_percentage}})<br>
-          Features Met: {{ features_done_count }} out of {{ features_count }} ({{ features_done_percentage }}) <br>
-          <hr>
-          Use Cases Done: {{ features_uc_done_count }} out of {{ features_count }} ({{ features_uc_done_percentage }})<br>
-          For Functional Validation: {{ features_for_fv_count }}  out of {{ features_uc_done_count }}  ({{ features_for_fv_percentage }}) <br>
+            <div class="col-sm-3 text-center">
+              <span style="font-size: 2em">{{ features_done_count }}</span><br>
+              <small>Features Met <br> out of {{ features_count }} ({{ features_done_percentage }})
+            </small>
+            </div>
+            <!--col-sm-3-->
+
+            <div class="col-sm-3 text-center">
+              <span style="font-size: 2em">{{ features_uc_done_count }}</span><br>
+              <small>Use Cases Done<br> out of {{ features_count }} ({{ features_uc_done_percentage }})
+            </small>
+            </div>
+            <!--col-sm-3-->
+
+            <div class="col-sm-3 text-center">
+              <span style="font-size: 2em"> {{ features_for_fv_count }}</span><br>
+              <small>For FV<br> out of {{ features_uc_done_count }}  ({{ features_for_fv_percentage }})
+            </small>
+            </div>
+            <!--col-sm-3-->
+            <br>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-sm-6">
-      <div class="panel module">
-        <div class="panel-body">
+      <div class="col-sm-4">
+        <div class="panel module">
+          <div class="panel-body" style="padding-top: 0">
+            <h4 style="font-weight: 300">Quick Start</h4>
+            <center>
+              <a class="btn btn-info no-border-radius btn-sm" href="{% url 'joan:requirements_list' project.id %}" style="border-radius:0; margin-bottom: 5px">View All Requirements </a>
+              <a class="btn btn-info no-border-radius btn-sm" href="{% url 'joan:features_list' project.id %}" style="border-radius:0; margin-bottom: 5px">View All Use Cases </a><br>
+            </center>
 
+            <h4 style="font-weight: 300">Releases</h4> {% for release in project.release_set.all %}
+            <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <a href="{% url 'joan:release' release.id %}">View {{ release }} </a><br> {% endfor %}
 
-          <a href="{% url 'joan:requirements_list' project.id %}">View All Requirements </a><br>
-          <a href="{% url 'joan:features_list' project.id %}">View All Use Cases </a><br>
-
-
-
-        {% for release in project.release_set.all %}
-          <a href="{% url 'joan:release' release.id %}">View {{ release }} </a><br>
-        {% endfor %}
-
-
+          </div>
         </div>
       </div>
+      <!--col-sm-4-->
+
     </div>
+    <!--end row-->
 
-  </div> <!--end row-->
-  </div><!--end container-->
+  </div>
 
+  <div class="container">
 
-<div class="container horizontal-scroll">
-
-</div>
-
-<hr>
-
-<div class="container horizontal-scroll">
-
-<h4> Sprints</h4>
-
-<table class="table table-bordered">
-  <tr>
-    <th> Release-Sprint</th>
-    <th> Start Date</th>
-    <th> End Date</th>
-    <th> Tickets </th>
-    <th> Mandays to go!</th>
-    <th> Status</th>
-  </tr>
-
-
-  {% for sprint in sprint_list %}
-    {% if sprint.status == 'AC' %}
-      <tr style="background: #f4e495">
-    {% elif sprint.status == 'DO'%}
-      <tr class="done-tr">
-    {% else %}
-      <tr>
-    {% endif %}
-    <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
-    <td>{{ sprint.sprint_start_date }}</td>
-    <td>{{ sprint.sprint_end_date }}</td>
-    <td> {{ sprint.ticket_set.count }}</td>
-    <td> {{ sprint.sprint_end_date|count_business_days}}</td>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default"> <!--Related Sprint-->
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                      Sprints
+                  </a>
+              </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th> Release-Sprint</th>
+                      <th> Start Date</th>
+                      <th> End Date</th>
+                      <th> Tickets </th>
+                      <th> Mandays to go!</th>
+                      <th> Status</th>
+                    </tr>
 
 
-    <td>
-        {% if sprint.status == 'DO'%}
-              {{ sprint.get_status_display}} ({{ sprint.is_accepted_long_string }})
-          {% else %}
-                {{ sprint.get_status_display}}
-          {% endif %}
-     </td>
+                    {% for sprint in sprint_list %} {% if sprint.status == 'AC' %}
+                    <tr style="background: #f4e495">
+                      {% elif sprint.status == 'DO'%}
+                      <tr class="done-tr">
+                        {% else %}
+                        <tr>
+                          {% endif %}
+                          <td><a href="{% url 'joan:sprint' sprint.id %}">{{ sprint }}</a></td>
+                          <td>{{ sprint.sprint_start_date }}</td>
+                          <td>{{ sprint.sprint_end_date }}</td>
+                          <td> {{ sprint.ticket_set.count }}</td>
+                          <td> {{ sprint.sprint_end_date|count_business_days}}</td>
 
 
-  </tr>
-
-  {% endfor %}
-
-</table>
-</div>
-<hr>
+                          <td>
+                            {% if sprint.status == 'DO'%} {{ sprint.get_status_display}} ({{ sprint.is_accepted_long_string }}) {% else %} {{ sprint.get_status_display}} {% endif %}
+                          </td>
 
 
+                        </tr>
 
-{% endblock %}
+                        {% endfor %}
+
+                  </table>
+
+
+               </div><!--end panel-body-->
+          </div>
+      </div><!--Sprint-->
+    </div>
+  </div><!--container-->
+
+    </div>
+    <!--container-->
+    <hr> {% endblock %}
 </body>
+
 </html>
