@@ -19,15 +19,29 @@
     <div class="col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading" >
-            Today is
-            <h4><b>{% now "l - F d, Y"  %}</b></h4>
+            <small>Today is</small>
+            <!-- <div class="col-sm-9 pull-right"> -->
+              <h4>{% now "l - F d, Y"  %}</h4>
+            <!-- </div> -->
         </div>
-        <div class="panel-body">
-            <small><em>Current Sprint: </em></small> <a href="{% url 'joan:sprint' current_sprint.id %}">{{ current_sprint }}</a>
-            <small><em> - {{ sprint_man_days_left }} man-days left! </em></small><br>
+        <div class="panel-body" style="padding: 0">
+          <table class="table">
+            <tr>
+              <td>Current Sprint:</td>
+              <td>
+                <a href="{% url 'joan:sprint' current_sprint.id %}">{{ current_sprint }}</a>
+                <span class="pull-right"><small><em> {{ sprint_man_days_left }} man-days left! </em></small></span>
+              </td>
+            </tr>
+            <tr>
+              <td>Current Release:</td>
+              <td>
+                <a href="{% url 'joan:release' current_sprint.release.id %}">{{ current_sprint.release }}</a>
+                <span class="pull-right"><small><em> {{ release_man_days_left }} man-days left until UAT! </em></small></span>
+              </td>
+            </tr>
+          </table>
 
-            <small><em>Current Release: </em></small> <a href="{% url 'joan:release' current_sprint.release.id %}">{{ current_sprint.release }}</a>
-            <small><em> - {{ release_man_days_left }} man-days left until UAT! </em></small><br>
         </div>
       </div>
     </div>
@@ -43,15 +57,6 @@
       </div>
     </div>
 
-
-    <div class="col-sm-4">
-      <div class="panel module">
-        <h4>{{ project }}</h4>
-        <div class="panel-body">
-
-      </div><!--end panel body-->
-      </div><!--panel-->
-    </div><!--col-end-->
 </div> <!--end row-->
 
   <div class="row">
